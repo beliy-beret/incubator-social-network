@@ -2,7 +2,7 @@ import React from 'react';
 import { Layout } from 'antd';
 import AppBar from "./components/Layout/AppBar/AppBar";
 import Navigation from "./components/Layout/Navigation/Navigation";
-import {Route} from "react-router-dom";
+import {Route, Switch} from "react-router-dom";
 import Profile from "./pages/Profile/Profile";
 import Home from "./pages/Home/Home";
 import Dialogs from "./pages/Dialogs/Dialogs";
@@ -21,10 +21,12 @@ function App() {
           <Navigation />
         </Sider>
         <Content style={{padding: '1rem'}}>
-          <Route exact path={'/'} component={Home} />
-          <Route path={'/profile'} component={Profile} />
-          <Route path={'/dialogs'} component={Dialogs} />
-          <Route path={'/users'} component={Users} />
+          <Switch>
+            <Route exact={true} path={'/'} component={Home} />
+            <Route path={'/profile'} component={Profile} />
+            <Route path={'/dialogs'} component={Dialogs} />
+            <Route path={'/users'} component={Users} />
+          </Switch>
         </Content>
       </Layout>
       <Footer style={{textAlign: 'center', padding: '1rem', backgroundColor: 'rgb(191, 180, 143)'}}>Ant Design ©2018 Created by Ant UED</Footer>
