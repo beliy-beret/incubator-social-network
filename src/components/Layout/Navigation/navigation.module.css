@@ -1,0 +1,19 @@
+.navMenu {
+    display: flex;
+    flex-direction: column;
+    gap: 0.3rem;
+    padding: 1rem;
+}
+.navMenu a {
+    color: black;
+    text-transform: uppercase;
+    text-decoration: none;
+    font-weight: bold;
+    font-size: 1.2rem;
+}
+.navMenu a:hover {
+    text-decoration: underline;
+}
+.navMenu a.active {
+    color: #1967e7;
+}
