@@ -2,7 +2,7 @@ import React from 'react';
 import MyLoadingButton from "../../MyLoadingButton/MyLoadingButton";
 import {Col, Row, Space, Typography} from "antd";
 import style from './AppBar.module.css';
-import Samurai from '../../../assets/images/samurai.svg'
+import Samurai from '../../../assets/icons/samurai.svg'
 
 const {Title} = Typography;
 
