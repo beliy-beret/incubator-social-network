@@ -12,7 +12,12 @@ const { Header, Footer, Sider, Content } = Layout;
 
 function App() {
   return (
-    <Layout style={{maxWidth: '1900px', minHeight: '100%', margin: 'auto', boxShadow: 'rgba(0, 0, 0, 0.1) 0px 4px 12px'}}>
+    <Layout style={{
+      maxWidth: '1900px',
+      minHeight: '100%',
+      margin: 'auto',
+      boxShadow: 'rgba(0, 0, 0, 0.1) 0px 4px 12px'
+    }}>
       <Header style={{background: "rgba(191, 180, 143, 0.3)"}}>
         <AppBar />
       </Header>
@@ -29,7 +34,13 @@ function App() {
           </Switch>
         </Content>
       </Layout>
-      <Footer style={{textAlign: 'center', padding: '1rem', backgroundColor: 'rgb(191, 180, 143)'}}>Ant Design ©2018 Created by Ant UED</Footer>
+      <Footer style={{
+        textAlign: 'center',
+        padding: '1rem',
+        backgroundColor: 'rgb(191, 180, 143)'
+      }}>
+        Ant Design ©2018 Created by Ant UED
+      </Footer>
     </Layout>
   );
 }
