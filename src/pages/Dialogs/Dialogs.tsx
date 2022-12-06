@@ -2,25 +2,30 @@ import React from 'react';
 import {Col, Row} from "antd";
 import DialogList from "./DialogList/DialogList";
 import {Route, Switch} from "react-router-dom";
-import MessageList from "./MessageList/MessageList";
+import MessageList, {DialogType} from "./MessageList/MessageList";
 
-const userList = [
-  {id: 1, name: 'Andrey'},
-  {id: 2, name: 'Viktor'},
-  {id: 3, name: 'Anna'},
-  {id: 4, name: 'Niki'},
-  {id: 5, name: 'Vlad'}
-];
+type User = {
+  id: number
+  name: string
+}
 
-function Dialogs() {
+type ComponentPropsType = {
+  dialogs: {
+    userList: Array<User>
+    messageList: Array<DialogType>
+  }
+}
+
+function Dialogs({dialogs}: ComponentPropsType) {
+  const {userList, messageList} = dialogs;
   return (
     <Row>
       <Col span={5}>
-        <DialogList userList={userList} />
+        <DialogList userList={userList}/>
       </Col>
       <Col span={19}>
         <Switch>
-          <Route path={'/dialogs/:id'} component={MessageList} />
+          <Route path={'/dialogs/:id'} render={() => <MessageList dialogList={messageList}/>}/>
         </Switch>
       </Col>
     </Row>

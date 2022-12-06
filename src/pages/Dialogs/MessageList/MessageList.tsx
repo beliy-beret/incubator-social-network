@@ -1,20 +1,16 @@
 import React from 'react';
 import {useParams} from "react-router-dom";
 
-type DialogListType = {
+export type DialogType = {
   userID: number,
   messageList: Array<string>
 }
 
-const dialogList: Array<DialogListType> = [
-  {userID: 1, messageList: ['Hello !', 'My name is Andrey']},
-  {userID: 2, messageList: ['Hello !', 'My name is Viktor']},
-  {userID: 3, messageList: ['Hello !', 'My name is Anna']},
-  {userID: 4, messageList: ['Hello !', 'My name is Niki']},
-  {userID: 5, messageList: ['Hello !', 'My name is Vlad']},
-];
+type ComponentPropsType = {
+  dialogList: Array<DialogType>
+}
 
-function MessageList() {
+function MessageList({dialogList}: ComponentPropsType) {
   const {id} = useParams<{id?: string}>();
   const userID = Number(id);
   function showMessages(userID: number) {

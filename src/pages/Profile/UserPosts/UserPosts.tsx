@@ -1,15 +1,15 @@
 import React from 'react';
 import Post from "./Post/Post";
+import {PostType} from "../Profile";
 
-function UserPosts() {
+type ComponentProps = {
+  postList: Array<PostType>
+}
+
+function UserPosts({postList}: ComponentProps) {
   return (
     <div>
-      <Post />
-      <Post />
-      <Post />
-      <Post />
-      <Post />
-      <Post />
+      {postList.map(item => <Post key={item.id} post={item}/>)}
     </div>
   );
 }

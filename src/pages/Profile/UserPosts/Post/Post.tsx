@@ -1,10 +1,15 @@
 import React from 'react';
 import {Avatar, Col, Row, Typography} from "antd";
 import ava from '../../../../assets/images/samurai-anime.jpg';
+import {PostType} from "../../Profile";
 
 const {Title, Paragraph} = Typography;
 
-function Post() {
+type ComponentProps = {
+  post: PostType
+};
+
+function Post({post}: ComponentProps) {
   return (
     <>
       <Row gutter={10} style={{padding: '1rem'}}>
@@ -12,15 +17,11 @@ function Post() {
           <Avatar src={ava} size={'large'}/>
         </Col>
         <Col>
-          <Title level={3}>Post title</Title>
+          <Title level={3}>{post.title}</Title>
         </Col>
       </Row>
       <Row style={{paddingBottom: '1rem', paddingLeft: '1rem', paddingRight: '1rem'}}>
-        <Paragraph>
-          Lorem ipsum dolor sit amet, consectetur adipisicing elit. Animi distinctio explicabo nemo neque officia, rerum
-          temporibus! Adipisci amet consectetur, doloribus et illo iste pariatur perspiciatis quam repudiandae sequi,
-          tempore voluptatum!
-        </Paragraph>
+        <Paragraph>{post.body}</Paragraph>
       </Row>
     </>
   );

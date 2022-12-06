@@ -7,10 +7,16 @@ import Profile from "./pages/Profile/Profile";
 import Home from "./pages/Home/Home";
 import Dialogs from "./pages/Dialogs/Dialogs";
 import Users from "./pages/Users/Users";
+import {StateType} from "./redux/_store";
 
 const { Header, Footer, Sider, Content } = Layout;
 
-function App() {
+type ComponentPropsType = {
+  state: StateType;
+  addPost: (text: string) => void
+}
+
+function App({state, addPost}: ComponentPropsType) {
   return (
     <Layout style={{
       maxWidth: '1900px',
@@ -28,8 +34,8 @@ function App() {
         <Content style={{padding: '1rem'}}>
           <Switch>
             <Route exact={true} path={'/'} component={Home} />
-            <Route path={'/profile'} component={Profile} />
-            <Route path={'/dialogs'} component={Dialogs} />
+            <Route path={'/profile'} render={() => <Profile postList={state.profilePage.posts} addPost={addPost} />} />
+            <Route path={'/dialogs'} render={() => <Dialogs dialogs={state.dialogsPage.dialogs}/>} />
             <Route path={'/users'} component={Users} />
           </Switch>
         </Content>
