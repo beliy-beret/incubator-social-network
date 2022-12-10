@@ -35,7 +35,7 @@ function App({state, dispatch}: ComponentPropsType) {
           <Switch>
             <Route exact={true} path={'/'} component={Home} />
             <Route path={'/profile'} render={() => <Profile postList={state.profilePage.posts} dispatch={dispatch} />} />
-            <Route path={'/dialogs'} render={() => <Dialogs dialogs={state.dialogsPage.dialogs}/>} />
+            <Route path={'/dialogs'} render={() => <Dialogs dialogs={state.dialogsPage.dialogs} dispatch={dispatch}/>} />
             <Route path={'/users'} component={Users} />
           </Switch>
         </Content>

@@ -1,15 +1,26 @@
-type ObserverType = () => void
+type ObserverType = () => void;
+
+type NewMessageType = {
+  userID: number
+  message: string
+}
+type CreateMessageActionType = {
+  type: 'CREATE-MESSAGE'
+  payload: NewMessageType
+}
+export const createMessageAC = ({userID, message}: NewMessageType): CreateMessageActionType => {
+  return {type: "CREATE-MESSAGE", payload: {userID,message}}
+}
 
 type AddPostActionType = {
   type: 'ADD-POST'
   payload: string
-}
-
+};
 export const addPostAC = (text: string): AddPostActionType => {
   return {type: 'ADD-POST', payload: text}
 }
 
-export type ActionTypes = AddPostActionType
+export type ActionTypes = AddPostActionType | CreateMessageActionType
 
 const _store = {
   _state: {
@@ -57,17 +68,17 @@ const _store = {
       },
     },
   },
-  _callSubscriber(){
+  _callSubscriber() {
     console.log('State was changed');
   },
-  getState(){
+  getState() {
     return this._state;
   },
-  subscribe(observer: ObserverType){
+  subscribe(observer: ObserverType) {
     this._callSubscriber = observer;
   },
-  dispatch(action: ActionTypes){
-    switch(action.type){
+  dispatch(action: ActionTypes) {
+    switch (action.type) {
       case 'ADD-POST':
         const ID = Date.now();
         const newPost = {
@@ -76,6 +87,14 @@ const _store = {
           body: action.payload
         }
         this._state.profilePage.posts.push(newPost);
+        this._callSubscriber();
+        return;
+      case 'CREATE-MESSAGE':
+        this._state.dialogsPage.dialogs.messageList.forEach(item => {
+          if (item.userID === action.payload.userID) {
+            item.messageList.push(action.payload.message)
+          }
+        });
         this._callSubscriber();
         return;
       default:

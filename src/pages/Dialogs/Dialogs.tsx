@@ -3,6 +3,7 @@ import {Col, Row} from "antd";
 import DialogList from "./DialogList/DialogList";
 import {Route, Switch} from "react-router-dom";
 import MessageList, {DialogType} from "./MessageList/MessageList";
+import {ActionTypes} from "../../redux/_store";
 
 type User = {
   id: number
@@ -14,9 +15,10 @@ type ComponentPropsType = {
     userList: Array<User>
     messageList: Array<DialogType>
   }
+  dispatch: (AC: ActionTypes) => void
 }
 
-function Dialogs({dialogs}: ComponentPropsType) {
+function Dialogs({dialogs, dispatch}: ComponentPropsType) {
   const {userList, messageList} = dialogs;
   return (
     <Row>
@@ -25,7 +27,7 @@ function Dialogs({dialogs}: ComponentPropsType) {
       </Col>
       <Col span={19}>
         <Switch>
-          <Route path={'/dialogs/:id'} render={() => <MessageList dialogList={messageList}/>}/>
+          <Route path={'/dialogs/:id'} render={() => <MessageList dialogList={messageList} dispatch={dispatch}/>}/>
         </Switch>
       </Col>
     </Row>
