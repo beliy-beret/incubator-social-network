@@ -1,8 +1,12 @@
 type ObserverType = () => void
 
 type AddPostActionType = {
-  type: 'ADD_POST'
+  type: 'ADD-POST'
   payload: string
+}
+
+export const addPostAC = (text: string): AddPostActionType => {
+  return {type: 'ADD-POST', payload: text}
 }
 
 export type ActionTypes = AddPostActionType
@@ -64,7 +68,7 @@ const _store = {
   },
   dispatch(action: ActionTypes){
     switch(action.type){
-      case 'ADD_POST':
+      case 'ADD-POST':
         const ID = Date.now();
         const newPost = {
           id: ID,
