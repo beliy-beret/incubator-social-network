@@ -1,19 +1,22 @@
 import React, {useState} from 'react';
 import {Button} from "antd";
+import {ActionTypes} from "../../../redux/_store";
 
 type ComponentProps = {
-  addPost: (text: string) => void
+  dispatch: (action: ActionTypes) => void
 }
 
-function PostForm({addPost}: ComponentProps) {
+function PostForm({dispatch}: ComponentProps) {
   const [text, setText] = useState<string>('')
   function handleText(event: any){
     setText(event.target.value);
   }
   function createNewPost(){
-    addPost(text);
+    dispatch({type: "ADD_POST", payload: text});
     setText('');
   }
+
+  console.log(text);
   return (
     <>
       <textarea value={text} onChange={handleText}></textarea>

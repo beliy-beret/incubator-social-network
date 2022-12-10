@@ -5,6 +5,7 @@ import UserPosts from "./UserPosts/UserPosts";
 import {Col, Divider, Row} from "antd";
 import Subscriptions from "./Subscriptions/Subscriptions";
 import PostForm from "./PostForm/PostForm";
+import {ActionTypes} from "../../redux/_store";
 
 export type PostType = {
   id: number
@@ -14,10 +15,10 @@ export type PostType = {
 
 type ComponentProps = {
   postList: Array<PostType>
-  addPost: (text: string) => void
+  dispatch: (action: ActionTypes) => void
 }
 
-function Profile({postList, addPost}: ComponentProps) {
+function Profile({postList, dispatch}: ComponentProps) {
   return (
     <section>
       <Row gutter={15}>
@@ -33,7 +34,7 @@ function Profile({postList, addPost}: ComponentProps) {
       <Divider />
       <Row>
         <Col span={24}>
-          <PostForm addPost={addPost}/>
+          <PostForm dispatch={dispatch}/>
         </Col>
       </Row>
       <Divider />

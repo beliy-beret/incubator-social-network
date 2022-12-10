@@ -1,6 +1,13 @@
-import {rerenderTree} from "../render";
+type ObserverType = () => void
 
-export const _store = {
+type AddPostActionType = {
+  type: 'ADD_POST'
+  payload: string
+}
+
+export type ActionTypes = AddPostActionType
+
+const _store = {
   _state: {
     profilePage: {
       posts: [
@@ -46,22 +53,32 @@ export const _store = {
       },
     },
   },
+  _callSubscriber(){
+    console.log('State was changed');
+  },
   getState(){
     return this._state;
   },
-}
-
-export function addPost(text: string){
-  function createID(){
-    return Date.now();
-  }
-  const newPost = {
-    id: createID(),
-    title: 'New post',
-    body: text
-  }
-  _store._state.profilePage.posts.push(newPost);
-  rerenderTree(_store._state);
+  subscribe(observer: ObserverType){
+    this._callSubscriber = observer;
+  },
+  dispatch(action: ActionTypes){
+    switch(action.type){
+      case 'ADD_POST':
+        const ID = Date.now();
+        const newPost = {
+          id: ID,
+          title: 'New post',
+          body: action.payload
+        }
+        this._state.profilePage.posts.push(newPost);
+        this._callSubscriber();
+        return;
+      default:
+        return;
+    }
+  },
 }
 
 export type StateType = typeof _store._state;
+export default _store;
