@@ -1,6 +1,34 @@
-import {ActionTypes, ProfilePageType} from "../_store";
+import {AddPostActionType} from "../actions/actions";
 
-export const profileReducer = (state: ProfilePageType, action: ActionTypes) => {
+const InitialState = {
+  posts: [
+    {
+      id: 1,
+      title: '1st Post',
+      body: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Animi distinctio explicabo nemo neque officia,' +
+        ' rerum temporibus! Adipisci amet consectetur, doloribus et illo iste pariatur perspiciatis quam repudiandae' +
+        ' sequi, tempore voluptatum!',
+    },
+    {
+      id: 2,
+      title: 'Second Post',
+      body: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Animi distinctio explicabo nemo neque officia,' +
+        ' rerum temporibus! Adipisci amet consectetur, doloribus et illo iste pariatur perspiciatis quam repudiandae' +
+        ' sequi, tempore voluptatum!',
+    },
+    {
+      id: 3,
+      title: 'Third Post',
+      body: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Animi distinctio explicabo nemo neque officia,' +
+        ' rerum temporibus! Adipisci amet consectetur, doloribus et illo iste pariatur perspiciatis quam repudiandae' +
+        ' sequi, tempore voluptatum!',
+    },
+  ]
+}
+
+type InitialStateType = typeof InitialState;
+
+export const profileReducer = (state: InitialStateType = InitialState, action: AddPostActionType) => {
   switch (action.type) {
     case 'ADD-POST':
       const ID = Date.now();
@@ -10,7 +38,7 @@ export const profileReducer = (state: ProfilePageType, action: ActionTypes) => {
         body: action.payload
       }
       state.posts.push(newPost);
-      return;
+      return state;
     default:
       return state;
   }

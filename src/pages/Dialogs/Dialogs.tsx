@@ -3,7 +3,7 @@ import {Col, Row} from "antd";
 import DialogList from "./DialogList/DialogList";
 import {Route, Switch} from "react-router-dom";
 import MessageList, {DialogType} from "./MessageList/MessageList";
-import {ActionTypes} from "../../redux/_store";
+import {ActionTypes} from "../../redux/actions/actions";
 
 type User = {
   id: number

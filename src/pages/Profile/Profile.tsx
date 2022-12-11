@@ -5,7 +5,7 @@ import UserPosts from "./UserPosts/UserPosts";
 import {Col, Divider, Row} from "antd";
 import Subscriptions from "./Subscriptions/Subscriptions";
 import PostForm from "./PostForm/PostForm";
-import {ActionTypes} from "../../redux/_store";
+import {ActionTypes} from "../../redux/actions/actions";
 
 export type PostType = {
   id: number
