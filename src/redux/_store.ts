@@ -1,3 +1,6 @@
+import {profileReducer} from "./redusers/profile-reducer";
+import {dialogsReducer} from "./redusers/dialogs-reducer";
+
 type ObserverType = () => void;
 
 type NewMessageType = {
@@ -78,30 +81,13 @@ const _store = {
     this._callSubscriber = observer;
   },
   dispatch(action: ActionTypes) {
-    switch (action.type) {
-      case 'ADD-POST':
-        const ID = Date.now();
-        const newPost = {
-          id: ID,
-          title: 'New post',
-          body: action.payload
-        }
-        this._state.profilePage.posts.push(newPost);
-        this._callSubscriber();
-        return;
-      case 'CREATE-MESSAGE':
-        this._state.dialogsPage.dialogs.messageList.forEach(item => {
-          if (item.userID === action.payload.userID) {
-            item.messageList.push(action.payload.message)
-          }
-        });
-        this._callSubscriber();
-        return;
-      default:
-        return;
-    }
+    profileReducer(this._state.profilePage, action);
+    dialogsReducer(this._state.dialogsPage, action);
+    this._callSubscriber();
   },
 }
 
 export type StateType = typeof _store._state;
+export type ProfilePageType = typeof _store._state.profilePage;
+export type DialogsPageType = typeof _store._state.dialogsPage;
 export default _store;
