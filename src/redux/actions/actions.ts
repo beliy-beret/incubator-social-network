@@ -1,4 +1,4 @@
-type NewMessageType = {
+export type NewMessageType = {
   userID: number
   message: string
 }

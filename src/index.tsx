@@ -5,13 +5,16 @@ import App from './App';
 import './index.css';
 import 'antd/dist/antd.min.css';
 import {store} from "./redux/_store";
+import {Provider} from "react-redux";
 
 export function rerenderTree() {
   return (
     ReactDOM.render(
-      <BrowserRouter>
-        <App store={store}/>
-      </BrowserRouter>
+      <Provider store={store}>
+        <BrowserRouter>
+          <App/>
+        </BrowserRouter>
+      </Provider>
       ,
       document.getElementById('root')
     )

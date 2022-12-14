@@ -1,21 +1,16 @@
-import React from 'react';
+import {FC} from 'react';
 import { Layout } from 'antd';
 import AppBar from "./components/Layout/AppBar/AppBar";
 import Navigation from "./components/Layout/Navigation/Navigation";
 import {Route, Switch} from "react-router-dom";
-import Profile from "./pages/Profile/Profile";
 import Home from "./pages/Home/Home";
-import Dialogs from "./pages/Dialogs/Dialogs";
 import Users from "./pages/Users/Users";
-import {StoreType} from "./redux/_store";
+import ProfileContainer from "./pages/Profile/ProfileContainer";
+import DialogsContainer from "./pages/Dialogs/DialogsContainer";
 
 const { Header, Footer, Sider, Content } = Layout;
 
-type ComponentPropsType = {
-  store: StoreType
-}
-
-function App({store}: ComponentPropsType) {
+const App: FC = () => {
   return (
     <Layout style={{
       maxWidth: '1900px',
@@ -24,18 +19,18 @@ function App({store}: ComponentPropsType) {
       boxShadow: 'rgba(0, 0, 0, 0.1) 0px 4px 12px'
     }}>
       <Header style={{background: "rgba(191, 180, 143, 0.3)"}}>
-        <AppBar />
+        <AppBar/>
       </Header>
       <Layout>
         <Sider theme={'light'}>
-          <Navigation />
+          <Navigation/>
         </Sider>
         <Content style={{padding: '1rem'}}>
           <Switch>
-            <Route exact={true} path={'/'} component={Home} />
-            <Route path={'/profile'} render={() => <Profile store={store} />} />
-            <Route path={'/dialogs'} render={() => <Dialogs store={store}/>} />
-            <Route path={'/users'} component={Users} />
+            <Route exact={true} path={'/'} component={Home}/>
+            <Route path={'/profile'} render={() => <ProfileContainer/>}/>
+            <Route path={'/dialogs'} render={() => <DialogsContainer/>}/>
+            <Route path={'/users'} component={Users}/>
           </Switch>
         </Content>
       </Layout>

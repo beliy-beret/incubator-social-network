@@ -1,12 +1,10 @@
-import React from 'react';
+import {FC} from 'react';
 import UserAva from "./UserAva/UserAva";
 import UserInfo from "./UserInfo/ProfileInfo";
 import UserPosts from "./UserPosts/UserPosts";
 import {Col, Divider, Row} from "antd";
 import Subscriptions from "./Subscriptions/Subscriptions";
 import PostForm from "./PostForm/PostForm";
-import {StoreType} from "../../redux/_store";
-import {addPostAC} from "../../redux/actions/actions";
 
 export type PostType = {
   id: number
@@ -14,17 +12,12 @@ export type PostType = {
   body: string
 }
 
-type ComponentProps = {
-  store: StoreType
+type ComponentPropsType = {
+  postList: Array<PostType>
+  addPost: (text: string) => void
 }
 
-function Profile({store}: ComponentProps) {
-
-  const state = store.getState();
-  const addNewPost = (text: string) => {
-    store.dispatch(addPostAC(text));
-  }
-
+const Profile:FC<ComponentPropsType> = ({postList, addPost}) => {
   return (
     <section>
       <Row gutter={15}>
@@ -40,12 +33,12 @@ function Profile({store}: ComponentProps) {
       <Divider />
       <Row>
         <Col span={24}>
-          <PostForm addNewPost={addNewPost}/>
+          <PostForm addNewPost={addPost}/>
         </Col>
       </Row>
       <Divider />
       <Row>
-        <UserPosts postList={state.profilePage.posts}/>
+        <UserPosts postList={postList}/>
       </Row>
     </section>
   );
