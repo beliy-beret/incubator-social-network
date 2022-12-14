@@ -1,7 +1,5 @@
 import React from 'react';
-import {useParams} from "react-router-dom";
 import MessageForm from "../MessageForm/MessageForm";
-import {ActionTypes} from "../../../redux/_store";
 
 export type DialogType = {
   userID: number,
@@ -10,23 +8,27 @@ export type DialogType = {
 
 type ComponentPropsType = {
   dialogList: Array<DialogType>
-  dispatch: (AC: ActionTypes) => void
+  userId: number
+  createMessage: (text: string) => void
 }
 
-function MessageList({dialogList, dispatch}: ComponentPropsType) {
-  const {id} = useParams<{id?: string}>();
-  const userID = Number(id);
-  function showMessages(userID: number) {
+function MessageList({dialogList, userId, createMessage}: ComponentPropsType) {
+
+  const showMessages = (userID: number) => {
     const dialog = dialogList.find((item) => item.userID === userID);
     return dialog?.messageList.map((item, index) => <li key={index}>{item}</li>);
+  }
+  const messageList = showMessages(userId);
+  const sendMessage = (text: string) => {
+    createMessage(text);
   }
 
   return (
     <>
       <ul>
-        {showMessages(userID)}
+        {messageList}
       </ul>
-      <MessageForm userID={userID} dispatch={dispatch} />
+      <MessageForm userID={userId} sendMessage={sendMessage}/>
     </>
 
   );

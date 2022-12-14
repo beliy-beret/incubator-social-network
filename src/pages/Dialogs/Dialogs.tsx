@@ -2,24 +2,15 @@ import React from 'react';
 import {Col, Row} from "antd";
 import DialogList from "./DialogList/DialogList";
 import {Route, Switch} from "react-router-dom";
-import MessageList, {DialogType} from "./MessageList/MessageList";
-import {ActionTypes} from "../../redux/actions/actions";
-
-type User = {
-  id: number
-  name: string
-}
+import {StoreType} from "../../redux/_store";
+import MessageListContainer from "./MessageListContainer/MessageListContainer";
 
 type ComponentPropsType = {
-  dialogs: {
-    userList: Array<User>
-    messageList: Array<DialogType>
-  }
-  dispatch: (AC: ActionTypes) => void
+  store: StoreType
 }
 
-function Dialogs({dialogs, dispatch}: ComponentPropsType) {
-  const {userList, messageList} = dialogs;
+function Dialogs({store}: ComponentPropsType) {
+  const {userList} = store.getState().dialogsPage.dialogs;
   return (
     <Row>
       <Col span={5}>
@@ -27,7 +18,7 @@ function Dialogs({dialogs, dispatch}: ComponentPropsType) {
       </Col>
       <Col span={19}>
         <Switch>
-          <Route path={'/dialogs/:id'} render={() => <MessageList dialogList={messageList} dispatch={dispatch}/>}/>
+          <Route path={'/dialogs/:id'} render={() => <MessageListContainer store={store}/>}/>
         </Switch>
       </Col>
     </Row>

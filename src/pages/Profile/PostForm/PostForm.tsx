@@ -1,19 +1,17 @@
 import React, {useState} from 'react';
 import {Button} from "antd";
-import {ActionTypes, addPostAC} from "../../../redux/_store";
 
 type ComponentProps = {
-  dispatch: (action: ActionTypes) => void
+  addNewPost: (text: string) => void
 }
 
-function PostForm({dispatch}: ComponentProps) {
+function PostForm({addNewPost}: ComponentProps) {
   const [text, setText] = useState<string>('')
   function handleText(event: any){
     setText(event.target.value);
   }
   function createNewPost(){
-    dispatch(addPostAC(text));
-    setText('');
+    addNewPost(text)
   }
 
   return (

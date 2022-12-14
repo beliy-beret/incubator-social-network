@@ -7,17 +7,15 @@ import Profile from "./pages/Profile/Profile";
 import Home from "./pages/Home/Home";
 import Dialogs from "./pages/Dialogs/Dialogs";
 import Users from "./pages/Users/Users";
-import {ActionTypes} from "./redux/actions/actions";
-import {RootStateType} from "./redux/_store";
+import {StoreType} from "./redux/_store";
 
 const { Header, Footer, Sider, Content } = Layout;
 
 type ComponentPropsType = {
-  state: RootStateType;
-  dispatch: (action: ActionTypes) => void
+  store: StoreType
 }
 
-function App({state, dispatch}: ComponentPropsType) {
+function App({store}: ComponentPropsType) {
   return (
     <Layout style={{
       maxWidth: '1900px',
@@ -35,8 +33,8 @@ function App({state, dispatch}: ComponentPropsType) {
         <Content style={{padding: '1rem'}}>
           <Switch>
             <Route exact={true} path={'/'} component={Home} />
-            <Route path={'/profile'} render={() => <Profile postList={state.profilePage!.posts} dispatch={dispatch} />} />
-            <Route path={'/dialogs'} render={() => <Dialogs dialogs={state.dialogsPage!.dialogs} dispatch={dispatch}/>} />
+            <Route path={'/profile'} render={() => <Profile store={store} />} />
+            <Route path={'/dialogs'} render={() => <Dialogs store={store}/>} />
             <Route path={'/users'} component={Users} />
           </Switch>
         </Content>
