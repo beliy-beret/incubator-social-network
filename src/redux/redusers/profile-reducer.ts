@@ -37,8 +37,7 @@ export const profileReducer = (state: InitialStateType = InitialState, action: A
         title: 'New post',
         body: action.payload
       }
-      state.posts.push(newPost);
-      return state;
+      return {...state, posts: [...state.posts, newPost]};
     default:
       return state;
   }

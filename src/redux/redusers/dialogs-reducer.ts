@@ -1,4 +1,5 @@
 import {CreateMessageActionType} from "../actions/actions";
+import {DialogType} from "../../pages/Dialogs/MessageList/MessageList";
 
 const InitialState = {
   dialogs: {
@@ -24,7 +25,7 @@ type InitialStateType = typeof InitialState;
 export const dialogsReducer = (state: InitialStateType = InitialState, action: CreateMessageActionType) => {
   switch (action.type) {
     case 'CREATE-MESSAGE':
-      state.dialogs.messageList.forEach((item: any) => {
+      state.dialogs.messageList.forEach((item: DialogType) => {
         if (item.userID === action.payload.userID) {
           item.messageList.push(action.payload.message)
         }

@@ -11,7 +11,8 @@ function PostForm({addNewPost}: ComponentProps) {
     setText(event.target.value);
   }
   function createNewPost(){
-    addNewPost(text)
+    addNewPost(text);
+    setText('');
   }
 
   return (
