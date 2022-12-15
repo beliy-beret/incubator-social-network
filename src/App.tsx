@@ -4,9 +4,9 @@ import AppBar from "./components/Layout/AppBar/AppBar";
 import Navigation from "./components/Layout/Navigation/Navigation";
 import {Route, Switch} from "react-router-dom";
 import Home from "./pages/Home/Home";
-import Users from "./pages/Users/Users";
 import ProfileContainer from "./pages/Profile/ProfileContainer";
 import DialogsContainer from "./pages/Dialogs/DialogsContainer";
+import UserListContainer from "./pages/Users/UserListContainer";
 
 const { Header, Footer, Sider, Content } = Layout;
 
@@ -28,9 +28,9 @@ const App: FC = () => {
         <Content style={{padding: '1rem'}}>
           <Switch>
             <Route exact={true} path={'/'} component={Home}/>
-            <Route path={'/profile'} render={() => <ProfileContainer/>}/>
-            <Route path={'/dialogs'} render={() => <DialogsContainer/>}/>
-            <Route path={'/users'} component={Users}/>
+            <Route path={'/profile'} component={ProfileContainer}/>
+            <Route path={'/dialogs'} component={DialogsContainer}/>
+            <Route path={'/users'} component={UserListContainer}/>
           </Switch>
         </Content>
       </Layout>
