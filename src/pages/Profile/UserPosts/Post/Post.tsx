@@ -1,7 +1,7 @@
 import React from 'react';
 import {Avatar, Col, Row, Typography} from "antd";
 import ava from '../../../../assets/images/samurai-anime.jpg';
-import {PostType} from "../../Profile";
+import {PostType} from "../../../../AppTypes";
 
 const {Title, Paragraph} = Typography;
 

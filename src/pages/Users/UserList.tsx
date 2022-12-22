@@ -1,36 +1,34 @@
-import {FC} from 'react';
-import {UserType} from "../../redux/redusers/users-reducer";
+import {Component} from 'react';
+import User from "./User/User";
+import {UserType} from "../../AppTypes";
+import {getUserList} from "../../API/api";
 
 type ComponentPropsType = {
-  setUsers?: (users: Array<UserType>) => void
+  setUsers: (users: Array<UserType>) => void
   userList: Array<UserType>
   toggleFollow: (userId: number) => void
 }
 
-const UserList: FC<ComponentPropsType> = ({userList, toggleFollow}) => {
 
-  const users = userList.map(item => (
-    <div key={item.id}>
-      <p>Name: <span>{item.fullName}</span></p>
-      <p>Status: <span>{item.status}</span></p>
-      <div>Address:
-        <ul>
-          <li>{item.location.country}</li>
-          <li>{item.location.city}</li>
-        </ul>
-      </div>
-      <button onClick={() => toggleFollow(item.id)}>{item.isFollow ? 'Unfollow' : 'Follow'}</button>
-    </div>
-  ))
+class UserList extends Component<ComponentPropsType> {
 
-  return (
-    <div>
-      <h2>Users page</h2>
+  getUserButtonHandle = () => {
+    getUserList().then(data => this.props.setUsers(data?.items!))
+  }
+  componentDidMount() {
+    this.getUserButtonHandle();
+  }
+
+  render() {
+    return (
       <div>
-        {users}
+        <h2>Users page</h2>
+        <div>
+          {this.props.userList.map(item => (<User key={item.id} user={item}/>))}
+        </div>
       </div>
-    </div>
-  );
+    );
+  }
 }
 
 export default UserList;

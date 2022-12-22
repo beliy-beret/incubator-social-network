@@ -1,8 +1,9 @@
 import React from 'react';
 import {connect} from "react-redux";
-import Dialogs, {DialogsType} from "./Dialogs";
+import Dialogs from "./Dialogs";
 import {RootStateType} from "../../redux/_store";
-import {createMessageAC, NewMessageType} from "../../redux/actions/actions";
+import {createMessageAC} from "../../redux/actions/actions";
+import {DialogsType, NewMessageType} from "../../AppTypes";
 
 type PropType = {
   dialogs: DialogsType

@@ -1,10 +1,6 @@
 import React from 'react';
 import {Link} from "react-router-dom";
-
-export type UserType = {
-  id: number,
-  name: string
-}
+import {UserType} from "../../../AppTypes";
 
 type ComponentPropsType = {
   userList: Array<UserType>

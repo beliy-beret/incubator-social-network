@@ -1,8 +1,9 @@
 import React from 'react';
-import Profile, {PostType} from "./Profile";
+import Profile from "./Profile";
 import {connect} from "react-redux";
 import {RootStateType} from "../../redux/_store";
 import {addPostAC} from "../../redux/actions/actions";
+import {PostType} from "../../AppTypes";
 
 type PropType = {
   postList: Array<PostType>

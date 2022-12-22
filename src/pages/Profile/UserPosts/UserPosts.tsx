@@ -1,6 +1,6 @@
 import React from 'react';
 import Post from "./Post/Post";
-import {PostType} from "../Profile";
+import {PostType} from "../../../AppTypes";
 
 type ComponentProps = {
   postList: Array<PostType>

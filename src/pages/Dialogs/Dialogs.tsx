@@ -1,33 +1,34 @@
-import React from 'react';
+import React, {Component} from 'react';
 import {Col, Row} from "antd";
-import DialogList, {UserType} from "./DialogList/DialogList";
+import DialogList from "./DialogList/DialogList";
 import {Route, Switch} from "react-router-dom";
-import MessageList, {DialogType} from "./MessageList/MessageList";
-import {NewMessageType} from "../../redux/actions/actions";
+import MessageList from "./MessageList/MessageList";
+import {DialogsType, NewMessageType} from "../../AppTypes";
 
-export type DialogsType = {
-  userList: Array<UserType>
-  messageList: Array<DialogType>
-}
 type ComponentPropsType = {
   dialogs: DialogsType
   createMessage: ({userID, message}: NewMessageType) => void
 }
 
-function Dialogs({dialogs, createMessage}: ComponentPropsType) {
-  const {userList, messageList: dialogList} = dialogs;
-  return (
-    <Row>
-      <Col span={5}>
-        <DialogList userList={userList}/>
-      </Col>
-      <Col span={19}>
-        <Switch>
-          <Route path={'/dialogs/:id'} render={() => <MessageList createMessage={createMessage} dialogList={dialogList}/>}/>
-        </Switch>
-      </Col>
-    </Row>
-  );
+class Dialogs extends Component<ComponentPropsType> {
+  render() {
+    return (
+      <Row>
+        <Col span={5}>
+          <DialogList userList={this.props.dialogs.userList}/>
+        </Col>
+        <Col span={19}>
+          <Switch>
+            <Route path={'/dialogs/:id'} render={() =>
+              <MessageList
+                createMessage={this.props.createMessage}
+                dialogList={this.props.dialogs.messageList}
+              />}/>
+          </Switch>
+        </Col>
+      </Row>
+    );
+  }
 }
 
 export default Dialogs;

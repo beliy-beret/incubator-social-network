@@ -1,10 +1,6 @@
-// Dialogs actions
-import {UserType} from "../redusers/users-reducer";
+import {NewMessageType, UserType} from "../../AppTypes";
 
-export type NewMessageType = {
-  userID: number
-  message: string
-}
+// Dialogs actions
 export type CreateMessageActionType = {
   type: 'CREATE-MESSAGE'
   payload: NewMessageType
@@ -12,6 +8,8 @@ export type CreateMessageActionType = {
 export const createMessageAC = ({userID, message}: NewMessageType): CreateMessageActionType => {
   return {type: "CREATE-MESSAGE", payload: {userID, message}}
 }
+
+
 // Profile actions
 export type AddPostActionType = {
   type: 'ADD-POST'
@@ -20,6 +18,7 @@ export type AddPostActionType = {
 export const addPostAC = (text: string): AddPostActionType => {
   return {type: 'ADD-POST', payload: text}
 }
+
 
 // Users actions
 export type SetUsersActionsTypy = {
@@ -34,4 +33,4 @@ export const toggleFollowAC = (userId: number): ToggleFollowActionType => ({type
 export const setUsersAC = (userList: Array<UserType>): SetUsersActionsTypy => ({type: 'SET-USERS', payload: userList});
 
 
-export type ActionTypes = AddPostActionType | CreateMessageActionType | ToggleFollowActionType
+export type ActionTypes = AddPostActionType | CreateMessageActionType | ToggleFollowActionType | SetUsersActionsTypy
