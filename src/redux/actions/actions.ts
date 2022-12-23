@@ -29,8 +29,22 @@ export type ToggleFollowActionType = {
   type: 'TOGGLE-FOLLOW'
   payload: number
 }
+export type SetCurrentPageActionType = {
+  type: 'SET-CURRENT-PAGE',
+  payload: number
+}
+export type SetTotalCountActionType = {
+  type: 'SET-TOTAL-COUNT',
+  payload: number
+}
 export const toggleFollowAC = (userId: number): ToggleFollowActionType => ({type: 'TOGGLE-FOLLOW', payload: userId});
 export const setUsersAC = (userList: Array<UserType>): SetUsersActionsType => ({type: 'SET-USERS', payload: userList});
+export const setCurrentPageAC = (pageNumber: number): SetCurrentPageActionType => ({type: "SET-CURRENT-PAGE", payload: pageNumber});
+export const setTotalCountAC = (count: number): SetTotalCountActionType => ({type: "SET-TOTAL-COUNT", payload: count});
 
-
-export type ActionTypes = AddPostActionType | CreateMessageActionType | ToggleFollowActionType | SetUsersActionsType
+export type ActionTypes = AddPostActionType |
+  CreateMessageActionType |
+  ToggleFollowActionType |
+  SetUsersActionsType |
+  SetCurrentPageActionType |
+  SetTotalCountActionType

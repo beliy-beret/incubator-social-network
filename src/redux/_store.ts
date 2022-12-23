@@ -4,9 +4,9 @@ import {dialogsReducer} from "./redusers/dialogs-reducer";
 import {usersReducer} from "./redusers/users-reducer";
 
 const reducers = combineReducers({
+  usersPage: usersReducer,
   profilePage: profileReducer,
   dialogsPage: dialogsReducer,
-  usersPage: usersReducer
 });
 
 export const store = createStore(reducers);

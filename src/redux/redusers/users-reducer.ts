@@ -1,21 +1,59 @@
-import {ActionTypes} from "../actions/actions";
+import {
+  SetCurrentPageActionType,
+  SetTotalCountActionType, SetUsersActionsType,
+  ToggleFollowActionType
+} from "../actions/actions";
 import {UserType} from "../../AppTypes";
 
-type InitialStateType = Array<UserType>
+type InitialStateType = {
+  userList: Array<UserType>
+  totalCount: number
+  currentPage: number
+}
 
-const initialState: InitialStateType = []
+const InitialState: InitialStateType = {
+  userList: [],
+  totalCount: 1,
+  currentPage: 1,
+}
 
-export const usersReducer = (state = initialState, action: ActionTypes) => {
+export const usersReducer = (
+  state: InitialStateType = InitialState,
+  action: ToggleFollowActionType |
+    SetTotalCountActionType |
+    SetCurrentPageActionType |
+    SetUsersActionsType
+) => {
   switch (action.type) {
-    case "TOGGLE-FOLLOW":
-      return state.map(user => {
-        if(user.id === action.payload){
-          return {...user, followed: !user.followed}
-        }
-        return user;
-      })
     case 'SET-USERS':
-      return [...state, ...action.payload];
+      return {
+        ...state,
+        userList: [...state.userList, ...action.payload]
+      };
+    case 'SET-TOTAL-COUNT':
+      return {
+        ...state,
+        totalCount: action.payload
+      };
+    case 'SET-CURRENT-PAGE':
+      return {
+        ...state,
+        currentPage: action.payload
+      };
+    case 'TOGGLE-FOLLOW':
+      return {
+        ...state,
+        userList: state.userList.map((user) => {
+          if (user.id === action.payload) {
+            return {
+              ...user,
+              followed: !user.followed
+            }
+          } else {
+            return user
+          }
+        })
+      };
     default:
       return state;
   }

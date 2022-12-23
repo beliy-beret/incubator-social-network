@@ -6,7 +6,7 @@ import {Route, Switch} from "react-router-dom";
 import Home from "./pages/Home/Home";
 import ProfileContainer from "./pages/Profile/ProfileContainer";
 import DialogsContainer from "./pages/Dialogs/DialogsContainer";
-import UserListContainer from "./pages/Users/UserListContainer";
+import UsersContainer from "./pages/Users/UsersContainer";
 
 const { Header, Footer, Sider, Content } = Layout;
 
@@ -31,7 +31,7 @@ const App: FC = () => {
             <Route exact={true} path={'/'} component={Home}/>
             <Route path={'/profile'} component={ProfileContainer}/>
             <Route path={'/dialogs'} component={DialogsContainer}/>
-            <Route path={'/users'} component={UserListContainer}/>
+            <Route path={'/users'} component={UsersContainer}/>
           </Switch>
         </Content>
       </Layout>
