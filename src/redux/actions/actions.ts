@@ -21,7 +21,7 @@ export const addPostAC = (text: string): AddPostActionType => {
 
 
 // Users actions
-export type SetUsersActionsTypy = {
+export type SetUsersActionsType = {
   type: 'SET-USERS'
   payload: Array<UserType>
 }
@@ -30,7 +30,7 @@ export type ToggleFollowActionType = {
   payload: number
 }
 export const toggleFollowAC = (userId: number): ToggleFollowActionType => ({type: 'TOGGLE-FOLLOW', payload: userId});
-export const setUsersAC = (userList: Array<UserType>): SetUsersActionsTypy => ({type: 'SET-USERS', payload: userList});
+export const setUsersAC = (userList: Array<UserType>): SetUsersActionsType => ({type: 'SET-USERS', payload: userList});
 
 
-export type ActionTypes = AddPostActionType | CreateMessageActionType | ToggleFollowActionType | SetUsersActionsTypy
+export type ActionTypes = AddPostActionType | CreateMessageActionType | ToggleFollowActionType | SetUsersActionsType

@@ -2,6 +2,7 @@ import {Component} from 'react';
 import User from "./User/User";
 import {UserType} from "../../AppTypes";
 import {getUserList} from "../../API/api";
+import {Col, Row} from "antd";
 
 type ComponentPropsType = {
   setUsers: (users: Array<UserType>) => void
@@ -12,21 +13,17 @@ type ComponentPropsType = {
 
 class UserList extends Component<ComponentPropsType> {
 
-  getUserButtonHandle = () => {
-    getUserList().then(data => this.props.setUsers(data?.items!))
-  }
   componentDidMount() {
-    this.getUserButtonHandle();
+    getUserList().then(data => this.props.setUsers(data?.items!));
   }
 
   render() {
     return (
-      <div>
-        <h2>Users page</h2>
-        <div>
-          {this.props.userList.map(item => (<User key={item.id} user={item}/>))}
-        </div>
-      </div>
+      <Row justify={'center'}>
+        <Col span={23}>
+          {this.props.userList.map(item => (<User key={item.id} user={item} onClickSubscribeButton={this.props.toggleFollow}/>))}
+        </Col>
+      </Row>
     );
   }
 }

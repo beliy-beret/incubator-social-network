@@ -10,7 +10,7 @@ export const usersReducer = (state = initialState, action: ActionTypes) => {
     case "TOGGLE-FOLLOW":
       return state.map(user => {
         if(user.id === action.payload){
-          return {...user, isFollow: !user.followed}
+          return {...user, followed: !user.followed}
         }
         return user;
       })
