@@ -1,20 +1,33 @@
 import {FC} from "react";
-import {Pagination} from "antd";
+import {Pagination, PaginationProps} from "antd";
 
 type ComponentPropsType = {
   totalCount: number
   currentPage: number
   pageSize: number
+  changePageNumber: (pageNumber: number) => void
 }
 
 const MyPagination: FC<ComponentPropsType> = (
   {
     totalCount,
     currentPage,
-    pageSize
+    changePageNumber
   }
-)=> (
-  <Pagination defaultCurrent={currentPage} total={totalCount} pageSize={pageSize} />
-);
+) => {
+
+  const onChange: PaginationProps['onChange'] = (page) => {
+    changePageNumber(page);
+  };
+
+  return (
+    <Pagination
+      current={currentPage}
+      total={totalCount}
+      showSizeChanger={false}
+      onChange={onChange}
+    />
+  )
+};
 
 export default MyPagination;

@@ -13,9 +13,19 @@ type GetUsersResponseType = {
   error: string
 }
 
-export const getUserList = async () => {
+export const getUserList = async (
+    pageNumber: number,
+    friend: boolean = false,
+    userName: string | null = null
+  ) => {
   try{
-    const resp = await instance.get<GetUsersResponseType>('users');
+    const resp = await instance.get<GetUsersResponseType>('users', {
+      params: {
+        page: pageNumber,
+        friend: friend,
+        term: userName
+      }
+    });
     return resp.data
   }
   catch (error) {

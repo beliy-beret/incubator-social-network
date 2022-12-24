@@ -28,7 +28,7 @@ export const usersReducer = (
     case 'SET-USERS':
       return {
         ...state,
-        userList: [...state.userList, ...action.payload]
+        userList: [...action.payload]
       };
     case 'SET-TOTAL-COUNT':
       return {

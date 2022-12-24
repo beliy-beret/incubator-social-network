@@ -15,13 +15,21 @@ type ComponentPropsType = {
   setTotalCount: (count: number) => void
 }
 
-class Users extends Component<ComponentPropsType> {
+class Users extends Component<ComponentPropsType>{
 
-  componentDidMount() {
-    getUserList().then((data) => {
+  getUsers = () => {
+    getUserList(this.props.currentPage).then((data) => {
       this.props.setUsers(data?.items!);
       this.props.setTotalCount(data?.totalCount!);
     });
+  }
+  componentDidMount() {
+    this.getUsers();
+  }
+  componentDidUpdate(prevProps: Readonly<ComponentPropsType>) {
+    if(prevProps.currentPage !== this.props.currentPage) {
+      this.getUsers();
+    }
   }
 
   render() {
@@ -29,7 +37,12 @@ class Users extends Component<ComponentPropsType> {
       <>
         <Row justify={'center'}>
           <Col span={20}>
-            <MyPagination totalCount={this.props.totalCount} pageSize={10} currentPage={this.props.currentPage}/>
+            <MyPagination
+              totalCount={this.props.totalCount}
+              pageSize={10}
+              currentPage={this.props.currentPage}
+              changePageNumber={this.props.setCurrentPage}
+            />
           </Col>
         </Row>
         <Divider />
