@@ -4,7 +4,7 @@ import {UserType} from "../../../AppTypes";
 
 type ComponentPropsType = {
   userList: Array<UserType>
-  toggleFollow: (userId: number) => void
+  toggleFollow: (userId: number, status: boolean) => void
 }
 
 const UserList: FC<ComponentPropsType> = ({userList, toggleFollow}) => (

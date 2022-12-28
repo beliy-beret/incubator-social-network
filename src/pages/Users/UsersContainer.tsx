@@ -6,8 +6,8 @@ import {
   toggleFollowAC,
 } from "../../redux/actions/actions";
 import { UserType } from "../../AppTypes";
-import Users from "./Users";
 import { RootStateType } from "../../redux/_store";
+import UsersApiContainer from "./UsersApiContainer";
 
 type PropType = {
   userList: Array<UserType>;
@@ -22,12 +22,12 @@ const mapState = (state: RootStateType): PropType => ({
 });
 
 const mapDispatch = {
-  toggleFollow: (userId: number) => toggleFollowAC(userId),
+  toggleFollow: (userId: number, status: boolean) => toggleFollowAC(userId, status),
   setUsers: (userList: Array<UserType>) => setUsersAC(userList),
   setCurrentPage: (page: number) => setCurrentPageAC(page),
   setTotalCount: (count: number) => setTotalCountAC(count),
 };
 
-const UsersContainer = connect(mapState, mapDispatch)(Users);
+const UsersContainer = connect(mapState, mapDispatch)(UsersApiContainer);
 
 export default UsersContainer;

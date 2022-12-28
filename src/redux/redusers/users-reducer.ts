@@ -44,10 +44,10 @@ export const usersReducer = (
       return {
         ...state,
         userList: state.userList.map((user) => {
-          if (user.id === action.payload) {
+          if (user.id === action.payload.userId) {
             return {
               ...user,
-              followed: !user.followed
+              followed: action.payload.status
             }
           } else {
             return user
