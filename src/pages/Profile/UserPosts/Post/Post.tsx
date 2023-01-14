@@ -1,30 +1,28 @@
-import React from 'react';
-import {Avatar, Col, Row, Typography} from "antd";
+import {Avatar, Col, Row, Typography} from 'antd';
 import ava from '../../../../assets/images/samurai-anime.jpg';
-import {PostType} from "../../../../AppTypes";
+import {PostType} from '../../../../AppTypes';
+import { FC } from 'react';
 
 const {Title, Paragraph} = Typography;
 
-type ComponentProps = {
+type ComponentPropsType = {
   post: PostType
 };
 
-function Post({post}: ComponentProps) {
-  return (
-    <>
-      <Row gutter={10} style={{padding: '1rem'}}>
-        <Col>
-          <Avatar src={ava} size={'large'}/>
-        </Col>
-        <Col>
-          <Title level={3}>{post.title}</Title>
-        </Col>
-      </Row>
-      <Row style={{paddingBottom: '1rem', paddingLeft: '1rem', paddingRight: '1rem'}}>
-        <Paragraph>{post.body}</Paragraph>
-      </Row>
-    </>
-  );
-}
-
-export default Post;
+export const Post: FC<ComponentPropsType> = ({post}) => {
+	return (
+		<>
+			<Row gutter={10} style={{padding: '1rem'}}>
+				<Col>
+					<Avatar src={ava} size={'large'}/>
+				</Col>
+				<Col>
+					<Title level={3}>{post.title}</Title>
+				</Col>
+			</Row>
+			<Row style={{paddingBottom: '1rem', paddingLeft: '1rem', paddingRight: '1rem'}}>
+				<Paragraph>{post.body}</Paragraph>
+			</Row>
+		</>
+	);
+};

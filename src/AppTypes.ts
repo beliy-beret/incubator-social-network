@@ -3,7 +3,7 @@ export type NewMessageType = {
   message: string
 }
 export type PostType = {
-  id: number
+  id: string
   title: string
   body: string
 }

@@ -1,24 +1,22 @@
-import React, {useState} from 'react';
+import {FC, useState} from 'react';
 import {Button} from 'antd';
 
-type ComponentProps = {
+type ComponentPropsType = {
   text: string
 }
 
-function MyLoadingButton({text}: ComponentProps ) {
+export const MyLoadingButton: FC<ComponentPropsType> = ({text}) => {
 
-  const [loading, setLoading] = useState<boolean>(false);
+	const [loading, setLoading] = useState<boolean>(false);
 
-  const enterLoading = () => {
-    setLoading(true);
-    setTimeout(() => setLoading(false), 1000);
-  };
+	const enterLoading = () => {
+		setLoading(true);
+		setTimeout(() => setLoading(false), 1000);
+	};
 
-  return (
-      <Button type="primary" loading={loading} onClick={() => enterLoading()}>
-        {text}
-      </Button>
-  )
+	return (
+		<Button type="primary" loading={loading} onClick={() => enterLoading()}>
+			{text}
+		</Button>
+	);
 };
-
-export default MyLoadingButton;

@@ -1,18 +1,16 @@
-import React from "react";
-import {Avatar, Col, Row} from "antd";
+import {Avatar, Col, Row} from 'antd';
+import { FC } from 'react';
 
 type ComponentPropsType = {
   src: string
 }
 
-function Sub({src}: ComponentPropsType) {
-  return (
-      <Row>
-        <Col>
-          <Avatar src={src}/>
-        </Col>
-      </Row>
-  )
-}
-
-export default Sub;
+export const Sub: FC<ComponentPropsType> = ({src}) => {
+	return (
+		<Row>
+			<Col>
+				<Avatar src={src}/>
+			</Col>
+		</Row>
+	);
+};
