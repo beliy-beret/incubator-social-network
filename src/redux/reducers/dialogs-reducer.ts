@@ -1,4 +1,4 @@
-import {CreateMessageActionType} from '../actions/actions';
+import { ActionTypes } from './../actions/appActions';
 import {DialogsType, DialogType} from '../../AppTypes';
 
 type InitialStateType = {
@@ -50,7 +50,7 @@ const InitialState: InitialStateType = {
 	}
 };
 
-export const dialogsReducer = (state: InitialStateType = InitialState, action: CreateMessageActionType) => {
+export const dialogsReducer = (state: InitialStateType = InitialState, action: ActionTypes) => {
 	switch (action.type) {
 	case 'CREATE-MESSAGE':
 		state.dialogs.messageList.forEach((item: DialogType) => {

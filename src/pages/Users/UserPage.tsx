@@ -3,7 +3,6 @@ import { Col, Divider, Row } from 'antd';
 import { MyPagination } from '../../components/MyPagination/MyPagination';
 import { UserList } from './UserList/UserList';
 import { UserType } from '../../AppTypes';
-import { Preloader } from '../../components/Preloader/Preloader';
 
 type ComponentPropsType = {
 	totalCount: number

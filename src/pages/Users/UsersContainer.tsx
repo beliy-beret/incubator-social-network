@@ -1,11 +1,7 @@
 import { connect } from 'react-redux';
-import {
-	setCurrentPageAC,
-	setTotalCountAC,
-	setUsersAC,
-	toggleFollowAC, toggleIsLoadingAC,
-} from '../../redux/actions/actions';
 import { UserType } from '../../AppTypes';
+import { toggleIsLoadingAC } from '../../redux/actions/appActions';
+import { setCurrentPageAC, setTotalCountAC, setUsersAC, toggleFollowAC } from '../../redux/actions/userPageActions';
 import { RootStateType } from '../../redux/_store';
 import { UsersApiContainer } from './UsersApiContainer';
 

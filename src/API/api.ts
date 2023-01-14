@@ -1,3 +1,4 @@
+import { UserProfileType } from './../AppTypes';
 import axios from 'axios';
 import {UserType} from '../AppTypes';
 
@@ -30,5 +31,15 @@ export const getUserList = async (
 	}
 	catch (error) {
 		console.error(error);
+	}
+};
+
+export const getUserProfile = async (userId: number) => {
+	try {
+		const response = await instance.get<UserProfileType>(`profile/${userId}`);
+		return response.data;
+	}
+	catch(e) {
+		console.error(e);		
 	}
 };

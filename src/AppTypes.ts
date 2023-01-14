@@ -27,3 +27,15 @@ export type UserType = {
   status: string | null
   followed: boolean
 }
+
+export type ContactsType = {[key:string]: string | null}
+
+export type UserProfileType = {
+  'aboutMe': string
+  'contacts': ContactsType
+  'lookingForAJob': boolean
+  'lookingForAJobDescription': string
+  'fullName': string
+  'userId': number
+  'photos': PhotoType
+}

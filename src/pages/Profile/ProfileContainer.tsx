@@ -1,20 +1,25 @@
 import { Profile } from './Profile';
 import { connect } from 'react-redux';
 import { RootStateType } from '../../redux/_store';
-import { addPostAC } from '../../redux/actions/actions';
-import { PostType } from '../../AppTypes';
+import { PostType, UserProfileType } from '../../AppTypes';
+import { addPostAC, setUserProfileAC } from '../../redux/actions/profilePageActions';
+import { toggleIsLoadingAC } from '../../redux/actions/appActions';
 
 type PropType = {
 	postList: Array<PostType>
+	userProfile: UserProfileType
+	isLoading: boolean
 }
 
+export type ProfilePageConnectType = PropType & typeof mapDispatch
+
 const mapState = (state: RootStateType): PropType => (
-	{
-		postList: state.profilePage.postList
-	}
+	{ ...state.profilePage }
 );
 const mapDispatch = {
-	addPost: (text: string) => addPostAC(text)
+	addPost: (text: string) => addPostAC(text),
+	setUserProfile: (userProfile: UserProfileType) => setUserProfileAC(userProfile),
+	toggleIsLoading: (isLoading: boolean) => toggleIsLoadingAC(isLoading)
 };
 
 export const ProfileContainer = connect(mapState, mapDispatch)(Profile);

@@ -1,4 +1,4 @@
-import {ActionTypes} from '../actions/actions';
+import {ActionTypes} from '../actions/appActions';
 import {UserType} from '../../AppTypes';
 
 type InitialStateType = {
