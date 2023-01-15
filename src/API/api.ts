@@ -1,26 +1,63 @@
-import { UserProfileType } from './../AppTypes';
+import { UserProfileType, AuthDataType } from './../AppTypes';
 import axios from 'axios';
-import {UserType} from '../AppTypes';
+import { UserType } from '../AppTypes';
+
+type ResponseType = {
+	resultCode: number
+	messages: Array<string>
+}
+
+type GetUsersType = {
+	items: Array<UserType>
+	totalCount: number
+	error: string
+}
+
+type AuthResponseType = ResponseType & {
+	data: AuthDataType
+}
 
 const instance = axios.create({
 	withCredentials: true,
 	baseURL: 'https://social-network.samuraijs.com/api/1.0/',
-	headers: {'API-KEY': '7b1d643a-2777-4a5a-b415-e4c34c5cc44f'}
+	headers: { 'API-KEY': '7b1d643a-2777-4a5a-b415-e4c34c5cc44f' }
 });
 
-type GetUsersResponseType = {
-  items: Array<UserType>
-  totalCount: number
-  error: string
-}
+export const checkIsAuth = async () => {
+	try {
+		const resp = await instance.get<AuthResponseType>('auth/me');
+		return resp.data;
+	}
+	catch (e) {
+		console.error(e);
+
+	}
+};
+
+export const signIn = async (
+	email: string,
+	password: string,
+	rememberMe = false,
+	captcha = false
+) => {
+	try {
+		const resp = await instance.post('auth/login',
+			{ email, password, rememberMe, captcha });
+		return resp.data;
+	}
+	catch (e) {
+		console.error(e);
+
+	}
+};
 
 export const getUserList = async (
 	pageNumber: number,
 	friend = false,
 	userName: string | null = null
 ) => {
-	try{
-		const resp = await instance.get<GetUsersResponseType>('users', {
+	try {
+		const resp = await instance.get<GetUsersType>('users', {
 			params: {
 				page: pageNumber,
 				friend: friend,
@@ -39,7 +76,7 @@ export const getUserProfile = async (userId: number) => {
 		const response = await instance.get<UserProfileType>(`profile/${userId}`);
 		return response.data;
 	}
-	catch(e) {
-		console.error(e);		
+	catch (e) {
+		console.error(e);
 	}
 };

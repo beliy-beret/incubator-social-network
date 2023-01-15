@@ -16,7 +16,7 @@ const InitialState: InitialStateType = {
 		fullName: '',
 		lookingForAJob: false,
 		lookingForAJobDescription: '',
-		userId: 0,
+		userId: null,
 		contacts: {},
 		photos: {
 			small: '',

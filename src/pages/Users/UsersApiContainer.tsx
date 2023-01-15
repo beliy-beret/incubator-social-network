@@ -39,7 +39,6 @@ export class UsersApiContainer extends Component<ComponentPropsType> {
 					setCurrentPage={this.props.setCurrentPage}
 					userList={this.props.userList}
 					toggleFollow={this.props.toggleFollow}
-					isLoading={this.props.isLoading}
 				/>
 			</>
 		);

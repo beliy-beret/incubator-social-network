@@ -7,29 +7,33 @@ import { UserType } from '../../AppTypes';
 type ComponentPropsType = {
 	totalCount: number
 	currentPage: number
-	isLoading: boolean
 	setCurrentPage: (page: number) => void
 	userList: Array<UserType>
 	toggleFollow: (userId: number, status: boolean) => void
 };
 
-export const UserPage: FC<ComponentPropsType> = (props) => {
+export const UserPage: FC<ComponentPropsType> = (
+	{
+		currentPage, setCurrentPage,
+		toggleFollow, totalCount, userList
+	}
+) => {
 	return (
 		<>
 			<Row justify={'center'}>
 				<Col span={20}>
 					<MyPagination
-						totalCount={props.totalCount}
+						totalCount={totalCount}
 						pageSize={10}
-						currentPage={props.currentPage}
-						changePageNumber={props.setCurrentPage}
+						currentPage={currentPage}
+						changePageNumber={setCurrentPage}
 					/>
 				</Col>
 			</Row>
 			<Divider />
 			<Row justify={'center'}>
 				<Col span={23}>
-					<UserList userList={props.userList} toggleFollow={props.toggleFollow} />
+					<UserList userList={userList} toggleFollow={toggleFollow} />
 				</Col>
 			</Row>
 		</>

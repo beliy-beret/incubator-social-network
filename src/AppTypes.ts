@@ -36,6 +36,12 @@ export type UserProfileType = {
   'lookingForAJob': boolean
   'lookingForAJobDescription': string
   'fullName': string
-  'userId': number
+  'userId': number | null
   'photos': PhotoType
+}
+
+export type AuthDataType = {
+  id: number | null
+  email: string
+  login: string
 }
