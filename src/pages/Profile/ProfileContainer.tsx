@@ -4,6 +4,7 @@ import { RootStateType } from '../../redux/_store';
 import { PostType, UserProfileType } from '../../AppTypes';
 import { addPostAC, setUserProfileAC } from '../../redux/actions/profilePageActions';
 import { toggleIsLoadingAC } from '../../redux/actions/appActions';
+import { withRouter, RouteComponentProps } from 'react-router-dom';
 
 type PropType = {
 	postList: Array<PostType>
@@ -11,7 +12,7 @@ type PropType = {
 	isLoading: boolean
 }
 
-export type ProfilePageConnectType = PropType & typeof mapDispatch
+export type ProfilePageConnectType = PropType & typeof mapDispatch & RouteComponentProps<{ id: string }>
 
 const mapState = (state: RootStateType): PropType => (
 	{ ...state.profilePage }
@@ -22,4 +23,4 @@ const mapDispatch = {
 	toggleIsLoading: (isLoading: boolean) => toggleIsLoadingAC(isLoading)
 };
 
-export const ProfileContainer = connect(mapState, mapDispatch)(Profile);
+export const ProfileContainer = withRouter(connect(mapState, mapDispatch)(Profile));

@@ -14,8 +14,9 @@ type ComponentPropsType = ProfilePageConnectType
 export class Profile extends Component<ComponentPropsType> {
 
 	componentDidMount() {
+		const id = Number(this.props.match.params.id) || 2;
 		this.props.toggleIsLoading(true);
-		getUserProfile(2).
+		getUserProfile(id).
 			then((data) => {
 				this.props.setUserProfile(data!);
 				setTimeout(() => this.props.toggleIsLoading(false), 300);
@@ -24,28 +25,29 @@ export class Profile extends Component<ComponentPropsType> {
 	}
 
 	render() {
+		const { userProfile, postList, isLoading, addPost } = this.props;
 		return (
 			<section>
-				{this.props.isLoading && <Preloader />}
+				{isLoading && <Preloader />}
 				<Row gutter={15}>
 					<Col>
-						<UserAva src={this.props.userProfile.photos.large} />
+						<UserAva src={userProfile.photos.large} />
 						<Divider>Subscriptions</Divider>
 						<Subscriptions />
 					</Col>
 					<Col>
-						<UserInfo userData={this.props.userProfile} />
+						<UserInfo userData={userProfile} />
 					</Col>
 				</Row>
 				<Divider />
 				<Row>
 					<Col span={24}>
-						<PostForm addNewPost={this.props.addPost} />
+						<PostForm addNewPost={addPost} />
 					</Col>
 				</Row>
 				<Divider />
 				<Row>
-					{this.props.postList && <UserPosts postList={this.props.postList} />}
+					{postList && <UserPosts postList={postList} />}
 				</Row>
 			</section>
 		);
