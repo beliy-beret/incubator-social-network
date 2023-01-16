@@ -27,9 +27,7 @@ export type UserType = {
   status: string | null
   followed: boolean
 }
-
 export type ContactsType = {[key:string]: string | null}
-
 export type UserProfileType = {
   'aboutMe': string
   'contacts': ContactsType
@@ -39,9 +37,14 @@ export type UserProfileType = {
   'userId': number | null
   'photos': PhotoType
 }
-
 export type AuthDataType = {
   id: number | null
   email: string
   login: string
+}
+
+export enum ResponseStatus {
+  'SUCCESS' = 0,
+  'ERROR' = 1,
+  'CAPTCHA-REQUIRE' = 10
 }

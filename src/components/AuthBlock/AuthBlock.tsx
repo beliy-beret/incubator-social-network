@@ -1,7 +1,7 @@
 import { Component } from 'react';
 import { connect } from 'react-redux';
 import { checkIsAuth } from '../../API/api';
-import { AuthDataType } from '../../AppTypes';
+import { AuthDataType, ResponseStatus } from '../../AppTypes';
 import { setAuthDataAC } from '../../redux/actions/authActions';
 import { RootStateType } from '../../redux/_store';
 import { MyLoadingButton } from '../MyLoadingButton/MyLoadingButton';
@@ -23,11 +23,10 @@ export class AuthBlock extends Component<ComponentPropsType> {
 
   componentDidMount() {
     checkIsAuth().then(resp => {
-      if (resp?.resultCode === 0) {
+      if (resp?.resultCode === ResponseStatus.SUCCESS) {
         this.props.setAuthData(resp.data);
       }
-    });
-
+    }).catch(e => console.error(e));
   }
 
   render() {

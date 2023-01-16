@@ -7,12 +7,12 @@ import { Link } from 'react-router-dom';
 
 type ComponentPropsType = {
 	user: UserType
-	onClickSubscribeButton: (userId: number, status: boolean) => void
+	onClickSubscribeButton: (userId: number) => void
 };
 
 export const User: FC<ComponentPropsType> = ({ user, onClickSubscribeButton }) => {
 	const subscribeButtonHandle = () => {
-		onClickSubscribeButton(user.id, !user.followed);
+		onClickSubscribeButton(user.id);
 	};
 	return (
 		<div className={style.user}>

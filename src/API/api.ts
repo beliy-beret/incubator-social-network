@@ -13,9 +13,17 @@ type GetUsersType = {
 	error: string
 }
 
-type AuthResponseType = ResponseType & {
+type GetAuthDataResponseType = ResponseType & {
 	data: AuthDataType
 }
+
+type SignInResponseType = ResponseType & {
+	data: {
+		userId: number
+	}
+}
+
+
 
 const instance = axios.create({
 	withCredentials: true,
@@ -25,7 +33,7 @@ const instance = axios.create({
 
 export const checkIsAuth = async () => {
 	try {
-		const resp = await instance.get<AuthResponseType>('auth/me');
+		const resp = await instance.get<GetAuthDataResponseType>('auth/me');
 		return resp.data;
 	}
 	catch (e) {
@@ -41,7 +49,7 @@ export const signIn = async (
 	captcha = false
 ) => {
 	try {
-		const resp = await instance.post('auth/login',
+		const resp = await instance.post<SignInResponseType>('auth/login',
 			{ email, password, rememberMe, captcha });
 		return resp.data;
 	}
@@ -53,8 +61,8 @@ export const signIn = async (
 
 export const getUserList = async (
 	pageNumber: number,
-	friend = false,
-	userName: string | null = null
+	friend?: boolean,
+	userName?: string
 ) => {
 	try {
 		const resp = await instance.get<GetUsersType>('users', {
@@ -78,5 +86,27 @@ export const getUserProfile = async (userId: number) => {
 	}
 	catch (e) {
 		console.error(e);
+	}
+};
+
+export const subscribe = async (userId:number) => {
+	try{
+		const resp = await instance.post<ResponseType>(`follow/${userId}`);
+		return resp.data;
+	}
+	catch(e){
+		console.error(e);
+		
+	}
+};
+
+export const unsubscribe = async (userId: number) => {
+	try{
+		const resp = await instance.delete<ResponseType>(`follow/${userId}`);
+		return resp.data;
+	}
+	catch(e){
+		console.error(e);
+		
 	}
 };

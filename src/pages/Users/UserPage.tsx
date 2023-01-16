@@ -9,13 +9,13 @@ type ComponentPropsType = {
 	currentPage: number
 	setCurrentPage: (page: number) => void
 	userList: Array<UserType>
-	toggleFollow: (userId: number, status: boolean) => void
+	toggleSubscription: (userId: number) => void
 };
 
 export const UserPage: FC<ComponentPropsType> = (
 	{
 		currentPage, setCurrentPage,
-		toggleFollow, totalCount, userList
+		toggleSubscription, totalCount, userList
 	}
 ) => {
 	return (
@@ -33,7 +33,7 @@ export const UserPage: FC<ComponentPropsType> = (
 			<Divider />
 			<Row justify={'center'}>
 				<Col span={23}>
-					<UserList userList={userList} toggleFollow={toggleFollow} />
+					<UserList userList={userList} toggleSubscription={toggleSubscription} />
 				</Col>
 			</Row>
 		</>

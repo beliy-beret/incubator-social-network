@@ -1,14 +1,14 @@
-import {FC} from 'react';
-import {User} from '../User/User';
-import {UserType} from '../../../AppTypes';
+import { FC } from 'react';
+import { User } from '../User/User';
+import { UserType } from '../../../AppTypes';
 
 type ComponentPropsType = {
-  userList: Array<UserType>
-  toggleFollow: (userId: number, status: boolean) => void
+	userList: Array<UserType>
+	toggleSubscription: (userId: number) => void
 }
 
-export const UserList: FC<ComponentPropsType> = ({userList, toggleFollow}) => (
+export const UserList: FC<ComponentPropsType> = ({ userList, toggleSubscription }) => (
 	<>
-		{userList.map(item => (<User key={item.id} user={item} onClickSubscribeButton={toggleFollow}/>))}
+		{userList.map(item => (<User key={item.id} user={item} onClickSubscribeButton={toggleSubscription} />))}
 	</>
 );
