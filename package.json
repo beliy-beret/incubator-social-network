@@ -53,6 +53,17 @@
       "last 1 safari version"
     ]
   },
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged"
+    }
+  },
+  "lint-staged": {
+    "*.(js|jsx|ts|tsx)": [
+      "npm run lint:write",
+      "git add"
+    ]
+  },
   "devDependencies": {
     "@types/node": "16.7.13",
     "@types/react": "^18.0.26",
@@ -68,6 +79,7 @@
     "eslint-config-prettier": "^8.6.0",
     "eslint-plugin-prettier": "^4.2.1",
     "eslint-plugin-react": "^7.32.0",
+    "husky": "^8.0.3",
     "prettier": "2.8.3"
   }
 }
