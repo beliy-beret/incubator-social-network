@@ -1,5 +1,5 @@
-import {ActionTypes} from '../actions/appActions';
-import {UserType} from '../../AppTypes';
+import { ActionTypes } from '../actions/appActions'
+import { UserType } from '../../AppTypes'
 
 type InitialStateType = {
   userList: Array<UserType>
@@ -9,52 +9,52 @@ type InitialStateType = {
 }
 
 const InitialState: InitialStateType = {
-	userList: [],
-	totalCount: 1,
-	currentPage: 1,
-	isLoading: false
-};
+  userList: [],
+  totalCount: 1,
+  currentPage: 1,
+  isLoading: false,
+}
 
 export const usersReducer = (
-	state: InitialStateType = InitialState,
-	action: ActionTypes
+  state: InitialStateType = InitialState,
+  action: ActionTypes
 ) => {
-	switch (action.type) {
-	case 'SET-USERS':
-		return {
-			...state,
-			userList: [...action.payload]
-		};
-	case 'SET-TOTAL-COUNT':
-		return {
-			...state,
-			totalCount: action.payload
-		};
-	case 'SET-CURRENT-PAGE':
-		return {
-			...state,
-			currentPage: action.payload
-		};
-	case 'TOGGLE-FOLLOW':
-		return {
-			...state,
-			userList: state.userList.map((user) => {
-				if (user.id === action.payload.userId) {
-					return {
-						...user,
-						followed: action.payload.status
-					};
-				} else {
-					return user;
-				}
-			})
-		};
-	case 'TOGGLE-IS-LOADING':
-		return{
-			...state,
-			isLoading: action.payload	
-		};
-	default:
-		return state;
-	}
-};
+  switch (action.type) {
+    case 'SET-USERS':
+      return {
+        ...state,
+        userList: [...action.payload],
+      }
+    case 'SET-TOTAL-COUNT':
+      return {
+        ...state,
+        totalCount: action.payload,
+      }
+    case 'SET-CURRENT-PAGE':
+      return {
+        ...state,
+        currentPage: action.payload,
+      }
+    case 'TOGGLE-FOLLOW':
+      return {
+        ...state,
+        userList: state.userList.map((user) => {
+          if (user.id === action.payload.userId) {
+            return {
+              ...user,
+              followed: action.payload.status,
+            }
+          } else {
+            return user
+          }
+        }),
+      }
+    case 'TOGGLE-IS-LOADING':
+      return {
+        ...state,
+        isLoading: action.payload,
+      }
+    default:
+      return state
+  }
+}

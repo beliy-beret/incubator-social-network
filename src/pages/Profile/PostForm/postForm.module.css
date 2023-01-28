@@ -1,5 +1,5 @@
-.postForm{
-    display: flex;
-    flex-direction: column;
-    align-items: flex-end;
+.postForm {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
 }
