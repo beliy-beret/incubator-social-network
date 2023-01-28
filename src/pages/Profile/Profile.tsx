@@ -1,26 +1,20 @@
+import { Col, Divider, Row } from 'antd'
+
 import { Component } from 'react'
+import { PostForm } from './PostForm/PostForm'
+import { Preloader } from '../../components/Preloader/Preloader'
+import { ProfilePageConnectType } from './ProfileContainer'
+import { Subscriptions } from './Subscriptions/Subscriptions'
 import { UserAva } from './UserAva/UserAva'
 import { UserInfo } from './UserInfo/UserInfo'
 import { UserPosts } from './UserPosts/UserPosts'
-import { Col, Divider, Row } from 'antd'
-import { Subscriptions } from './Subscriptions/Subscriptions'
-import { PostForm } from './PostForm/PostForm'
-import { getUserProfile } from '../../API/api'
-import { ProfilePageConnectType } from './ProfileContainer'
-import { Preloader } from '../../components/Preloader/Preloader'
 
 type ComponentPropsType = ProfilePageConnectType
 
 export class Profile extends Component<ComponentPropsType> {
   componentDidMount() {
     const id = Number(this.props.match.params.id) || 2
-    this.props.toggleIsLoading(true)
-    getUserProfile(id)
-      .then((data) => {
-        this.props.setUserProfile(data!)
-        setTimeout(() => this.props.toggleIsLoading(false), 300)
-      })
-      .catch(() => this.props.toggleIsLoading(false))
+    this.props.setUserProfile(id)
   }
 
   render() {
