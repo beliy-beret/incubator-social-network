@@ -48,3 +48,10 @@ export enum ResponseStatus {
   'ERROR' = 1,
   'CAPTCHA-REQUIRE' = 10,
 }
+
+export type AuthFormDataType = {
+  email: string
+  password: string
+  rememberMe: boolean
+  captcha: boolean
+}

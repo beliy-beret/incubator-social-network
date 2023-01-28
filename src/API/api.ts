@@ -1,6 +1,7 @@
-import { UserProfileType, AuthDataType } from './../AppTypes'
-import axios from 'axios'
+import { AuthDataType, AuthFormDataType, UserProfileType } from './../AppTypes'
+
 import { UserType } from '../AppTypes'
+import axios from 'axios'
 
 type ResponseType = {
   resultCode: number
@@ -38,19 +39,20 @@ export const checkIsAuth = async () => {
   }
 }
 
-export const signIn = async (
-  email: string,
-  password: string,
-  rememberMe = false,
-  captcha = false
-) => {
+export const signIn = async (formData: AuthFormDataType) => {
   try {
     const resp = await instance.post<SignInResponseType>('auth/login', {
-      email,
-      password,
-      rememberMe,
-      captcha,
+      ...formData,
     })
+    return resp.data
+  } catch (e) {
+    console.error(e)
+  }
+}
+
+export const signOut = async () => {
+  try {
+    const resp = await instance.delete<ResponseType>('auth/login')
     return resp.data
   } catch (e) {
     console.error(e)
