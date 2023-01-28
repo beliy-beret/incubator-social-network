@@ -1,6 +1,6 @@
-import { UserProfileType } from './../../AppTypes'
 import { ActionTypes } from './../actions/appActions'
 import { PostType } from '../../AppTypes'
+import { UserProfileType } from './../../AppTypes'
 import { v1 } from 'uuid'
 
 type InitialStateType = {

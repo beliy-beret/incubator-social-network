@@ -7,7 +7,7 @@ import { Home } from './pages/Home/Home'
 import { Layout } from 'antd'
 import { Navigation } from './components/Layout/Navigation/Navigation'
 import { ProfileContainer } from './pages/Profile/ProfileContainer'
-import { UsersContainer } from './pages/Users/UsersContainer'
+import { UsersConnect } from './pages/Users/UsersConnect'
 
 const { Header, Footer, Sider, Content } = Layout
 
@@ -33,7 +33,7 @@ export const App: FC = () => {
             <Route exact={true} path={'/'} component={Home} />
             <Route path={'/profile/:id?'} component={ProfileContainer} />
             <Route path={'/dialogs'} component={DialogsContainer} />
-            <Route path={'/users'} component={UsersContainer} />
+            <Route path={'/users'} component={UsersConnect} />
           </Switch>
         </Content>
       </Layout>

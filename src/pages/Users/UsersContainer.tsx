@@ -1,40 +1,42 @@
-import { connect } from 'react-redux'
-import { UserType } from '../../AppTypes'
-import { toggleIsLoadingAC } from '../../redux/actions/appActions'
-import {
-  setCurrentPageAC,
-  setTotalCountAC,
-  setUsersAC,
-  toggleFollowAC,
-} from '../../redux/actions/userPageActions'
-import { RootStateType } from '../../redux/_store'
-import { UsersApiContainer } from './UsersApiContainer'
+import { Component } from 'react'
+import { Preloader } from '../../components/Preloader/Preloader'
+import { UserConnectType } from './UsersConnect'
+import { UserPage } from './UserPage'
 
-type StatePropsType = {
-  userList: Array<UserType>
-  currentPage: number
-  totalCount: number
-  isLoading: boolean
+type ComponentPropsType = UserConnectType
+
+export class UsersContainer extends Component<ComponentPropsType> {
+  getUsers = () => this.props.getUserList(this.props.currentPage)
+
+  toggleSubscription = (userId: number) => {
+    const user = this.props.userList.find((item) => item.id === userId)
+    user?.followed
+      ? this.props.unsubscribeUser(userId)
+      : this.props.subscribeToUser(userId)
+  }
+
+  componentDidMount() {
+    this.getUsers()
+  }
+
+  componentDidUpdate(prevProps: Readonly<ComponentPropsType>) {
+    if (prevProps.currentPage !== this.props.currentPage) {
+      this.getUsers()
+    }
+  }
+
+  render() {
+    return (
+      <>
+        {this.props.isLoading && <Preloader />}
+        <UserPage
+          totalCount={this.props.totalCount}
+          currentPage={this.props.currentPage}
+          setCurrentPage={this.props.setCurrentPage}
+          userList={this.props.userList}
+          toggleSubscription={this.toggleSubscription}
+        />
+      </>
+    )
+  }
 }
-
-type DispatchPropsType = typeof mapDispatch
-
-export type UserConnectType = StatePropsType & DispatchPropsType
-
-const mapState = (state: RootStateType): StatePropsType => ({
-  userList: state.usersPage.userList,
-  totalCount: state.usersPage.totalCount,
-  currentPage: state.usersPage.currentPage,
-  isLoading: state.usersPage.isLoading,
-})
-
-const mapDispatch = {
-  toggleFollow: (userId: number, status: boolean) =>
-    toggleFollowAC(userId, status),
-  setUsers: (userList: Array<UserType>) => setUsersAC(userList),
-  setCurrentPage: (page: number) => setCurrentPageAC(page),
-  setTotalCount: (count: number) => setTotalCountAC(count),
-  toggleIsLoading: (isLoading: boolean) => toggleIsLoadingAC(isLoading),
-}
-
-export const UsersContainer = connect(mapState, mapDispatch)(UsersApiContainer)
