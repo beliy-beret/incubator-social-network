@@ -8,18 +8,16 @@ import { withAuthRedirect } from '../../HOC/WithAuthRedirect'
 
 type PropType = {
   dialogs: DialogsType
-  isAuth: boolean
 }
 
 const mapState = (state: RootStateType): PropType => ({
   dialogs: state.dialogsPage.dialogs,
-  isAuth: state.auth.isAuth,
 })
 
 const mapDispatch = {
   createMessage: (newMessage: NewMessageType) => createMessageAC(newMessage),
 }
 
-const withAuth = withAuthRedirect(Dialogs)
-
-export const DialogsContainer = connect(mapState, mapDispatch)(withAuth)
+export const DialogsContainer = withAuthRedirect(
+  connect(mapState, mapDispatch)(Dialogs)
+)

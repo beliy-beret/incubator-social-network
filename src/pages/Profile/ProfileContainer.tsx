@@ -12,7 +12,6 @@ type PropType = {
   postList: Array<PostType>
   userProfile: UserProfileType
   isLoading: boolean
-  isAuth: boolean
 }
 
 type MapDispatchType = {
@@ -26,15 +25,14 @@ export type ProfilePageConnectType = PropType &
 
 const mapState = (state: RootStateType): PropType => ({
   ...state.profilePage,
-  isAuth: state.auth.isAuth,
 })
 const mapDispatch = {
   addPost: (text: string) => addPostAC(text),
   setUserProfile: (userId: number) => setUserProfileThunk(userId),
 }
 
-const withAuth = withAuthRedirect(Profile)
+//const withAuth = withAuthRedirect(Profile)
 
-export const ProfileContainer = withRouter(
-  connect(mapState, mapDispatch)(withAuth)
+export const ProfileContainer = withAuthRedirect(
+  withRouter(connect(mapState, mapDispatch)(Profile))
 )
