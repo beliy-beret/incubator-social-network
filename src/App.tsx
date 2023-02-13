@@ -1,6 +1,7 @@
 import { Route, Switch } from 'react-router-dom'
 
 import { AppBar } from './components/Layout/AppBar/AppBar'
+import { AuthForm } from './pages/Auth/AuthForm'
 import { DialogsContainer } from './pages/Dialogs/DialogsContainer'
 import { FC } from 'react'
 import { Home } from './pages/Home/Home'
@@ -34,6 +35,7 @@ export const App: FC = () => {
             <Route path={'/profile/:id?'} component={ProfileContainer} />
             <Route path={'/dialogs'} component={DialogsContainer} />
             <Route path={'/users'} component={UsersConnect} />
+            <Route path={'/login'} component={AuthForm} />
           </Switch>
         </Content>
       </Layout>

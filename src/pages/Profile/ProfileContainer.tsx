@@ -6,11 +6,13 @@ import { RootStateType } from '../../redux/_store'
 import { addPostAC } from '../../redux/actions/profilePageActions'
 import { connect } from 'react-redux'
 import { setUserProfileThunk } from '../../redux/thunks/profileThunk'
+import { withAuthRedirect } from '../../HOC/WithAuthRedirect'
 
 type PropType = {
   postList: Array<PostType>
   userProfile: UserProfileType
   isLoading: boolean
+  isAuth: boolean
 }
 
 type MapDispatchType = {
@@ -22,12 +24,17 @@ export type ProfilePageConnectType = PropType &
   MapDispatchType &
   RouteComponentProps<{ id: string }>
 
-const mapState = (state: RootStateType): PropType => ({ ...state.profilePage })
+const mapState = (state: RootStateType): PropType => ({
+  ...state.profilePage,
+  isAuth: state.auth.isAuth,
+})
 const mapDispatch = {
   addPost: (text: string) => addPostAC(text),
   setUserProfile: (userId: number) => setUserProfileThunk(userId),
 }
 
+const withAuth = withAuthRedirect(Profile)
+
 export const ProfileContainer = withRouter(
-  connect(mapState, mapDispatch)(Profile)
+  connect(mapState, mapDispatch)(withAuth)
 )
