@@ -1,9 +1,11 @@
 import { PostType, UserProfileType } from '../../AppTypes'
 import { RouteComponentProps, withRouter } from 'react-router-dom'
 
+import { FC } from 'react'
 import { Profile } from './Profile'
 import { RootStateType } from '../../redux/_store'
 import { addPostAC } from '../../redux/actions/profilePageActions'
+import { compose } from 'redux'
 import { connect } from 'react-redux'
 import { setUserProfileThunk } from '../../redux/thunks/profileThunk'
 import { withAuthRedirect } from '../../HOC/WithAuthRedirect'
@@ -31,8 +33,8 @@ const mapDispatch = {
   setUserProfile: (userId: number) => setUserProfileThunk(userId),
 }
 
-//const withAuth = withAuthRedirect(Profile)
-
-export const ProfileContainer = withAuthRedirect(
-  withRouter(connect(mapState, mapDispatch)(Profile))
-)
+export const ProfileContainer = compose<FC>(
+  connect(mapState, mapDispatch),
+  withRouter,
+  withAuthRedirect
+)(Profile)

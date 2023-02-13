@@ -1,7 +1,9 @@
 import { DialogsType, NewMessageType } from '../../AppTypes'
 
 import { Dialogs } from './Dialogs'
+import { FC } from 'react'
 import { RootStateType } from '../../redux/_store'
+import { compose } from 'redux'
 import { connect } from 'react-redux'
 import { createMessageAC } from '../../redux/actions/dialogsPageActions'
 import { withAuthRedirect } from '../../HOC/WithAuthRedirect'
@@ -18,6 +20,7 @@ const mapDispatch = {
   createMessage: (newMessage: NewMessageType) => createMessageAC(newMessage),
 }
 
-export const DialogsContainer = withAuthRedirect(
-  connect(mapState, mapDispatch)(Dialogs)
-)
+export const DialogsContainer = compose<FC>(
+  connect(mapState, mapDispatch),
+  withAuthRedirect
+)(Dialogs)
