@@ -116,10 +116,9 @@ export const getProfileStatus = async (userId: number) => {
 
 export const changeProfileStatus = async (status: string) => {
   try {
-    const resp = await instance.put<ResponseType>(`profile/status`, {
+    return await instance.put<ResponseType>(`profile/status`, {
       status,
     })
-    return resp.data
   } catch (e) {
     console.error(e)
   }

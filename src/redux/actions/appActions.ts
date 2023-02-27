@@ -1,12 +1,17 @@
+import {
+  AddPostActionType,
+  SetProfileStatusType,
+  SetUserProfileType,
+} from './profilePageActions'
 import { DeleteAuthDataActionType, SetAuthDataActionType } from './authActions'
 import {
-  ToggleFollowActionType,
-  SetUsersActionsType,
   SetCurrentPageActionType,
   SetTotalCountActionType,
+  SetUsersActionsType,
+  ToggleFollowActionType,
 } from './userPageActions'
+
 import { CreateMessageActionType } from './dialogsPageActions'
-import { AddPostActionType, SetUserProfileType } from './profilePageActions'
 
 export type ActionTypes =
   | AddPostActionType
@@ -19,6 +24,7 @@ export type ActionTypes =
   | SetUserProfileType
   | SetAuthDataActionType
   | DeleteAuthDataActionType
+  | SetProfileStatusType
 
 export type ToggleIsLoadingActionType = {
   type: 'TOGGLE-IS-LOADING'

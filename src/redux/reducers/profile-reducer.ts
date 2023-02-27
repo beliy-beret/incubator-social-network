@@ -6,6 +6,7 @@ import { v1 } from 'uuid'
 type InitialStateType = {
   postList: Array<PostType>
   userProfile: UserProfileType
+  status: string
   isLoading: boolean
 }
 
@@ -33,6 +34,7 @@ const InitialState: InitialStateType = {
         ' secur, tempore voluptuous!',
     },
   ],
+  status: '',
 }
 
 export const profileReducer = (
@@ -59,6 +61,11 @@ export const profileReducer = (
       return {
         ...state,
         userProfile: { ...action.payload },
+      }
+    case 'SET-PROFILE-STATUS':
+      return {
+        ...state,
+        status: action.payload,
       }
     default:
       return state
