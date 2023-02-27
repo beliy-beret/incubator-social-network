@@ -104,3 +104,23 @@ export const unsubscribe = async (userId: number) => {
     console.error(e)
   }
 }
+
+export const getProfileStatus = async (userId: number) => {
+  try {
+    const resp = await instance.get<string>(`profile/status/${userId}`)
+    return resp.data
+  } catch (e) {
+    console.error(e)
+  }
+}
+
+export const changeProfileStatus = async (status: string) => {
+  try {
+    const resp = await instance.put<ResponseType>(`profile/status`, {
+      status,
+    })
+    return resp.data
+  } catch (e) {
+    console.error(e)
+  }
+}
