@@ -11,9 +11,11 @@ import { setUserProfileThunk } from '../../redux/thunks/profileThunk'
 import { withAuthRedirect } from '../../HOC/WithAuthRedirect'
 
 type PropType = {
+  authUserId: number
   postList: Array<PostType>
   userProfile: UserProfileType
   isLoading: boolean
+  status: string
 }
 
 type MapDispatchType = {
@@ -27,6 +29,7 @@ export type ProfilePageConnectType = PropType &
 
 const mapState = (state: RootStateType): PropType => ({
   ...state.profilePage,
+  authUserId: state.auth.authData.id!,
 })
 const mapDispatch = {
   addPost: (text: string) => addPostAC(text),

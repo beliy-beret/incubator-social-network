@@ -7,6 +7,7 @@ const { Title } = Typography
 
 type ComponentPropsType = {
   userData: UserProfileType
+  profileStatus: string
 }
 
 export const UserInfo: FC<ComponentPropsType> = ({ userData }) => {
@@ -15,7 +16,7 @@ export const UserInfo: FC<ComponentPropsType> = ({ userData }) => {
       <Title level={2} italic={true} underline={true}>
         {userData.fullName}
       </Title>
-      <Status userId={userData.userId as number} />
+      <Status />
       <p>{userData.aboutMe}</p>
       {userData.lookingForAJob && <span>I`m looking for a job</span>}
       {userData.lookingForAJob && userData.lookingForAJobDescription && (

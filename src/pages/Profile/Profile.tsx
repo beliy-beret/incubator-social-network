@@ -4,7 +4,6 @@ import { Component } from 'react'
 import { PostForm } from './PostForm/PostForm'
 import { Preloader } from '../../components/Preloader/Preloader'
 import { ProfilePageConnectType } from './ProfileContainer'
-import { Status } from './Status/Status'
 import { Subscriptions } from './Subscriptions/Subscriptions'
 import { UserAva } from './UserAva/UserAva'
 import { UserInfo } from './UserInfo/UserInfo'
@@ -14,12 +13,12 @@ type ComponentPropsType = ProfilePageConnectType
 
 export class Profile extends Component<ComponentPropsType> {
   componentDidMount() {
-    const id = Number(this.props.match.params.id) || 2
+    const id = Number(this.props.match.params.id) || this.props.authUserId!
     this.props.setUserProfile(id)
   }
 
   render() {
-    const { userProfile, postList, isLoading, addPost } = this.props
+    const { userProfile, postList, isLoading, addPost, status } = this.props
     return (
       <section>
         {isLoading && <Preloader />}
@@ -30,7 +29,7 @@ export class Profile extends Component<ComponentPropsType> {
             <Subscriptions />
           </Col>
           <Col>
-            <UserInfo userData={userProfile} />
+            <UserInfo userData={userProfile} profileStatus={status} />
           </Col>
         </Row>
         <Divider />
