@@ -53,5 +53,5 @@ export type AuthFormDataType = {
   email: string
   password: string
   rememberMe: boolean
-  captcha: boolean
+  captcha: string
 }

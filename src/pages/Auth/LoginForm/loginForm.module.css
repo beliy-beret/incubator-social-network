@@ -1,0 +1,22 @@
+.form{
+    max-width: 350px;
+    padding: 1rem;
+    border: 1px solid grey;
+    border-radius: 5px;
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    -ms-border-radius: 5px;
+    -o-border-radius: 5px;
+    box-shadow: 0 0 10px 2px grey;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 1rem;
+}
+.loginPage {
+    padding-left: 5%;
+    padding-top: 1rem;
+}
+.title {
+    padding-left: 10%;
+}

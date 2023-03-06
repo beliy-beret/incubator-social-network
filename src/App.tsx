@@ -1,7 +1,7 @@
 import { Route, Switch } from 'react-router-dom'
 
 import { AppBar } from './components/Layout/AppBar/AppBar'
-import { AuthForm } from './pages/Auth/AuthForm'
+import { AuthForm } from './pages/Auth/LoginForm/LoginForm'
 import { DialogsContainer } from './pages/Dialogs/DialogsContainer'
 import { FC } from 'react'
 import { Home } from './pages/Home/Home'
