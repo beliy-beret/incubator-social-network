@@ -4,18 +4,14 @@ import { AuthFormDataType } from '../../../AppTypes'
 import ErrorMessage from '../../../components/ErrorMessage/ErrorMessage'
 import { FC } from 'react'
 import classes from './loginForm.module.css'
-import { connect } from 'react-redux'
-import { signInThunk } from '../../../redux/thunks/authThunk'
 import { useFormik } from 'formik'
 import { validate } from './validate'
 
-type MapDispatchType = {
-  login: (formData: AuthFormDataType) => void
+type ComponentPropsType = {
+  submit: (formData: AuthFormDataType) => void
 }
 
-type ComponentPropsType = MapDispatchType
-
-const Form: FC<ComponentPropsType> = ({ login }) => {
+export const LoginForm: FC<ComponentPropsType> = ({ submit }) => {
   const formik = useFormik({
     initialValues: {
       email: '',
@@ -24,9 +20,7 @@ const Form: FC<ComponentPropsType> = ({ login }) => {
       captcha: '',
     },
     validate,
-    onSubmit: (values: AuthFormDataType) => {
-      login(values)
-    },
+    onSubmit: (values: AuthFormDataType) => submit(values),
   })
 
   return (
@@ -75,13 +69,3 @@ const Form: FC<ComponentPropsType> = ({ login }) => {
     </section>
   )
 }
-
-const mapState = () => {
-  return {}
-}
-
-const mapDispatch = {
-  login: (formData: AuthFormDataType) => signInThunk(formData),
-}
-
-export const AuthForm = connect(mapState, mapDispatch)(Form)

@@ -8,6 +8,7 @@ import { toggleIsLoadingAC } from '../actions/appActions'
 
 export const checkIsAuthThunk = () => {
   return (dispatch: DispatchType) => {
+    dispatch(toggleIsLoadingAC(true))
     checkIsAuth()
       .then((resp) => {
         if (resp?.resultCode === ResponseStatus.SUCCESS) {
@@ -15,6 +16,7 @@ export const checkIsAuthThunk = () => {
         }
       })
       .catch((e) => console.error(e))
+      .finally(() => dispatch(toggleIsLoadingAC(false)))
   }
 }
 
@@ -32,16 +34,23 @@ export const deleteAuthDataThunk = () => {
         console.error(e)
         dispatch(toggleIsLoadingAC(false))
       })
+      .finally(() => dispatch(toggleIsLoadingAC(false)))
   }
 }
 
 export const signInThunk = (formData: AuthFormDataType) => {
   return (dispatch: DispatchType) => {
     dispatch(toggleIsLoadingAC(true))
-    signIn(formData).then((data) => {
-      if (data?.resultCode === ResponseStatus.SUCCESS) {
-        checkIsAuthThunk()
-      }
-    })
+    signIn(formData)
+      .then((data) => {
+        if (data?.resultCode === ResponseStatus.SUCCESS) {
+          checkIsAuth().then((resp) => {
+            if (resp?.resultCode === ResponseStatus.SUCCESS) {
+              dispatch(setAuthDataAC(resp.data))
+            }
+          })
+        }
+      })
+      .finally(() => dispatch(toggleIsLoadingAC(false)))
   }
 }

@@ -1,11 +1,11 @@
 import { Route, Switch } from 'react-router-dom'
 
 import { AppBar } from './components/Layout/AppBar/AppBar'
-import { AuthForm } from './pages/Auth/LoginForm/LoginForm'
 import { DialogsContainer } from './pages/Dialogs/DialogsContainer'
 import { FC } from 'react'
 import { Home } from './pages/Home/Home'
 import { Layout } from 'antd'
+import { Login } from './pages/Auth/Login/Login'
 import { Navigation } from './components/Layout/Navigation/Navigation'
 import { ProfileContainer } from './pages/Profile/ProfileContainer'
 import { UsersConnect } from './pages/Users/UsersConnect'
@@ -35,7 +35,7 @@ export const App: FC = () => {
             <Route path={'/profile/:id?'} component={ProfileContainer} />
             <Route path={'/dialogs'} component={DialogsContainer} />
             <Route path={'/users'} component={UsersConnect} />
-            <Route path={'/login'} component={AuthForm} />
+            <Route path={'/login'} component={Login} />
           </Switch>
         </Content>
       </Layout>
