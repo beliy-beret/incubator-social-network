@@ -3,7 +3,12 @@ import {
   SetProfileStatusType,
   SetUserProfileType,
 } from './profilePageActions'
-import { DeleteAuthDataActionType, SetAuthDataActionType } from './authActions'
+import {
+  DeleteAuthDataActionType,
+  SetAuthDataActionType,
+  SetAuthErrorMessageType,
+  SetCaptchaUrlType,
+} from './authActions'
 import {
   SetCurrentPageActionType,
   SetTotalCountActionType,
@@ -25,6 +30,8 @@ export type ActionTypes =
   | SetAuthDataActionType
   | DeleteAuthDataActionType
   | SetProfileStatusType
+  | SetAuthErrorMessageType
+  | SetCaptchaUrlType
 
 export type ToggleIsLoadingActionType = {
   type: 'TOGGLE-IS-LOADING'

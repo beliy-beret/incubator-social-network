@@ -1,11 +1,13 @@
+import { Button, Space } from 'antd'
+
 import { Component } from 'react'
-import { MyLoadingButton } from '../MyLoadingButton/MyLoadingButton'
+import { Link } from 'react-router-dom'
 import { RootStateType } from '../../redux/_store'
-import { checkIsAuthThunk } from '../../redux/thunks/authThunk'
 import { connect } from 'react-redux'
+import { deleteAuthDataThunk } from '../../redux/thunks/authThunk'
 
 type MapDispatchType = {
-  checkIsAuth: () => void
+  signOut: () => void
 }
 
 type ComponentPropsType = ReturnType<typeof mapState> & MapDispatchType
@@ -17,22 +19,25 @@ const mapState = (state: RootStateType) => {
   }
 }
 const mapDispatch: MapDispatchType = {
-  checkIsAuth: () => checkIsAuthThunk(),
+  signOut: deleteAuthDataThunk,
 }
 
 export class AuthBlock extends Component<ComponentPropsType> {
-  componentDidMount() {
-    this.props.checkIsAuth()
-  }
-
   render() {
-    const { isAuth, authData } = this.props
+    const { isAuth, authData, signOut } = this.props
     return (
       <div>
         {isAuth ? (
-          <span>{authData.login}</span>
+          <Space>
+            <span>{authData.login}</span>
+            <Button type={'primary'} onClick={signOut}>
+              SignOut
+            </Button>
+          </Space>
         ) : (
-          <MyLoadingButton text='signIn' />
+          <Button type='primary'>
+            <Link to='login'>SignIn</Link>
+          </Button>
         )}
       </div>
     )

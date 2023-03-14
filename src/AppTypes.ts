@@ -46,7 +46,7 @@ export type AuthDataType = {
 export enum ResponseStatus {
   'SUCCESS' = 0,
   'ERROR' = 1,
-  'CAPTCHA-REQUIRE' = 10,
+  'CAPTCHA' = 10,
 }
 
 export type AuthFormDataType = {

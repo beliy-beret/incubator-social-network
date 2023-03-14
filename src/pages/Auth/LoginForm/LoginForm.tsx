@@ -1,4 +1,4 @@
-import { Checkbox, Input } from 'antd'
+import { Checkbox, Input, Space } from 'antd'
 
 import { AuthFormDataType } from '../../../AppTypes'
 import ErrorMessage from '../../../components/ErrorMessage/ErrorMessage'
@@ -9,9 +9,15 @@ import { validate } from './validate'
 
 type ComponentPropsType = {
   submit: (formData: AuthFormDataType) => void
+  submitErrorMessage: string
+  captchaUrl: string
 }
 
-export const LoginForm: FC<ComponentPropsType> = ({ submit }) => {
+export const LoginForm: FC<ComponentPropsType> = ({
+  submit,
+  submitErrorMessage,
+  captchaUrl,
+}) => {
   const formik = useFormik({
     initialValues: {
       email: '',
@@ -64,6 +70,22 @@ export const LoginForm: FC<ComponentPropsType> = ({ submit }) => {
           checked={formik.values.rememberMe}
           onChange={formik.handleChange}
         />
+        <ErrorMessage message={submitErrorMessage} />
+
+        {captchaUrl && (
+          <div>
+            <Space direction={'vertical'}>
+              <img src={captchaUrl} alt='secure captcha' />
+              <Input
+                name='captcha'
+                value={formik.values.captcha}
+                onChange={formik.handleChange}
+                placeholder={'Enter secure code'}
+              />
+            </Space>
+          </div>
+        )}
+
         <button type='submit'>Submit</button>
       </form>
     </section>

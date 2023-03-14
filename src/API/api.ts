@@ -50,6 +50,15 @@ export const signIn = async (formData: AuthFormDataType) => {
   }
 }
 
+export const getCaptcha = async () => {
+  try {
+    const res = await instance.get<{ url: string }>('security/get-captcha-url')
+    return res.data
+  } catch (e) {
+    console.error(e)
+  }
+}
+
 export const signOut = async () => {
   try {
     const resp = await instance.delete<ResponseType>('auth/login')
