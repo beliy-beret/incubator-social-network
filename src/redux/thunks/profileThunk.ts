@@ -1,13 +1,13 @@
 import { changeProfileStatus, getProfileStatus } from './../../API/api'
 
-import { DispatchType } from '../_store'
+import { AppThunkType } from './../_store'
 import { getUserProfile } from '../../API/api'
 import { setProfileStatusAC } from './../actions/profilePageActions'
 import { setUserProfileAC } from '../actions/profilePageActions'
 import { toggleIsLoadingAC } from '../actions/appActions'
 
-export const setUserProfileThunk = (userId: number) => {
-  return (dispatch: DispatchType) => {
+export const setUserProfileThunk = (userId: number): AppThunkType => {
+  return (dispatch) => {
     dispatch(toggleIsLoadingAC(true))
     getUserProfile(userId)
       .then((data) => {
@@ -19,8 +19,8 @@ export const setUserProfileThunk = (userId: number) => {
   }
 }
 
-export const setProfileStatusThunk = (userId: number) => {
-  return (dispatch: DispatchType) => {
+export const setProfileStatusThunk = (userId: number): AppThunkType => {
+  return (dispatch) => {
     dispatch(toggleIsLoadingAC(true))
     getProfileStatus(userId)
       .then((data) => dispatch(setProfileStatusAC(data!)))
@@ -29,8 +29,8 @@ export const setProfileStatusThunk = (userId: number) => {
   }
 }
 
-export const changeProfileStatusThunk = (status: string) => {
-  return (dispatch: DispatchType) => {
+export const changeProfileStatusThunk = (status: string): AppThunkType => {
+  return (dispatch) => {
     dispatch(toggleIsLoadingAC(true))
     changeProfileStatus(status)
       .then((data) => {

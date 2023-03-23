@@ -5,12 +5,12 @@ import {
   toggleFollowAC,
 } from '../actions/userPageActions'
 
-import { DispatchType } from './../_store'
+import { AppThunkType } from './../_store'
 import { ResponseStatus } from '../../AppTypes'
 import { toggleIsLoadingAC } from '../actions/appActions'
 
-export const getUsersThunk = (currentPage: number) => {
-  return (dispatch: DispatchType) => {
+export const getUsersThunk = (currentPage: number): AppThunkType => {
+  return (dispatch) => {
     dispatch(toggleIsLoadingAC(true))
     getUserList(currentPage)
       .then((data) => {
@@ -22,8 +22,8 @@ export const getUsersThunk = (currentPage: number) => {
   }
 }
 
-export const subscribeToUserThunk = (userId: number) => {
-  return (dispatch: DispatchType) => {
+export const subscribeToUserThunk = (userId: number): AppThunkType => {
+  return (dispatch) => {
     dispatch(toggleIsLoadingAC(true))
     subscribe(userId)
       .then((data) => {
@@ -39,8 +39,8 @@ export const subscribeToUserThunk = (userId: number) => {
   }
 }
 
-export const unsubscribeUserThunk = (userId: number) => {
-  return (dispatch: DispatchType) => {
+export const unsubscribeUserThunk = (userId: number): AppThunkType => {
+  return (dispatch) => {
     dispatch(toggleIsLoadingAC(true))
     unsubscribe(userId)
       .then((data) => {

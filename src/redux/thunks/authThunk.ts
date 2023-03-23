@@ -6,13 +6,13 @@ import {
   setCaptchaUrlAC,
 } from '../actions/authActions'
 
-import { DispatchType } from '../_store'
+import { AppThunkType } from './../_store'
 import { setAuthErrorMessageAC } from './../actions/authActions'
 import { signOut } from './../../API/api'
 import { toggleIsLoadingAC } from '../actions/appActions'
 
-export const checkIsAuthThunk = () => {
-  return (dispatch: DispatchType) => {
+export const checkIsAuthThunk = (): AppThunkType => {
+  return (dispatch) => {
     checkIsAuth()
       .then((resp) => {
         if (resp?.resultCode === ResponseStatus.SUCCESS) {
@@ -23,8 +23,8 @@ export const checkIsAuthThunk = () => {
   }
 }
 
-export const deleteAuthDataThunk = () => {
-  return (dispatch: DispatchType) => {
+export const deleteAuthDataThunk = (): AppThunkType => {
+  return (dispatch) => {
     dispatch(toggleIsLoadingAC(true))
     signOut()
       .then((resp) => {
@@ -37,8 +37,8 @@ export const deleteAuthDataThunk = () => {
   }
 }
 
-export const signInThunk = (formData: AuthFormDataType) => {
-  return (dispatch: DispatchType) => {
+export const signInThunk = (formData: AuthFormDataType): AppThunkType => {
+  return (dispatch) => {
     dispatch(toggleIsLoadingAC(true))
     signIn(formData)
       .then((res) => {
