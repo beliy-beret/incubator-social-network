@@ -1,4 +1,4 @@
-import { UserType } from '../../AppTypes'
+import { UserType } from 'API/api'
 
 export type SetUsersActionsType = {
   type: 'SET-USERS'

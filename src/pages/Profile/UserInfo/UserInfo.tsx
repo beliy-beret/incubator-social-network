@@ -1,7 +1,7 @@
 import { FC } from 'react'
 import { Status } from '../Status/Status'
 import { Typography } from 'antd'
-import { UserProfileType } from '../../../AppTypes'
+import { UserProfileType } from 'API/api'
 
 const { Title } = Typography
 

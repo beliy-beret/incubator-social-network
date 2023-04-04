@@ -1,9 +1,10 @@
-import { PostType, UserProfileType } from '../../AppTypes'
 import { RouteComponentProps, withRouter } from 'react-router-dom'
 
 import { FC } from 'react'
+import { PostType } from '../../AppTypes'
 import { Profile } from './Profile'
 import { RootStateType } from '../../redux/_store'
+import { UserProfileType } from 'API/api'
 import { addPostAC } from '../../redux/actions/profilePageActions'
 import { compose } from 'redux'
 import { connect } from 'react-redux'

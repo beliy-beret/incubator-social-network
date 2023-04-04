@@ -1,7 +1,7 @@
 import { Component, FC, ReactNode } from 'react'
 import { RouteComponentProps, withRouter } from 'react-router-dom'
 
-import { AuthFormDataType } from '../../../AppTypes'
+import { AuthFormDataType } from 'API/api'
 import { LoginForm } from '../LoginForm/LoginForm'
 import { Preloader } from '../../../components/Preloader/Preloader'
 import { RootStateType } from '../../../redux/_store'

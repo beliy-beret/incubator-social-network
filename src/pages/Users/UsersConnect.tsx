@@ -5,7 +5,7 @@ import {
 } from '../../redux/thunks/usersThunks'
 
 import { RootStateType } from '../../redux/_store'
-import { UserType } from '../../AppTypes'
+import { UserType } from 'API/api'
 import { UsersContainer } from './UsersContainer'
 import { connect } from 'react-redux'
 import { setCurrentPageAC } from '../../redux/actions/userPageActions'

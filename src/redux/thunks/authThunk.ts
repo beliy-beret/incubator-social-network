@@ -63,7 +63,7 @@ export const signInThunk = (formData: AuthFormDataType): AppThunkType => {
     try {
       const res = await authApi.postAuthorizeData(formData)
       if (res.data.resultCode === ResponseStatus.SUCCESS) {
-        dispatch(setAuthDataAC(res.data.data))
+        dispatch(checkIsAuthThunk())
       }
       if (res.data.resultCode === ResponseStatus.ERROR) {
         dispatch(setAuthErrorMessageAC(res.data.messages[0]))

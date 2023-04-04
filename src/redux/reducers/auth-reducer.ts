@@ -1,5 +1,5 @@
 import { ActionTypes } from './../actions/appActions'
-import { AuthDataType } from './../../AppTypes'
+import { AuthDataType } from 'API/api'
 
 type InitialStateType = {
   authData: AuthDataType | Record<string, never>

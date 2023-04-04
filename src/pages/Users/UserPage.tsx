@@ -1,8 +1,9 @@
-import { FC } from 'react'
 import { Col, Divider, Row } from 'antd'
+
+import { FC } from 'react'
 import { MyPagination } from '../../components/MyPagination/MyPagination'
 import { UserList } from './UserList/UserList'
-import { UserType } from '../../AppTypes'
+import { UserType } from 'API/api'
 
 type ComponentPropsType = {
   totalCount: number

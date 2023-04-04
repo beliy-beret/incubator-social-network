@@ -112,7 +112,7 @@ export type UserType = {
 
 export type UserProfileType = {
   aboutMe: string
-  contacts: ContactListType
+  contacts: Partial<ContactListType>
   lookingForAJob: boolean
   lookingForAJobDescription: string
   fullName: string

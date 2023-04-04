@@ -1,9 +1,9 @@
-import { FC } from 'react'
-import { UserType } from '../../../AppTypes'
-import userImg from '../../../assets/images/user.jpg'
 import { Button } from 'antd'
-import style from './user.module.css'
+import { FC } from 'react'
 import { Link } from 'react-router-dom'
+import { UserType } from 'API/api'
+import style from './user.module.css'
+import userImg from '../../../assets/images/user.jpg'
 
 type ComponentPropsType = {
   user: UserType

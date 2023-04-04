@@ -1,3 +1,5 @@
+import { UserType } from 'API/api'
+
 export type NewMessageType = {
   userID: number
   message: string

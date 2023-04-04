@@ -1,6 +1,6 @@
 import { Checkbox, Input, Space } from 'antd'
 
-import { AuthFormDataType } from '../../../AppTypes'
+import { AuthFormDataType } from 'API/api'
 import ErrorMessage from '../../../components/ErrorMessage/ErrorMessage'
 import { FC } from 'react'
 import classes from './loginForm.module.css'

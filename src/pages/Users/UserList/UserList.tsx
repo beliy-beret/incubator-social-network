@@ -1,6 +1,6 @@
 import { FC } from 'react'
 import { User } from '../User/User'
-import { UserType } from '../../../AppTypes'
+import { UserType } from 'API/api'
 
 type ComponentPropsType = {
   userList: Array<UserType>

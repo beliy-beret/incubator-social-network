@@ -1,4 +1,4 @@
-import { UserProfileType } from './../../AppTypes'
+import { UserProfileType } from 'API/api'
 
 export type AddPostActionType = {
   type: 'ADD-POST'

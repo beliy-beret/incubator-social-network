@@ -1,4 +1,4 @@
-import { AuthFormDataType } from '../../../AppTypes'
+import { AuthFormDataType } from 'API/api'
 
 export const validate = (values: AuthFormDataType) => {
   const errors: Partial<AuthFormDataType> = {}

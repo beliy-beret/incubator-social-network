@@ -1,4 +1,4 @@
-import { AuthDataType } from './../../AppTypes'
+import { AuthDataType } from 'API/api'
 
 export type SetAuthDataActionType = {
   type: 'SET-AUTH-DATA'

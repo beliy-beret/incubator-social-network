@@ -1,5 +1,5 @@
 import { ActionTypes } from '../actions/appActions'
-import { UserType } from '../../AppTypes'
+import { UserType } from 'API/api'
 
 type InitialStateType = {
   userList: Array<UserType>

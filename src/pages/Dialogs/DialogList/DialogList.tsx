@@ -1,6 +1,6 @@
 import { FC } from 'react'
 import { Link } from 'react-router-dom'
-import { UserType } from '../../../AppTypes'
+import { UserType } from 'API/api'
 
 type ComponentPropsType = {
   userList: Array<UserType>
