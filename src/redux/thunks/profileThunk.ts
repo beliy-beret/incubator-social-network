@@ -1,44 +1,52 @@
-import { changeProfileStatus, getProfileStatus } from './../../API/api'
+import { ResponseStatus, userProfileApi } from 'API/api'
 
 import { AppThunkType } from './../_store'
-import { getUserProfile } from '../../API/api'
 import { setProfileStatusAC } from './../actions/profilePageActions'
 import { setUserProfileAC } from '../actions/profilePageActions'
 import { toggleIsLoadingAC } from '../actions/appActions'
 
 export const setUserProfileThunk = (userId: number): AppThunkType => {
-  return (dispatch) => {
+  return async (dispatch) => {
     dispatch(toggleIsLoadingAC(true))
-    getUserProfile(userId)
-      .then((data) => {
-        dispatch(setUserProfileAC(data!))
-        setTimeout(() => dispatch(toggleIsLoadingAC(false)), 300)
-      })
-      .catch((error) => console.warn(error))
-      .finally(() => dispatch(toggleIsLoadingAC(false)))
+    try {
+      const res = await userProfileApi.getProfileData(userId)
+      dispatch(setUserProfileAC(res.data))
+    } catch (e) {
+      console.log(e)
+    } finally {
+      setTimeout(() => dispatch(toggleIsLoadingAC(false)), 300)
+    }
   }
 }
 
 export const setProfileStatusThunk = (userId: number): AppThunkType => {
-  return (dispatch) => {
+  return async (dispatch) => {
     dispatch(toggleIsLoadingAC(true))
-    getProfileStatus(userId)
-      .then((data) => dispatch(setProfileStatusAC(data!)))
-      .catch((error) => console.warn(error))
-      .finally(() => dispatch(toggleIsLoadingAC(false)))
+    try {
+      const res = await userProfileApi.getProfileStatus(userId)
+      dispatch(setProfileStatusAC(res.data))
+    } catch (e) {
+      console.warn(e)
+    } finally {
+      dispatch(toggleIsLoadingAC(false))
+    }
   }
 }
 
 export const changeProfileStatusThunk = (status: string): AppThunkType => {
-  return (dispatch) => {
+  return async (dispatch) => {
     dispatch(toggleIsLoadingAC(true))
-    changeProfileStatus(status)
-      .then((data) => {
-        if (data?.data.resultCode === 0) {
-          dispatch(setProfileStatusAC(status))
-        }
-      })
-      .catch((error) => console.warn(error))
-      .finally(() => dispatch(toggleIsLoadingAC(false)))
+    try {
+      const res = await userProfileApi.setProfileStatus(status)
+      if (res.data.resultCode === ResponseStatus.SUCCESS) {
+        dispatch(setProfileStatusAC(status))
+      } else {
+        throw new Error(res.data.messages[0])
+      }
+    } catch (e) {
+      console.warn(e)
+    } finally {
+      dispatch(toggleIsLoadingAC(false))
+    }
   }
 }
