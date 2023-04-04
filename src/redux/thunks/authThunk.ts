@@ -6,8 +6,8 @@ import {
 } from '../actions/authActions'
 
 import { AppThunkType } from './../_store'
+import { appOperations } from 'redux/app'
 import { setAuthErrorMessageAC } from './../actions/authActions'
-import { toggleIsLoadingAC } from '../actions/appActions'
 
 export const checkIsAuthThunk = (): AppThunkType => {
   return async (dispatch) => {
@@ -27,21 +27,21 @@ export const checkIsAuthThunk = (): AppThunkType => {
 
 export const getCaptchaThunk = (): AppThunkType => {
   return async (dispatch) => {
-    dispatch(toggleIsLoadingAC(true))
+    dispatch(appOperations.toggleIsLoading(true))
     try {
       const res = await authApi.getCaptcha()
       dispatch(setCaptchaUrlAC(res.data.url))
     } catch (e) {
       console.warn(e)
     } finally {
-      dispatch(toggleIsLoadingAC(false))
+      dispatch(appOperations.toggleIsLoading(false))
     }
   }
 }
 
 export const deleteAuthDataThunk = (): AppThunkType => {
   return async (dispatch) => {
-    dispatch(toggleIsLoadingAC(true))
+    dispatch(appOperations.toggleIsLoading(true))
     try {
       const res = await authApi.getAuthData()
       if (res.data.resultCode === ResponseStatus.SUCCESS) {
@@ -52,14 +52,14 @@ export const deleteAuthDataThunk = (): AppThunkType => {
     } catch (e) {
       console.warn(e)
     } finally {
-      dispatch(toggleIsLoadingAC(false))
+      dispatch(appOperations.toggleIsLoading(false))
     }
   }
 }
 
 export const signInThunk = (formData: AuthFormDataType): AppThunkType => {
   return async (dispatch) => {
-    dispatch(toggleIsLoadingAC(true))
+    dispatch(appOperations.toggleIsLoading(true))
     try {
       const res = await authApi.postAuthorizeData(formData)
       if (res.data.resultCode === ResponseStatus.SUCCESS) {
@@ -75,7 +75,7 @@ export const signInThunk = (formData: AuthFormDataType): AppThunkType => {
     } catch (e) {
       console.warn(e)
     } finally {
-      dispatch(toggleIsLoadingAC(false))
+      dispatch(appOperations.toggleIsLoading(false))
     }
   }
 }

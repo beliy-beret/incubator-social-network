@@ -2,7 +2,7 @@ import { applyMiddleware, combineReducers, createStore } from 'redux'
 import thunk, { ThunkAction } from 'redux-thunk'
 
 import { ActionTypes } from './actions/appActions'
-import { appReducer } from './reducers/app-reducer'
+import app from 'redux/app/index'
 import { authReducer } from './reducers/auth-reducer'
 import { composeWithDevTools } from 'redux-devtools-extension'
 import { dialogsReducer } from './reducers/dialogs-reducer'
@@ -14,7 +14,7 @@ const reducers = combineReducers({
   dialogsPage: dialogsReducer,
   profilePage: profileReducer,
   auth: authReducer,
-  app: appReducer,
+  app,
 })
 
 export const store = createStore(
