@@ -1,20 +1,15 @@
 import { AuthFormDataType, ResponseStatus, authApi } from 'API/api'
-import {
-  deleteAuthDataAC,
-  setAuthDataAC,
-  setCaptchaUrlAC,
-} from '../actions/authActions'
 
-import { AppThunkType } from './../_store'
+import { AppThunkType } from 'redux/_store'
+import actions from './actions'
 import { appOperations } from 'redux/app'
-import { setAuthErrorMessageAC } from './../actions/authActions'
 
-export const checkIsAuthThunk = (): AppThunkType => {
+const checkIsAuthThunk = (): AppThunkType => {
   return async (dispatch) => {
     try {
       const res = await authApi.getAuthData()
       if (res.data.resultCode === ResponseStatus.SUCCESS) {
-        dispatch(setAuthDataAC(res.data.data))
+        dispatch(actions.setAuthData(res.data.data))
         return res.data
       } else {
         throw new Error(res.data.messages[0])
@@ -25,27 +20,13 @@ export const checkIsAuthThunk = (): AppThunkType => {
   }
 }
 
-export const getCaptchaThunk = (): AppThunkType => {
-  return async (dispatch) => {
-    dispatch(appOperations.toggleIsLoading(true))
-    try {
-      const res = await authApi.getCaptcha()
-      dispatch(setCaptchaUrlAC(res.data.url))
-    } catch (e) {
-      console.warn(e)
-    } finally {
-      dispatch(appOperations.toggleIsLoading(false))
-    }
-  }
-}
-
-export const deleteAuthDataThunk = (): AppThunkType => {
+const deleteAuthDataThunk = (): AppThunkType => {
   return async (dispatch) => {
     dispatch(appOperations.toggleIsLoading(true))
     try {
       const res = await authApi.getAuthData()
       if (res.data.resultCode === ResponseStatus.SUCCESS) {
-        dispatch(deleteAuthDataAC())
+        dispatch(actions.deleteAuthData())
       } else {
         throw new Error(res.data.messages[0])
       }
@@ -57,7 +38,9 @@ export const deleteAuthDataThunk = (): AppThunkType => {
   }
 }
 
-export const signInThunk = (formData: AuthFormDataType): AppThunkType => {
+const postAuthorizationDataThunk = (
+  formData: AuthFormDataType
+): AppThunkType => {
   return async (dispatch) => {
     dispatch(appOperations.toggleIsLoading(true))
     try {
@@ -66,10 +49,10 @@ export const signInThunk = (formData: AuthFormDataType): AppThunkType => {
         dispatch(checkIsAuthThunk())
       }
       if (res.data.resultCode === ResponseStatus.ERROR) {
-        dispatch(setAuthErrorMessageAC(res.data.messages[0]))
+        dispatch(appOperations.setAppErrorMessage(res.data.messages[0]))
       }
       if (res.data.resultCode === ResponseStatus.CAPTCHA) {
-        dispatch(setAuthErrorMessageAC(res.data.messages[0]))
+        dispatch(appOperations.setAppErrorMessage(res.data.messages[0]))
         dispatch(getCaptchaThunk())
       }
     } catch (e) {
@@ -78,4 +61,25 @@ export const signInThunk = (formData: AuthFormDataType): AppThunkType => {
       dispatch(appOperations.toggleIsLoading(false))
     }
   }
+}
+
+const getCaptchaThunk = (): AppThunkType => {
+  return async (dispatch) => {
+    dispatch(appOperations.toggleIsLoading(true))
+    try {
+      const res = await authApi.getCaptcha()
+      dispatch(actions.setCaptchaUrl(res.data.url))
+    } catch (e) {
+      console.warn(e)
+    } finally {
+      dispatch(appOperations.toggleIsLoading(false))
+    }
+  }
+}
+
+export default {
+  checkIsAuthThunk,
+  getCaptchaThunk,
+  postAuthorizationDataThunk,
+  deleteAuthDataThunk,
 }

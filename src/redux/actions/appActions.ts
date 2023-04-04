@@ -18,6 +18,7 @@ import {
 
 import { AppActionsType } from 'redux/app/actions'
 import { CreateMessageActionType } from './dialogsPageActions'
+import { AuthActionTypes } from 'redux/auth/actions'
 
 export type ActionTypes =
   | AddPostActionType
@@ -33,3 +34,4 @@ export type ActionTypes =
   | SetAuthErrorMessageType
   | SetCaptchaUrlType
   | AppActionsType
+  | AuthActionTypes
