@@ -26,7 +26,11 @@ export const authApi = {
 
 export const usersApi = {
   getUserList(page: number, friend?: boolean, term?: string) {
-    return instance.get<{ items: UserType[] }>('users', {
+    return instance.get<{
+      items: UserType[]
+      totalCount: number
+      error: string | null
+    }>('users', {
       params: { page, friend, term },
     })
   },

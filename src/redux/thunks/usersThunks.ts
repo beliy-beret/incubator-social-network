@@ -1,4 +1,4 @@
-import { getUserList, subscribe, unsubscribe } from '../../API/api'
+import { ResponseStatus, usersApi } from 'API/api'
 import {
   setTotalCountAC,
   setUsersAC,
@@ -6,52 +6,56 @@ import {
 } from '../actions/userPageActions'
 
 import { AppThunkType } from './../_store'
-import { ResponseStatus } from '../../AppTypes'
 import { toggleIsLoadingAC } from '../actions/appActions'
 
 export const getUsersThunk = (currentPage: number): AppThunkType => {
-  return (dispatch) => {
+  return async (dispatch) => {
     dispatch(toggleIsLoadingAC(true))
-    getUserList(currentPage)
-      .then((data) => {
-        dispatch(setUsersAC(data?.items!))
-        dispatch(setTotalCountAC(data?.totalCount!))
-        setTimeout(() => dispatch(toggleIsLoadingAC(false)), 300)
-      })
-      .catch(() => dispatch(toggleIsLoadingAC(false)))
+    try {
+      const res = await usersApi.getUserList(currentPage)
+      dispatch(setUsersAC(res.data.items))
+      dispatch(setTotalCountAC(res.data.totalCount))
+    } catch (e) {
+      console.log(e)
+    } finally {
+      setTimeout(() => dispatch(toggleIsLoadingAC(false)), 300)
+    }
   }
 }
 
 export const subscribeToUserThunk = (userId: number): AppThunkType => {
-  return (dispatch) => {
+  return async (dispatch) => {
     dispatch(toggleIsLoadingAC(true))
-    subscribe(userId)
-      .then((data) => {
-        if (data?.resultCode === ResponseStatus.SUCCESS) {
-          dispatch(toggleFollowAC(userId, true))
-          setTimeout(() => dispatch(toggleIsLoadingAC(false)), 300)
-        } else {
-          console.error(data?.messages[0])
-          dispatch(toggleIsLoadingAC(false))
-        }
-      })
-      .catch(() => dispatch(toggleIsLoadingAC(false)))
+    try {
+      const res = await usersApi.subscribe(userId)
+      if (res.data.resultCode === ResponseStatus.SUCCESS) {
+        dispatch(toggleFollowAC(userId, true))
+      } else {
+        console.error(res.data.messages[0])
+      }
+    } catch (e) {
+      console.log(e)
+    } finally {
+      setTimeout(() => dispatch(toggleIsLoadingAC(false)), 300)
+    }
   }
 }
 
 export const unsubscribeUserThunk = (userId: number): AppThunkType => {
-  return (dispatch) => {
+  return async (dispatch) => {
     dispatch(toggleIsLoadingAC(true))
-    unsubscribe(userId)
-      .then((data) => {
-        if (data?.resultCode === ResponseStatus.SUCCESS) {
-          dispatch(toggleFollowAC(userId, false))
-          setTimeout(() => dispatch(toggleIsLoadingAC(false)), 300)
-        } else {
-          console.error(data?.messages[0])
-          dispatch(toggleIsLoadingAC(false))
-        }
-      })
-      .catch(() => dispatch(toggleIsLoadingAC(false)))
+    try {
+      const res = await usersApi.unsubscribe(userId)
+      if (res.data.resultCode === ResponseStatus.SUCCESS) {
+        dispatch(toggleFollowAC(userId, false))
+      } else {
+        console.error(res.data.messages[0])
+        dispatch(toggleIsLoadingAC(false))
+      }
+    } catch (e) {
+      console.log(e)
+    } finally {
+      setTimeout(() => dispatch(toggleIsLoadingAC(false)), 300)
+    }
   }
 }
