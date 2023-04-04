@@ -1,28 +1,4 @@
-import { AuthDataType, AuthFormDataType, UserProfileType } from './../AppTypes'
-
-import { UserType } from '../AppTypes'
 import axios from 'axios'
-
-type ResponseType = {
-  resultCode: number
-  messages: Array<string>
-}
-
-type GetUsersType = {
-  items: Array<UserType>
-  totalCount: number
-  error: string
-}
-
-type GetAuthDataResponseType = ResponseType & {
-  data: AuthDataType
-}
-
-type SignInResponseType = ResponseType & {
-  data: {
-    userId: number
-  }
-}
 
 const instance = axios.create({
   withCredentials: true,
@@ -30,105 +6,151 @@ const instance = axios.create({
   headers: { 'API-KEY': '7b1d643a-2777-4a5a-b415-e4c34c5cc44f' },
 })
 
-export const checkIsAuth = async () => {
-  try {
-    const resp = await instance.get<GetAuthDataResponseType>('auth/me')
-    return resp.data
-  } catch (e) {
-    console.error(e)
-  }
+export const authApi = {
+  getAuthData() {
+    return instance.get<ResponseType<AuthDataType>>('auth/me')
+  },
+  getCaptcha() {
+    return instance.get<{ url: string }>('security/get-captcha-url')
+  },
+  postAuthorizeData(formData: AuthFormDataType) {
+    return instance.post<ResponseType<{ userId: number }>>(
+      'auth/login',
+      formData
+    )
+  },
+  deleteAuthData() {
+    return instance.delete<ResponseType<object>>('auth/login')
+  },
 }
 
-export const signIn = async (formData: AuthFormDataType) => {
-  try {
-    const resp = await instance.post<SignInResponseType>('auth/login', {
-      ...formData,
+export const usersApi = {
+  getUserList(page: number, friend?: boolean, term?: string) {
+    return instance.get<{ items: UserType[] }>('users', {
+      params: { page, friend, term },
     })
-    return resp.data
-  } catch (e) {
-    console.error(e)
-  }
+  },
+  checkSubscribe(userId: number) {
+    return instance.get<boolean>(`follow/${userId}`)
+  },
+  subscribe(userId: number) {
+    return instance.post<ResponseType<object>>(`follow/${userId}`)
+  },
+  unsubscribe(userId: number) {
+    return instance.delete<ResponseType<object>>(`follow/${userId}`)
+  },
 }
 
-export const getCaptcha = async () => {
-  try {
-    const res = await instance.get<{ url: string }>('security/get-captcha-url')
-    return res.data
-  } catch (e) {
-    console.error(e)
-  }
+export const userProfileApi = {
+  getProfileData(userId: number) {
+    return instance.get<UserProfileType>(`profile/${userId}`)
+  },
+  getProfileStatus(userId: number) {
+    return instance.get<string>(`profile/status/${userId}`)
+  },
+  setProfileStatus(status: string) {
+    return instance.put<ResponseType<object>>(`profile/status`, { status })
+  },
+  setProfileData(formData: UpdateProfileFormDataType) {
+    return instance.put('profile', formData)
+  },
 }
 
-export const signOut = async () => {
-  try {
-    const resp = await instance.delete<ResponseType>('auth/login')
-    return resp.data
-  } catch (e) {
-    console.error(e)
-  }
+export const dialogsApi = {
+  getDialogList() {
+    return instance.get<DialogType[]>('dialogs')
+  },
+  getMessagesFromUser(userId: number) {
+    return instance.get<{
+      items: DialogMessageType[]
+      totalCount: number
+      error: null | string
+    }>(`dialogs/${userId}/messages`)
+  },
 }
 
-export const getUserList = async (
-  pageNumber: number,
-  friend?: boolean,
-  userName?: string
-) => {
-  try {
-    const resp = await instance.get<GetUsersType>('users', {
-      params: {
-        page: pageNumber,
-        friend: friend,
-        term: userName,
-      },
-    })
-    return resp.data
-  } catch (error) {
-    console.error(error)
-  }
+// Types
+
+type ResponseType<D> = {
+  resultCode: number
+  messages: Array<string>
+  data: D
 }
 
-export const getUserProfile = async (userId: number) => {
-  try {
-    const response = await instance.get<UserProfileType>(`profile/${userId}`)
-    return response.data
-  } catch (e) {
-    console.error(e)
-  }
+export type AuthDataType = {
+  id: number | null
+  email: string
+  login: string
 }
 
-export const subscribe = async (userId: number) => {
-  try {
-    const resp = await instance.post<ResponseType>(`follow/${userId}`)
-    return resp.data
-  } catch (e) {
-    console.error(e)
-  }
+export type AuthFormDataType = {
+  email: string
+  password: string
+  rememberMe: boolean
+  captcha: string
 }
 
-export const unsubscribe = async (userId: number) => {
-  try {
-    const resp = await instance.delete<ResponseType>(`follow/${userId}`)
-    return resp.data
-  } catch (e) {
-    console.error(e)
-  }
+export type UpdateProfileFormDataType = Omit<UserProfileType, 'photos'>
+
+export type PhotoType = {
+  small: string | null
+  large: string | null
 }
 
-export const getProfileStatus = async (userId: number) => {
-  try {
-    const resp = await instance.get<string>(`profile/status/${userId}`)
-    return resp.data
-  } catch (e) {
-    console.error(e)
-  }
+export type UserType = {
+  name: string
+  id: number
+  uniqueUrlName: null | string
+  photos: PhotoType
+  status: string | null
+  followed: boolean
 }
 
-export const changeProfileStatus = async (status: string) => {
-  try {
-    return await instance.put<ResponseType>(`profile/status`, {
-      status,
-    })
-  } catch (e) {
-    console.error(e)
-  }
+export type UserProfileType = {
+  aboutMe: string
+  contacts: ContactListType
+  lookingForAJob: boolean
+  lookingForAJobDescription: string
+  fullName: string
+  userId: number | null
+  photos: PhotoType
+}
+
+export enum ResponseStatus {
+  'SUCCESS' = 0,
+  'ERROR' = 1,
+  'CAPTCHA' = 10,
+}
+
+export type ContactListType = Record<
+  | 'github'
+  | 'vk'
+  | 'facebook'
+  | 'instagram'
+  | 'twitter'
+  | 'website'
+  | 'youtube'
+  | 'mainLink',
+  string | null
+>
+
+export type DialogType = {
+  id: number
+  userName: string
+  hasNewMessages: boolean
+  lastDialogActivityDate: string
+  lastUserActivityDate: string
+  newMessagesCount: number
+  photos: PhotoType
+}
+
+export type DialogMessageType = {
+  id: string
+  body: string
+  translatedBody: unknown
+  addedAt: string
+  senderId: number
+  senderName: string
+  recipientId: number
+  viewed: boolean
 }
