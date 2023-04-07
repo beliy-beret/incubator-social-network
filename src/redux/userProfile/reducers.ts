@@ -17,22 +17,22 @@ const initialState = {
   profileStatus: '',
 }
 
-type UserProfileInitialStateType = typeof initialState
+export type UserProfileInitialStateType = typeof initialState
 
 const reducer = (
   state: UserProfileInitialStateType = initialState,
   action: UserProfileActionsType
-) => {
+): UserProfileInitialStateType => {
   switch (action.type) {
     case 'profile/SET-USER-PROFILE':
       return {
         ...state,
-        userProfile: { ...action.payload },
+        userProfile: { ...action.payload.userProfile },
       }
     case 'profile/SET-PROFILE-STATUS':
       return {
         ...state,
-        profileStatus: action.payload,
+        profileStatus: action.payload.profileStatus,
       }
     default:
       return state

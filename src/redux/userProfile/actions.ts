@@ -2,20 +2,20 @@ import { UserProfileType } from 'API/api'
 
 type SetUserProfileType = {
   type: 'profile/SET-USER-PROFILE'
-  payload: UserProfileType
+  payload: { userProfile: UserProfileType }
 }
-const setUserProfile = (profileInfo: UserProfileType): SetUserProfileType => {
-  return { type: 'profile/SET-USER-PROFILE', payload: profileInfo }
+const setUserProfile = (userProfile: UserProfileType): SetUserProfileType => {
+  return { type: 'profile/SET-USER-PROFILE', payload: { userProfile } }
 }
 
 type SetProfileStatusType = {
   type: 'profile/SET-PROFILE-STATUS'
-  payload: string
+  payload: { profileStatus: string }
 }
-const setProfileStatus = (status: string): SetProfileStatusType => {
+const setProfileStatus = (profileStatus: string): SetProfileStatusType => {
   return {
     type: 'profile/SET-PROFILE-STATUS',
-    payload: status,
+    payload: { profileStatus },
   }
 }
 
