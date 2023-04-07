@@ -1,13 +1,11 @@
 import { Col, Divider, Row } from 'antd'
 
 import { Component } from 'react'
-import { PostForm } from './PostForm/PostForm'
 import { Preloader } from '../../components/Preloader/Preloader'
 import { ProfilePageConnectType } from './ProfileContainer'
 import { Subscriptions } from './Subscriptions/Subscriptions'
 import { UserAva } from './UserAva/UserAva'
 import { UserInfo } from './UserInfo/UserInfo'
-import { UserPosts } from './UserPosts/UserPosts'
 
 type ComponentPropsType = ProfilePageConnectType
 
@@ -18,7 +16,7 @@ export class Profile extends Component<ComponentPropsType> {
   }
 
   render() {
-    const { userProfile, postList, isLoading, addPost, status } = this.props
+    const { userProfile, isLoading, profileStatus } = this.props
     return (
       <section>
         {isLoading && <Preloader />}
@@ -29,17 +27,9 @@ export class Profile extends Component<ComponentPropsType> {
             <Subscriptions />
           </Col>
           <Col>
-            <UserInfo userData={userProfile} profileStatus={status} />
+            <UserInfo userData={userProfile} profileStatus={profileStatus} />
           </Col>
         </Row>
-        <Divider />
-        <Row>
-          <Col span={24}>
-            <PostForm addNewPost={addPost} />
-          </Col>
-        </Row>
-        <Divider />
-        <Row>{postList && <UserPosts postList={postList} />}</Row>
       </section>
     )
   }

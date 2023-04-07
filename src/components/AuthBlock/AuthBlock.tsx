@@ -1,10 +1,10 @@
 import { Button, Space } from 'antd'
+import { authOperations, authSelectors } from 'redux/auth'
 
 import { Component } from 'react'
 import { Link } from 'react-router-dom'
 import { RootStateType } from '../../redux/_store'
 import { connect } from 'react-redux'
-import { deleteAuthDataThunk } from '../../redux/thunks/authThunk'
 
 type MapDispatchType = {
   signOut: () => void
@@ -14,12 +14,12 @@ type ComponentPropsType = ReturnType<typeof mapState> & MapDispatchType
 
 const mapState = (state: RootStateType) => {
   return {
-    isAuth: state.auth.isAuth,
-    authData: state.auth.authData,
+    isAuth: authSelectors.isAuth(state),
+    authData: authSelectors.authData(state),
   }
 }
 const mapDispatch: MapDispatchType = {
-  signOut: deleteAuthDataThunk,
+  signOut: authOperations.deleteAuthDataThunk,
 }
 
 export class AuthBlock extends Component<ComponentPropsType> {

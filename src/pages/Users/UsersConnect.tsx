@@ -1,14 +1,10 @@
-import {
-  getUsersThunk,
-  subscribeToUserThunk,
-  unsubscribeUserThunk,
-} from '../../redux/thunks/usersThunks'
+import { usersOperations, usersSelectors } from 'redux/users'
 
 import { RootStateType } from '../../redux/_store'
 import { UserType } from 'API/api'
 import { UsersContainer } from './UsersContainer'
+import { appSelectors } from 'redux/app'
 import { connect } from 'react-redux'
-import { setCurrentPageAC } from '../../redux/actions/userPageActions'
 
 type StatePropsType = {
   userList: Array<UserType>
@@ -27,17 +23,20 @@ type DispatchPropsType = {
 export type UserConnectType = StatePropsType & DispatchPropsType
 
 const mapState = (state: RootStateType): StatePropsType => ({
-  userList: state.usersPage.userList,
-  totalCount: state.usersPage.totalCount,
-  currentPage: state.usersPage.currentPage,
-  isLoading: state.usersPage.isLoading,
+  userList: usersSelectors.userList(state),
+  totalCount: usersSelectors.totalCount(state),
+  currentPage: usersSelectors.currentPage(state),
+  isLoading: appSelectors.isLoading(state),
 })
 
 const mapDispatch = {
-  setCurrentPage: (page: number) => setCurrentPageAC(page),
-  getUserList: (currentPage: number) => getUsersThunk(currentPage),
-  subscribeToUser: (userId: number) => subscribeToUserThunk(userId),
-  unsubscribeUser: (userId: number) => unsubscribeUserThunk(userId),
+  setCurrentPage: (page: number) => usersOperations.setCurrentPage(page),
+  getUserList: (currentPage: number) =>
+    usersOperations.getUsersThunk(currentPage),
+  subscribeToUser: (userId: number) =>
+    usersOperations.subscribeToUserThunk(userId),
+  unsubscribeUser: (userId: number) =>
+    usersOperations.unsubscribeUserThunk(userId),
 }
 
 export const UsersConnect = connect(mapState, mapDispatch)(UsersContainer)

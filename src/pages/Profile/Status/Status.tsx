@@ -1,10 +1,8 @@
 import { ChangeEvent, Component } from 'react'
-import {
-  changeProfileStatusThunk,
-  setProfileStatusThunk,
-} from '../../../redux/thunks/profileThunk'
+import { userProfileOperations, userProfileSelectors } from 'redux/userProfile'
 
 import { RootStateType } from '../../../redux/_store'
+import { authSelectors } from 'redux/auth'
 import classes from './status.module.css'
 import { connect } from 'react-redux'
 
@@ -69,13 +67,15 @@ type MapDispatchType = {
 
 const mapState = (state: RootStateType): PropsType => {
   return {
-    userId: state.auth.authData.id!,
-    profileStatus: state.profilePage.status,
+    userId: authSelectors.authData(state).id!,
+    profileStatus: userProfileSelectors.profileStatus(state),
   }
 }
 const mapDispatch = {
-  getProfileStatus: (userId: number) => setProfileStatusThunk(userId),
-  changeProfileStatus: (status: string) => changeProfileStatusThunk(status),
+  getProfileStatus: (userId: number) =>
+    userProfileOperations.setProfileStatusThunk(userId),
+  changeProfileStatus: (status: string) =>
+    userProfileOperations.changeProfileStatusThunk(status),
 }
 
 export const Status = connect(mapState, mapDispatch)(ProfileStatus)

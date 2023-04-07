@@ -1,13 +1,13 @@
 import { AppThunkType } from 'redux/_store'
 import actions from './actions'
-import { checkIsAuthThunk } from 'redux/thunks/authThunk'
+import { authOperations } from 'redux/auth'
 
 const toggleIsLoading = actions.toggleIsLoading
 const setAppErrorMessage = actions.setAppErrorMessage
 
 const initializedAppThunk = (): AppThunkType => (dispatch) => {
   try {
-    dispatch(checkIsAuthThunk())
+    dispatch(authOperations.checkIsAuthThunk())
     dispatch(actions.toggleIsInitialized(true))
   } catch (e) {
     dispatch(setAppErrorMessage((e as Error).message))

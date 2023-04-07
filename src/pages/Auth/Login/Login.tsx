@@ -1,13 +1,14 @@
 import { Component, FC, ReactNode } from 'react'
 import { RouteComponentProps, withRouter } from 'react-router-dom'
+import { authOperations, authSelectors } from 'redux/auth'
 
 import { AuthFormDataType } from 'API/api'
 import { LoginForm } from '../LoginForm/LoginForm'
 import { Preloader } from '../../../components/Preloader/Preloader'
 import { RootStateType } from '../../../redux/_store'
+import { appSelectors } from 'redux/app'
 import { compose } from 'redux'
 import { connect } from 'react-redux'
-import { signInThunk } from '../../../redux/thunks/authThunk'
 
 type ComponentPropsType = RouteComponentProps & MapProps & MapDispatch
 
@@ -43,14 +44,15 @@ type MapDispatch = {
 }
 
 const mapState = (state: RootStateType): MapProps => ({
-  isAuth: state.auth.isAuth,
-  submitErrorMessage: state.auth.errorMessage,
-  captchaUrl: state.auth.captchaUrl,
-  isLoading: state.auth.isLoading,
+  isAuth: authSelectors.isAuth(state),
+  submitErrorMessage: appSelectors.errorMessage(state),
+  captchaUrl: authSelectors.captchaUrl(state),
+  isLoading: appSelectors.isLoading(state),
 })
 
 const mapDispatch: MapDispatch = {
-  sendFormData: (formData: AuthFormDataType) => signInThunk(formData),
+  sendFormData: (formData: AuthFormDataType) =>
+    authOperations.postAuthorizationDataThunk(formData),
 }
 export const Login = compose<FC>(
   connect(mapState, mapDispatch),

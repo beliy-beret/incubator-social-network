@@ -1,26 +1,25 @@
 import { RouteComponentProps, withRouter } from 'react-router-dom'
+import { userProfileOperations, userProfileSelectors } from 'redux/userProfile'
 
 import { FC } from 'react'
 import { PostType } from '../../AppTypes'
 import { Profile } from './Profile'
 import { RootStateType } from '../../redux/_store'
 import { UserProfileType } from 'API/api'
-import { addPostAC } from '../../redux/actions/profilePageActions'
+import { appSelectors } from 'redux/app'
+import { authSelectors } from 'redux/auth'
 import { compose } from 'redux'
 import { connect } from 'react-redux'
-import { setUserProfileThunk } from '../../redux/thunks/profileThunk'
 import { withAuthRedirect } from '../../HOC/WithAuthRedirect'
 
 type PropType = {
-  authUserId: number
-  postList: Array<PostType>
+  authUserId: number | null
   userProfile: UserProfileType
   isLoading: boolean
-  status: string
+  profileStatus: string
 }
 
 type MapDispatchType = {
-  addPost: (text: string) => void
   setUserProfile: (userId: number) => void
 }
 
@@ -29,12 +28,14 @@ export type ProfilePageConnectType = PropType &
   RouteComponentProps<{ id: string }>
 
 const mapState = (state: RootStateType): PropType => ({
-  ...state.profilePage,
-  authUserId: state.auth.authData.id!,
+  userProfile: userProfileSelectors.profile(state),
+  profileStatus: userProfileSelectors.profileStatus(state),
+  authUserId: authSelectors.authData(state).id,
+  isLoading: appSelectors.isLoading(state),
 })
 const mapDispatch = {
-  addPost: (text: string) => addPostAC(text),
-  setUserProfile: (userId: number) => setUserProfileThunk(userId),
+  setUserProfile: (userId: number) =>
+    userProfileOperations.setUserProfileThunk(userId),
 }
 
 export const ProfileContainer = compose<FC>(

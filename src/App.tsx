@@ -1,5 +1,6 @@
 import { Component, ReactNode } from 'react'
 import { Route, Switch } from 'react-router-dom'
+import { appOperations, appSelectors } from 'redux/app'
 
 import { AppBar } from './components/Layout/AppBar/AppBar'
 import { DialogsContainer } from './pages/Dialogs/DialogsContainer'
@@ -12,7 +13,6 @@ import { ProfileContainer } from './pages/Profile/ProfileContainer'
 import { RootStateType } from './redux/_store'
 import { UsersConnect } from './pages/Users/UsersConnect'
 import { connect } from 'react-redux'
-import { initAppThunk } from './redux/thunks/appThunk'
 
 const { Header, Footer, Sider, Content } = Layout
 
@@ -75,10 +75,10 @@ type MapDispatchType = {
 }
 
 const mapState = (state: RootStateType) => ({
-  isInitialized: state.app.isInitialized,
+  isInitialized: appSelectors.isInitialized(state),
 })
 const mapDispatch: MapDispatchType = {
-  initApp: () => initAppThunk(),
+  initApp: () => appOperations.initializedAppThunk,
 }
 
 export default connect(mapState, mapDispatch)(App)

@@ -10,6 +10,7 @@ const checkIsAuthThunk = (): AppThunkType => {
       const res = await authApi.getAuthData()
       if (res.data.resultCode === ResponseStatus.SUCCESS) {
         dispatch(actions.setAuthData(res.data.data))
+        dispatch(actions.toggleIsAuth(true))
         return res.data
       } else {
         throw new Error(res.data.messages[0])

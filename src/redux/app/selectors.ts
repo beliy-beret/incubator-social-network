@@ -1,7 +1,7 @@
-import { AppInitialStateType } from './reducers'
+import { RootStateType } from 'redux/_store'
 
-const isLoading = (state: AppInitialStateType) => state.isLoading
-const isInitialized = (state: AppInitialStateType) => state.isInitialized
-const errorMessage = (state: AppInitialStateType) => state.errorMessage
+const isLoading = (state: RootStateType) => state.app.isLoading
+const isInitialized = (state: RootStateType) => state.app.isInitialized
+const errorMessage = (state: RootStateType) => state.app.errorMessage
 
 export default { isLoading, isInitialized, errorMessage }
