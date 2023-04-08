@@ -11,7 +11,6 @@ const checkIsAuthThunk = (): AppThunkType => {
       if (res.data.resultCode === ResponseStatus.SUCCESS) {
         dispatch(actions.setAuthData(res.data.data))
         dispatch(actions.toggleIsAuth(true))
-        return res.data
       } else {
         throw new Error(res.data.messages[0])
       }
@@ -48,6 +47,7 @@ const postAuthorizationDataThunk = (
       const res = await authApi.postAuthorizeData(formData)
       if (res.data.resultCode === ResponseStatus.SUCCESS) {
         dispatch(checkIsAuthThunk())
+        dispatch(appOperations.setAppErrorMessage(''))
       }
       if (res.data.resultCode === ResponseStatus.ERROR) {
         dispatch(appOperations.setAppErrorMessage(res.data.messages[0]))

@@ -1,5 +1,10 @@
-import { Component, ReactNode } from 'react'
-import { Route, Switch } from 'react-router-dom'
+import { Component, FC, ReactNode } from 'react'
+import {
+  Route,
+  RouteComponentProps,
+  Switch,
+  withRouter,
+} from 'react-router-dom'
 import { appOperations, appSelectors } from 'redux/app'
 
 import { AppBar } from './components/Layout/AppBar/AppBar'
@@ -12,11 +17,14 @@ import { Preloader } from './components/Preloader/Preloader'
 import { ProfileContainer } from './pages/Profile/ProfileContainer'
 import { RootStateType } from './redux/_store'
 import { UsersConnect } from './pages/Users/UsersConnect'
+import { compose } from 'redux'
 import { connect } from 'react-redux'
 
 const { Header, Footer, Sider, Content } = Layout
 
-type ComponentPropsType = ReturnType<typeof mapState> & MapDispatchType
+type ComponentPropsType = ReturnType<typeof mapState> &
+  MapDispatchType &
+  RouteComponentProps
 
 class App extends Component<ComponentPropsType> {
   componentDidMount() {
@@ -78,7 +86,7 @@ const mapState = (state: RootStateType) => ({
   isInitialized: appSelectors.isInitialized(state),
 })
 const mapDispatch: MapDispatchType = {
-  initApp: () => appOperations.initializedAppThunk,
+  initApp: () => appOperations.initializedAppThunk(),
 }
 
-export default connect(mapState, mapDispatch)(App)
+export default compose<FC>(withRouter, connect(mapState, mapDispatch))(App)
