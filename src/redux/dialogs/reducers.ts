@@ -43,6 +43,11 @@ export const userMessageListReducer = (
         ...state,
         currentPage: action.payload.currentPage,
       }
+    case 'messages/SET-MESSAGES-TOTAL-COUNT':
+      return {
+        ...state,
+        totalCount: action.payload.totalCount,
+      }
     default:
       return state
   }

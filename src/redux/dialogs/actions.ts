@@ -31,13 +31,13 @@ const setMessageListCurrentPage = (
   payload: { currentPage },
 })
 
-type SetMessagesTotalCounActionType = {
+type SetMessagesTotalCountActionType = {
   type: 'messages/SET-MESSAGES-TOTAL-COUNT'
   payload: { totalCount: number }
 }
 const setMessagesTotalCount = (
   totalCount: number
-): SetMessagesTotalCounActionType => ({
+): SetMessagesTotalCountActionType => ({
   type: 'messages/SET-MESSAGES-TOTAL-COUNT',
   payload: { totalCount },
 })
@@ -46,6 +46,7 @@ export type DialogListActionsType = SetDialogListActionType
 export type MessageListActionsType =
   | SetMessageListActionType
   | SetMessageListCurrentPageActionType
+  | SetMessagesTotalCountActionType
 export default {
   setDialogList,
   setMessageList,
