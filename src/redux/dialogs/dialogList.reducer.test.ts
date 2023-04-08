@@ -38,4 +38,5 @@ test('should set dialog list', () => {
   ]
   const newState = dialogListReducer(state, actions.setDialogList(dialogList))
   expect(newState.length).toEqual(2)
+  expect(newState[0].userName).toEqual(dialogList[0].userName)
 })
