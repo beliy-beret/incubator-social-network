@@ -11,9 +11,22 @@ type ComponentPropsType = ProfilePageConnectType
 
 export class Profile extends Component<ComponentPropsType> {
   componentDidMount() {
-    const id = Number(this.props.match.params.id)
+    const id = this.props.match.params.id
+      ? Number(this.props.match.params.id)
+      : this.props.authUserId
     if (id) {
       this.props.setUserProfile(id)
+    }
+  }
+
+  componentDidUpdate(prevProps: ComponentPropsType) {
+    if (this.props.match.params.id !== prevProps.match.params.id) {
+      const id = this.props.match.params.id
+        ? Number(this.props.match.params.id)
+        : this.props.authUserId
+      if (id) {
+        this.props.setUserProfile(id)
+      }
     }
   }
 
