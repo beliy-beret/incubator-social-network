@@ -19,6 +19,7 @@ import { RootStateType } from './redux/_store'
 import { UsersConnect } from './pages/Users/UsersConnect'
 import { compose } from 'redux'
 import { connect } from 'react-redux'
+import { authSelectors } from 'redux/auth'
 
 const { Header, Footer, Sider, Content } = Layout
 

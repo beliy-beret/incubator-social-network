@@ -29,7 +29,7 @@ export type ProfilePageConnectType = PropType &
 const mapState = (state: RootStateType): PropType => ({
   userProfile: userProfileSelectors.profile(state),
   profileStatus: userProfileSelectors.profileStatus(state),
-  authUserId: authSelectors.authData(state).id,
+  authUserId: authSelectors.authUserId(state),
   isLoading: appSelectors.isLoading(state),
 })
 const mapDispatch = {

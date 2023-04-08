@@ -15,7 +15,7 @@ type ComponentPropsType = ReturnType<typeof mapState> & MapDispatchType
 const mapState = (state: RootStateType) => {
   return {
     isAuth: authSelectors.isAuth(state),
-    authData: authSelectors.authData(state),
+    authUserLogin: authSelectors.authUserLogin(state),
   }
 }
 const mapDispatch: MapDispatchType = {
@@ -24,12 +24,12 @@ const mapDispatch: MapDispatchType = {
 
 export class AuthBlock extends Component<ComponentPropsType> {
   render() {
-    const { isAuth, authData, signOut } = this.props
+    const { isAuth, authUserLogin, signOut } = this.props
     return (
       <div>
         {isAuth ? (
           <Space>
-            <span>{authData.login}</span>
+            <span>{authUserLogin}</span>
             <Button type={'primary'} onClick={signOut}>
               SignOut
             </Button>

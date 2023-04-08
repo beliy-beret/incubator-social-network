@@ -61,7 +61,7 @@ const mapState = (state: RootStateType): MapStateType => ({
   messagesTotalCount: dialogsSelectors.messagesTotalCount(state),
   messagesCurrentPage: dialogsSelectors.messageListCurrentPage(state),
   activeDialogId: dialogsSelectors.activeDialogId(state),
-  authUserId: authSelectors.authData(state).id,
+  authUserId: authSelectors.authUserId(state),
 })
 
 const mapDispatch: MapDispatchType = {

@@ -67,7 +67,7 @@ type MapDispatchType = {
 
 const mapState = (state: RootStateType): PropsType => {
   return {
-    userId: authSelectors.authData(state).id!,
+    userId: authSelectors.authUserId(state)!,
     profileStatus: userProfileSelectors.profileStatus(state),
   }
 }
