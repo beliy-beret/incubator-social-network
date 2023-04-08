@@ -12,6 +12,9 @@ export const MessageList: FC<ComponentPropsType> = ({
   messageList,
   authUserId,
 }) => {
+  if (!messageList.length) {
+    return <p style={{ textAlign: 'center' }}>Message list empty.</p>
+  }
   return (
     <div className={classes.messageList}>
       {messageList.map((item) => (

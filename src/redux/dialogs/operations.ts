@@ -12,7 +12,6 @@ const fetchDialogList = (): AppThunkType => {
     try {
       const res = await dialogsApi.getDialogList()
       if (res.data) {
-        dispatch(fetchUserMessageList(res.data[0].id))
         dispatch(actions.setDialogList(res.data))
         dispatch(appOperations.setAppErrorMessage(''))
       }

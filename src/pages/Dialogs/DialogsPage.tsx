@@ -34,7 +34,7 @@ class Page extends Component<ComponentPropsType> {
           span={8}
           style={{
             borderRight: '2px solid black',
-            maxHeight: '84.7vh',
+            height: '84.7vh',
             overflowY: 'scroll',
           }}
         >

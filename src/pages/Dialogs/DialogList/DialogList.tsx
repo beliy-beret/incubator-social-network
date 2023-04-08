@@ -28,7 +28,7 @@ export const DialogList: FC<ComponentPropsType> = ({
             >
               <List.Item.Meta
                 avatar={<Avatar src={item.photos.small} />}
-                title={<h3>{item.userName}</h3>}
+                title={item.userName}
               />
             </List.Item>
           </Link>
