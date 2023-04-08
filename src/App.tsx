@@ -8,7 +8,7 @@ import {
 import { appOperations, appSelectors } from 'redux/app'
 
 import { AppBar } from './components/Layout/AppBar/AppBar'
-import { DialogsContainer } from './pages/Dialogs/DialogsContainer'
+import { Dialogs } from 'pages/Dialogs/Dialogs'
 import { Home } from './pages/Home/Home'
 import { Layout } from 'antd'
 import { Login } from './pages/Auth/Login/Login'
@@ -56,7 +56,7 @@ class App extends Component<ComponentPropsType> {
                 <Switch>
                   <Route exact={true} path={'/'} component={Home} />
                   <Route path={'/profile/:id?'} component={ProfileContainer} />
-                  <Route path={'/dialogs'} component={DialogsContainer} />
+                  <Route path={'/dialogs'} component={Dialogs} />
                   <Route path={'/users'} component={UsersConnect} />
                   <Route path={'/login'} component={Login} />
                 </Switch>

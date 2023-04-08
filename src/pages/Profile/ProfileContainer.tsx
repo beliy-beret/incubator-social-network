@@ -2,7 +2,6 @@ import { RouteComponentProps, withRouter } from 'react-router-dom'
 import { userProfileOperations, userProfileSelectors } from 'redux/userProfile'
 
 import { FC } from 'react'
-import { PostType } from '../../AppTypes'
 import { Profile } from './Profile'
 import { RootStateType } from '../../redux/_store'
 import { UserProfileType } from 'API/api'
