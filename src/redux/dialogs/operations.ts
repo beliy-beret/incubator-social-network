@@ -4,6 +4,7 @@ import { appOperations } from 'redux/app'
 import { dialogsApi } from 'API/api'
 
 const setMessageListCurrentPage = actions.setMessageListCurrentPage
+const setMessagesTotalCount = actions.setMessagesTotalCount
 
 const fetchDialogList = (): AppThunkType => {
   return async (dispatch) => {
@@ -39,4 +40,5 @@ export default {
   fetchDialogList,
   fetchUserMessageList,
   setMessageListCurrentPage,
+  setMessagesTotalCount,
 }
