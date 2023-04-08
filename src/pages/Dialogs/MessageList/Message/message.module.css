@@ -1,0 +1,19 @@
+.body {
+    min-width: 80%;
+    background-color: rgb(176, 247, 223);
+    padding: 0.5rem;
+    border-radius: 8px;
+    -webkit-border-radius: 8px;
+    -moz-border-radius: 8px;
+    -ms-border-radius: 8px;
+    -o-border-radius: 8px;
+}
+.message {
+    margin: 0 1rem;            
+}
+.friend {
+    align-self: flex-end;    
+}
+.friend > .body {
+    background-color: rgb(112, 235, 163);
+}

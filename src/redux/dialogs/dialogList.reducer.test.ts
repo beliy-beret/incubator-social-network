@@ -3,7 +3,10 @@ import { DialogListStateType, dialogListReducer } from './reducers'
 import { DialogType } from 'API/api'
 import actions from './actions'
 
-const state: DialogListStateType = []
+const state: DialogListStateType = {
+  dialogList: [],
+  activeDialogId: null,
+}
 
 test('should set dialog list', () => {
   const dialogList: DialogType[] = [
@@ -37,6 +40,6 @@ test('should set dialog list', () => {
     },
   ]
   const newState = dialogListReducer(state, actions.setDialogList(dialogList))
-  expect(newState.length).toEqual(2)
-  expect(newState[0].userName).toEqual(dialogList[0].userName)
+  expect(newState.dialogList.length).toEqual(2)
+  expect(newState.dialogList[0].userName).toEqual(dialogList[0].userName)
 })

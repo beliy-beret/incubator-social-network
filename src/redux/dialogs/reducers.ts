@@ -3,8 +3,10 @@ import { DialogMessageType, DialogType } from 'API/api'
 
 import { combineReducers } from 'redux'
 
-const dialogListState = [] as DialogType[]
-//userMessageList: [] as DialogMessageType[],
+const dialogListState = {
+  dialogList: [] as DialogType[],
+  activeDialogId: null as number | null,
+}
 
 export type DialogListStateType = typeof dialogListState
 
@@ -14,7 +16,15 @@ export const dialogListReducer = (
 ): DialogListStateType => {
   switch (action.type) {
     case 'dialogs/SET-DIALOG-LIST':
-      return action.payload.dialogList
+      return {
+        ...state,
+        dialogList: action.payload.dialogList,
+      }
+    case 'dialogs/SET-ACTIVE-DIALOG-INDEX':
+      return {
+        ...state,
+        activeDialogId: action.payload.dialogId,
+      }
     default:
       return state
   }

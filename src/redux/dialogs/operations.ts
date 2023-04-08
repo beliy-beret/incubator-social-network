@@ -11,8 +11,11 @@ const fetchDialogList = (): AppThunkType => {
     dispatch(appOperations.toggleIsLoading(true))
     try {
       const res = await dialogsApi.getDialogList()
-      dispatch(actions.setDialogList(res.data))
-      dispatch(appOperations.setAppErrorMessage(''))
+      if (res.data) {
+        dispatch(fetchUserMessageList(res.data[0].id))
+        dispatch(actions.setDialogList(res.data))
+        dispatch(appOperations.setAppErrorMessage(''))
+      }
     } catch (e) {
       dispatch(appOperations.setAppErrorMessage((e as Error).message))
     } finally {
@@ -27,6 +30,7 @@ const fetchUserMessageList = (userId: number): AppThunkType => {
     try {
       const res = await dialogsApi.getMessagesFromUser(userId)
       dispatch(actions.setMessageList(res.data.items))
+      dispatch(actions.setActiveDialogId(userId))
       dispatch(appOperations.setAppErrorMessage(''))
     } catch (e) {
       dispatch(appOperations.setAppErrorMessage((e as Error).message))

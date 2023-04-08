@@ -56,7 +56,7 @@ class App extends Component<ComponentPropsType> {
                 <Switch>
                   <Route exact={true} path={'/'} component={Home} />
                   <Route path={'/profile/:id?'} component={ProfileContainer} />
-                  <Route path={'/dialogs'} component={DialogsPage} />
+                  <Route path={'/dialogs/:id?'} component={DialogsPage} />
                   <Route path={'/users'} component={UsersConnect} />
                   <Route path={'/login'} component={Login} />
                 </Switch>
