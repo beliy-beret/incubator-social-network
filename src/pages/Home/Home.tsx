@@ -18,8 +18,11 @@ export const Home = () => {
           <Typography.Paragraph
             style={{ textAlign: 'justify', fontSize: '1.5rem' }}
           >
-            This application is based on the lessons of Dmitry Kuzyuberdin. If
-            you are want to check application options, you can use test data.
+            This application is based on the lessons of Dmitry Kuzyuberdin. Used
+            React class and function components, Higher-Order Components,
+            Routing, Redux state manager with Thunk middleware, Axios library,
+            Ant Design library, TypeScript. If you are want to check application
+            options, you can use test data.
           </Typography.Paragraph>
         </Col>
       </Row>
