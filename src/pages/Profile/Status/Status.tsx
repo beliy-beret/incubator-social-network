@@ -1,9 +1,10 @@
-import { ChangeEvent, Component } from 'react'
+import { Button, Col, Input, Row, Typography } from 'antd'
+import { ChangeEvent, PureComponent } from 'react'
 import { userProfileOperations, userProfileSelectors } from 'redux/userProfile'
 
+import { EditOutlined } from '@ant-design/icons'
 import { RootStateType } from '../../../redux/_store'
 import { authSelectors } from 'redux/auth'
-import classes from './status.module.css'
 import { connect } from 'react-redux'
 
 type ComponentPropsType = PropsType & MapDispatchType
@@ -13,7 +14,7 @@ type StateType = {
   status: string
 }
 
-class ProfileStatus extends Component<ComponentPropsType, StateType> {
+class ProfileStatus extends PureComponent<ComponentPropsType, StateType> {
   state = {
     isEdit: false,
     status: this.props.profileStatus,
@@ -36,22 +37,26 @@ class ProfileStatus extends Component<ComponentPropsType, StateType> {
 
   render() {
     return (
-      <div className={classes.status}>
-        {this.state.isEdit ? (
-          <input
-            type='text'
-            value={this.state.status}
-            onBlur={this.disableEdit}
-            autoFocus={true}
-            onChange={this.setStatus}
-          />
-        ) : (
-          <span>{this.props.profileStatus}</span>
-        )}
-        <button onClick={this.enableEdit}>
-          {this.props.profileStatus ? '...' : 'Add Status.'}
-        </button>
-      </div>
+      <Row justify='space-between'>
+        <Col>
+          {this.state.isEdit ? (
+            <Input
+              type='text'
+              value={this.state.status}
+              onBlur={this.disableEdit}
+              autoFocus={true}
+              onChange={this.setStatus}
+            />
+          ) : (
+            <Typography.Text>{this.props.profileStatus}</Typography.Text>
+          )}
+        </Col>
+        <Col>
+          <Button type='text' onClick={this.enableEdit}>
+            {this.props.profileStatus ? <EditOutlined /> : 'Add Status.'}
+          </Button>
+        </Col>
+      </Row>
     )
   }
 }

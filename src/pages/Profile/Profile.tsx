@@ -36,12 +36,12 @@ export class Profile extends Component<ComponentPropsType> {
       <section>
         {isLoading && <Preloader />}
         <Row gutter={15}>
-          <Col>
+          <Col span={7}>
             <UserAva src={userProfile.photos.large} />
             <Divider>Subscriptions</Divider>
             <Subscriptions />
           </Col>
-          <Col>
+          <Col span={16}>
             <UserInfo userData={userProfile} profileStatus={profileStatus} />
           </Col>
         </Row>

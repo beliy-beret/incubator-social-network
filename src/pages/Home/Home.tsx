@@ -29,7 +29,6 @@ export const Home = () => {
 
       <Row justify='center' style={{ marginTop: '3rem' }}>
         <Col
-          span={4}
           style={{
             backgroundColor: '#121111',
             borderRadius: '8px',
@@ -52,7 +51,7 @@ export const Home = () => {
       </Row>
 
       <Row justify='center' gutter={25} style={{ marginTop: '3rem' }}>
-        <Col span={5} style={technologiesStyle}>
+        <Col style={technologiesStyle}>
           <Image
             src={reactLogo}
             preview={false}
@@ -60,7 +59,7 @@ export const Home = () => {
             width={'300px'}
           />
         </Col>
-        <Col span={5} style={technologiesStyle}>
+        <Col style={technologiesStyle}>
           <Image
             height={'200px'}
             width={'300px'}
@@ -69,7 +68,7 @@ export const Home = () => {
             style={{ backgroundColor: '#880fa6' }}
           />
         </Col>
-        <Col span={5} style={technologiesStyle}>
+        <Col style={technologiesStyle}>
           <Image
             src={typeScriptLogo}
             preview={false}
