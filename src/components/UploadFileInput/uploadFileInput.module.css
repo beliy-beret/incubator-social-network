@@ -1,0 +1,23 @@
+.btn {
+    position: relative;
+    padding: 8px 16px;
+    background-color: rgb(28, 137, 226);
+    cursor: pointer;
+    color: #FFFFFF;
+    font-weight: 500;
+    border-radius: 3px;
+    -webkit-border-radius: 3px;
+    -moz-border-radius: 3px;
+    -ms-border-radius: 3px;
+    -o-border-radius: 3px;
+}
+.btn:hover, .btn:focus {
+    background-color: rgb(96, 177, 243);
+}
+
+.btn input {        
+   position: absolute;
+   opacity: 0;
+   width: 1px;
+   height: 1px;     
+}

@@ -43,7 +43,9 @@ class ProfileStatus extends PureComponent<ComponentPropsType, StateType> {
             <Input
               type='text'
               value={this.state.status}
+              defaultValue={this.state.status}
               onBlur={this.disableEdit}
+              onPressEnter={this.disableEdit}
               autoFocus={true}
               onChange={this.setStatus}
             />
@@ -52,8 +54,12 @@ class ProfileStatus extends PureComponent<ComponentPropsType, StateType> {
           )}
         </Col>
         <Col>
-          <Button type='text' onClick={this.enableEdit}>
-            {this.props.profileStatus ? <EditOutlined /> : 'Add Status.'}
+          <Button
+            type={'text'}
+            onClick={this.enableEdit}
+            icon={<EditOutlined />}
+          >
+            {this.props.profileStatus ? '' : 'Add Status.'}
           </Button>
         </Col>
       </Row>

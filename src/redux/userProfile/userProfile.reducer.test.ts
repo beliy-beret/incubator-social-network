@@ -1,6 +1,6 @@
 import reducer, { UserProfileInitialStateType } from './reducers'
 
-import { UserProfileType } from 'API/api'
+import { PhotoType, UserProfileType } from 'API/api'
 import actions from './actions'
 
 const state: UserProfileInitialStateType = {
@@ -26,4 +26,14 @@ test('Should change profile status', () => {
 test('should set new user profile', () => {
   const newState = reducer(state, actions.setUserProfile({} as UserProfileType))
   expect(newState.userProfile.userId).not.toBeDefined()
+})
+
+test('Should change photo URL', () => {
+  const photos: PhotoType = {
+    small: 'smallPhotoURL',
+    large: 'largePhotoURL',
+  }
+  const newState = reducer(state, actions.setProfilePhotos(photos))
+  expect(newState.userProfile.photos.small).toEqual(photos.small)
+  expect(newState.userProfile.photos.large).toEqual(photos.large)
 })

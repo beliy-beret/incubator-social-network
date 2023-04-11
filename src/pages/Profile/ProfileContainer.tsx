@@ -20,6 +20,7 @@ type PropType = {
 
 type MapDispatchType = {
   setUserProfile: (userId: number) => void
+  changeProfilePhoto: (photo: File) => void
 }
 
 export type ProfilePageConnectType = PropType &
@@ -32,9 +33,11 @@ const mapState = (state: RootStateType): PropType => ({
   authUserId: authSelectors.authUserId(state),
   isLoading: appSelectors.isLoading(state),
 })
-const mapDispatch = {
+const mapDispatch: MapDispatchType = {
   setUserProfile: (userId: number) =>
     userProfileOperations.setUserProfileThunk(userId),
+  changeProfilePhoto: (photo: File) =>
+    userProfileOperations.changeUserProfilePhotosThunk(photo),
 }
 
 export const ProfileContainer = compose<FC>(

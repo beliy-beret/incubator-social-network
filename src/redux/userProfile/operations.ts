@@ -12,7 +12,7 @@ const setUserProfileThunk = (userId: number): AppThunkType => {
       const res = await userProfileApi.getProfileData(userId)
       dispatch(actions.setUserProfile(res.data))
     } catch (e) {
-      console.log(e)
+      console.error(e)
     } finally {
       setTimeout(() => dispatch(appOperations.toggleIsLoading(false)), 300)
     }
@@ -32,7 +32,24 @@ const changeUserProfileThunk = (
         throw new Error(res.data.messages[0])
       }
     } catch (e) {
-      console.warn(e)
+      console.error(e)
+    } finally {
+      dispatch(appOperations.toggleIsLoading(false))
+    }
+  }
+}
+
+const changeUserProfilePhotosThunk = (photo: File): AppThunkType => {
+  return async (dispatch) => {
+    dispatch(appOperations.toggleIsLoading(true))
+    try {
+      const res = await userProfileApi.setProfilePhoto(photo)
+      if (res.data.resultCode === ResponseStatus.SUCCESS) {
+        dispatch(actions.setProfilePhotos(res.data.data.photos))
+        dispatch(appOperations.setAppErrorMessage(''))
+      }
+    } catch (e) {
+      console.error(e)
     } finally {
       dispatch(appOperations.toggleIsLoading(false))
     }
@@ -46,7 +63,7 @@ const setProfileStatusThunk = (userId: number): AppThunkType => {
       const res = await userProfileApi.getProfileStatus(userId)
       dispatch(actions.setProfileStatus(res.data))
     } catch (e) {
-      console.warn(e)
+      console.error(e)
     } finally {
       dispatch(appOperations.toggleIsLoading(false))
     }
@@ -64,7 +81,7 @@ const changeProfileStatusThunk = (status: string): AppThunkType => {
         throw new Error(res.data.messages[0])
       }
     } catch (e) {
-      console.warn(e)
+      console.error(e)
     } finally {
       dispatch(appOperations.toggleIsLoading(false))
     }
@@ -76,4 +93,5 @@ export default {
   setUserProfileThunk,
   changeProfileStatusThunk,
   changeUserProfileThunk,
+  changeUserProfilePhotosThunk,
 }

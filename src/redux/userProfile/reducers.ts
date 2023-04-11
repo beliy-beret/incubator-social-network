@@ -34,6 +34,18 @@ const reducer = (
         ...state,
         profileStatus: action.payload.profileStatus,
       }
+    case 'profile/SET-PROFILE-PHOTOS':
+      return {
+        ...state,
+        userProfile: {
+          ...state.userProfile,
+          photos: {
+            ...state.userProfile.photos,
+            small: action.payload.photos.small,
+            large: action.payload.photos.large,
+          },
+        },
+      }
     default:
       return state
   }

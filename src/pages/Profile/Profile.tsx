@@ -37,7 +37,10 @@ export class Profile extends Component<ComponentPropsType> {
         {isLoading && <Preloader />}
         <Row gutter={15}>
           <Col span={7}>
-            <UserAva src={userProfile.photos.large} />
+            <UserAva
+              src={userProfile.photos.large}
+              uploadPhoto={this.props.changeProfilePhoto}
+            />
             <Divider>Subscriptions</Divider>
             <Subscriptions />
           </Col>

@@ -1,4 +1,4 @@
-import { UserProfileType } from 'API/api'
+import { PhotoType, UserProfileType } from 'API/api'
 
 type SetUserProfileType = {
   type: 'profile/SET-USER-PROFILE'
@@ -19,5 +19,17 @@ const setProfileStatus = (profileStatus: string): SetProfileStatusType => {
   }
 }
 
-export type UserProfileActionsType = SetProfileStatusType | SetUserProfileType
-export default { setProfileStatus, setUserProfile }
+type SetProfilePhotosActionType = {
+  type: 'profile/SET-PROFILE-PHOTOS'
+  payload: { photos: PhotoType }
+}
+const setProfilePhotos = (photos: PhotoType): SetProfilePhotosActionType => ({
+  type: 'profile/SET-PROFILE-PHOTOS',
+  payload: { photos },
+})
+
+export type UserProfileActionsType =
+  | SetProfileStatusType
+  | SetUserProfileType
+  | SetProfilePhotosActionType
+export default { setProfileStatus, setUserProfile, setProfilePhotos }

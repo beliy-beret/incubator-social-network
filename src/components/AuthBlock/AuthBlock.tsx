@@ -1,8 +1,8 @@
 import { Button, Space } from 'antd'
 import { authOperations, authSelectors } from 'redux/auth'
 
-import { Component } from 'react'
 import { Link } from 'react-router-dom'
+import { PureComponent } from 'react'
 import { RootStateType } from '../../redux/_store'
 import { connect } from 'react-redux'
 
@@ -22,7 +22,7 @@ const mapDispatch: MapDispatchType = {
   signOut: authOperations.deleteAuthDataThunk,
 }
 
-export class AuthBlock extends Component<ComponentPropsType> {
+export class AuthBlock extends PureComponent<ComponentPropsType> {
   render() {
     const { isAuth, authUserLogin, signOut } = this.props
     return (
