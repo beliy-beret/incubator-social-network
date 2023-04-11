@@ -58,6 +58,15 @@ export const userProfileApi = {
   setProfileData(formData: UpdateProfileFormDataType) {
     return instance.put('profile', formData)
   },
+  setProfilePhoto(file: File) {
+    const formData = new FormData()
+    formData.append('image', file)
+    return instance.put('profile/photo', formData, {
+      headers: {
+        'Content-Type': 'multipart/form-data',
+      },
+    })
+  },
 }
 
 export const dialogsApi = {
@@ -125,18 +134,7 @@ export enum ResponseStatus {
   'ERROR' = 1,
   'CAPTCHA' = 10,
 }
-
-export type ContactListType = Record<
-  | 'github'
-  | 'vk'
-  | 'facebook'
-  | 'instagram'
-  | 'twitter'
-  | 'website'
-  | 'youtube'
-  | 'mainLink',
-  string | null
->
+export type ContactListType = { [key: string]: string | undefined }
 
 export type DialogType = {
   id: number
