@@ -7,6 +7,7 @@ import thunk, { ThunkAction } from 'redux-thunk'
 
 import { AppActionsType } from './app/actions'
 import { AuthActionTypes } from './auth/actions'
+import { ResponseType } from 'API/api'
 import { UserProfileActionsType } from './userProfile/actions'
 import { UsersActionsType } from './users/actions'
 import app from 'redux/app/index'
@@ -38,8 +39,9 @@ type ActionsType =
   | DialogListActionsType
   | MessageListActionsType
 export type RootStateType = ReturnType<typeof store.getState>
-export type AppThunkType = ThunkAction<
-  void,
+
+export type AppThunkType<ReturnType = void> = ThunkAction<
+  ReturnType,
   RootStateType,
   unknown,
   ActionsType

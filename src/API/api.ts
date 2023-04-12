@@ -55,8 +55,8 @@ export const userProfileApi = {
   setProfileStatus(status: string) {
     return instance.put<ResponseType<object>>(`profile/status`, { status })
   },
-  setProfileData(formData: UpdateProfileFormDataType) {
-    return instance.put('profile', formData)
+  setProfileData(formData: Omit<UserProfileType, 'photos'>) {
+    return instance.put<ResponseType<object>>('profile', formData)
   },
   setProfilePhoto(file: File) {
     const formData = new FormData()
@@ -88,7 +88,7 @@ export const dialogsApi = {
 
 // Types
 
-type ResponseType<D> = {
+export type ResponseType<D> = {
   resultCode: number
   messages: Array<string>
   data: D
@@ -107,7 +107,21 @@ export type AuthFormDataType = {
   captcha: string
 }
 
-export type UpdateProfileFormDataType = Omit<UserProfileType, 'photos'>
+export type UpdateProfileFormDataType = Omit<
+  UserProfileType,
+  'photos' | 'contacts'
+> &
+  Record<
+    | 'github'
+    | 'vk'
+    | 'facebook'
+    | 'instagram'
+    | 'twitter'
+    | 'website'
+    | 'youtube'
+    | 'mainLink',
+    string
+  >
 
 export type PhotoType = {
   small: string | null
@@ -125,7 +139,7 @@ export type UserType = {
 
 export type UserProfileType = {
   aboutMe: string
-  contacts: Partial<ContactListType>
+  contacts: ContactListType
   lookingForAJob: boolean
   lookingForAJobDescription: string
   fullName: string
@@ -138,7 +152,7 @@ export enum ResponseStatus {
   'ERROR' = 1,
   'CAPTCHA' = 10,
 }
-export type ContactListType = { [key: string]: string | undefined }
+export type ContactListType = { [key: string]: string }
 
 export type DialogType = {
   id: number

@@ -48,6 +48,7 @@ class ProfileStatus extends PureComponent<ComponentPropsType, StateType> {
               onPressEnter={this.disableEdit}
               autoFocus={true}
               onChange={this.setStatus}
+              maxLength={300}
             />
           ) : (
             <Typography.Text>{this.props.profileStatus}</Typography.Text>

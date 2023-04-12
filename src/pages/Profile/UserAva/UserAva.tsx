@@ -1,31 +1,48 @@
+import { RootStateType } from 'redux/_store'
 import { Col, Image, Row, Space } from 'antd'
+import { userProfileOperations, userProfileSelectors } from 'redux/userProfile'
 
-import Ava from '../../../assets/images/samurai-anime.jpg'
-import { FC } from 'react'
+import { PureComponent } from 'react'
+import TemplatePhoto from '../../../assets/images/samurai-anime.jpg'
 import { UploadFileInput } from 'components/UploadFileInput/UploadFileInput'
+import { connect } from 'react-redux'
 
-type ComponentPropsType = {
-  src: string | null
-  uploadPhoto: (photo: File) => void
+class Ava extends PureComponent<ComponentPropsType> {
+  render() {
+    return (
+      <Row>
+        <Col>
+          <Space direction='vertical' size={'middle'}>
+            <Image
+              src={this.props.profilePhotoURL || TemplatePhoto}
+              width={300}
+              style={{
+                padding: '0.5rem',
+                borderRadius: '15px',
+                boxShadow: 'rgba(99, 99, 99, 0.2) 0px 2px 8px 0px',
+              }}
+            />
+            <UploadFileInput
+              label={'Change photo'}
+              onChooseFile={this.props.uploadProfilePhoto}
+            />
+          </Space>
+        </Col>
+      </Row>
+    )
+  }
 }
 
-export const UserAva: FC<ComponentPropsType> = ({ src, uploadPhoto }) => {
-  return (
-    <Row>
-      <Col>
-        <Space direction='vertical' size={'middle'}>
-          <Image
-            src={src || Ava}
-            width={300}
-            style={{
-              padding: '0.5rem',
-              borderRadius: '15px',
-              boxShadow: 'rgba(99, 99, 99, 0.2) 0px 2px 8px 0px',
-            }}
-          />
-          <UploadFileInput label={'Change photo'} onChooseFile={uploadPhoto} />
-        </Space>
-      </Col>
-    </Row>
-  )
+const mapState = (state: RootStateType) => ({
+  profilePhotoURL: userProfileSelectors.profilePhoto(state),
+})
+const mapDispatch: MapDispatchType = {
+  uploadProfilePhoto: (photo: File) =>
+    userProfileOperations.changeUserProfilePhotosThunk(photo),
 }
+type ComponentPropsType = MapDispatchType & ReturnType<typeof mapState>
+type MapDispatchType = {
+  uploadProfilePhoto: (photo: File) => void
+}
+
+export const UserAva = connect(mapState, mapDispatch)(Ava)

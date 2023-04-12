@@ -14,12 +14,11 @@ import { Layout } from 'antd'
 import { Login } from './pages/Auth/Login/Login'
 import { Navigation } from './components/Layout/Navigation/Navigation'
 import { Preloader } from './components/Preloader/Preloader'
-import { ProfileContainer } from './pages/Profile/ProfileContainer'
 import { RootStateType } from './redux/_store'
 import { UsersConnect } from './pages/Users/UsersConnect'
 import { compose } from 'redux'
 import { connect } from 'react-redux'
-import { authSelectors } from 'redux/auth'
+import { Profile } from 'pages/Profile/Profile'
 
 const { Header, Footer, Sider, Content } = Layout
 
@@ -56,8 +55,8 @@ class App extends Component<ComponentPropsType> {
               <Content style={{ padding: '1rem' }}>
                 <Switch>
                   <Route exact={true} path={'/'} component={Home} />
-                  <Route exact path={'/profile'} component={ProfileContainer} />
-                  <Route path={'/profile/:id?'} component={ProfileContainer} />
+                  <Route exact path={'/profile'} component={Profile} />
+                  <Route path={'/profile/:id?'} component={Profile} />
                   <Route path={'/dialogs/:id?'} component={DialogsPage} />
                   <Route path={'/users'} component={UsersConnect} />
                   <Route path={'/login'} component={Login} />
