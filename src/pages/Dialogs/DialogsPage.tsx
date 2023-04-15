@@ -1,17 +1,19 @@
-import { Col, Row } from 'antd'
+import { Col, Divider, Row } from 'antd'
 import { DialogMessageType, DialogType } from 'API/api'
+import { FC, PureComponent } from 'react'
 import { dialogsOperations, dialogsSelectors } from 'redux/dialogs'
 
-import { Component, FC } from 'react'
 import { DialogList } from './DialogList/DialogList'
-import { RootStateType } from 'redux/_store'
-import { connect } from 'react-redux'
-import { compose } from 'redux'
-import { withAuthRedirect } from 'HOC/WithAuthRedirect'
+import { MessageForm } from './MessageList/MessageForm/MessageForm'
 import { MessageList } from './MessageList/MessageList'
+import { RootStateType } from 'redux/_store'
+import { appSelectors } from 'redux/app'
 import { authSelectors } from 'redux/auth'
+import { compose } from 'redux'
+import { connect } from 'react-redux'
+import { withAuthRedirect } from 'HOC/WithAuthRedirect'
 
-class Page extends Component<ComponentPropsType> {
+class Page extends PureComponent<ComponentPropsType> {
   componentDidMount() {
     this.props.fetchDialogList()
   }
@@ -29,11 +31,10 @@ class Page extends Component<ComponentPropsType> {
       )
     }
     return (
-      <Row>
+      <Row gutter={16} justify='space-between'>
         <Col
-          span={8}
+          span={7}
           style={{
-            borderRight: '2px solid black',
             height: '84.7vh',
             overflowY: 'scroll',
           }}
@@ -44,11 +45,32 @@ class Page extends Component<ComponentPropsType> {
             activeDialogId={this.props.activeDialogId}
           />
         </Col>
-        <Col span={16}>
-          <MessageList
-            messageList={this.props.messageList}
-            authUserId={this.props.authUserId}
-          />
+        <Divider
+          type={'vertical'}
+          style={{ border: '2px solid #595757', height: '84vh' }}
+        />
+        <Col span={15}>
+          <Row>
+            <Col
+              span={24}
+              style={{
+                height: '75vh',
+                overflowY: 'scroll',
+              }}
+            >
+              <MessageList
+                messageList={this.props.messageList}
+                authUserId={this.props.authUserId}
+              />
+            </Col>
+            <Divider />
+            <Col span={24}>
+              <MessageForm
+                errorMessage={this.props.errorMessage}
+                submit={() => ({})}
+              />
+            </Col>
+          </Row>
         </Col>
       </Row>
     )
@@ -62,6 +84,7 @@ const mapState = (state: RootStateType): MapStateType => ({
   messagesCurrentPage: dialogsSelectors.messageListCurrentPage(state),
   activeDialogId: dialogsSelectors.activeDialogId(state),
   authUserId: authSelectors.authUserId(state),
+  errorMessage: appSelectors.errorMessage(state),
 })
 
 const mapDispatch: MapDispatchType = {
@@ -85,6 +108,7 @@ type MapStateType = {
   messagesCurrentPage: number
   activeDialogId: number | null
   authUserId: number | null
+  errorMessage: string
 }
 type MapDispatchType = {
   fetchDialogList: () => void

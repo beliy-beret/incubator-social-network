@@ -58,6 +58,11 @@ export const userMessageListReducer = (
         ...state,
         totalCount: action.payload.totalCount,
       }
+    case 'messages/SET-MESSAGE-TO-MESSAGE-LIST':
+      return {
+        ...state,
+        messageList: [...state.messageList, { ...action.payload.message }],
+      }
     default:
       return state
   }

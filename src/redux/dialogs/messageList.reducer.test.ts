@@ -47,3 +47,24 @@ test('should change totalCount value', () => {
   )
   expect(newState.totalCount).toEqual(COUNT)
 })
+
+test('should set new message to message list', () => {
+  const newMessage: DialogMessageType = {
+    id: 'wfdsdf',
+    addedAt: 'date',
+    body: 'Message',
+    recipientId: 35,
+    senderId: 2,
+    senderName: 'User name',
+    translatedBody: '',
+    viewed: false,
+  }
+  const newState = userMessageListReducer(
+    state,
+    actions.setMessageToMessageList(newMessage)
+  )
+  expect(newState.messageList.length).toEqual(state.messageList.length + 1)
+  expect(
+    newState.messageList.findIndex((el) => el.id === newMessage.id)
+  ).toBeGreaterThan(-1)
+})

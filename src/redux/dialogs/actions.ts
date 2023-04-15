@@ -51,6 +51,17 @@ const setMessagesTotalCount = (
   payload: { totalCount },
 })
 
+type SetMessageToMessageListActionType = {
+  type: 'messages/SET-MESSAGE-TO-MESSAGE-LIST'
+  payload: { message: DialogMessageType }
+}
+const setMessageToMessageList = (
+  message: DialogMessageType
+): SetMessageToMessageListActionType => ({
+  type: 'messages/SET-MESSAGE-TO-MESSAGE-LIST',
+  payload: { message },
+})
+
 export type DialogListActionsType =
   | SetDialogListActionType
   | SetActiveDialogIdActionType
@@ -58,10 +69,12 @@ export type MessageListActionsType =
   | SetMessageListActionType
   | SetMessageListCurrentPageActionType
   | SetMessagesTotalCountActionType
+  | SetMessageToMessageListActionType
 export default {
   setDialogList,
   setActiveDialogId,
   setMessageList,
   setMessageListCurrentPage,
   setMessagesTotalCount,
+  setMessageToMessageList,
 }

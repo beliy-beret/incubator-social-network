@@ -84,6 +84,11 @@ export const dialogsApi = {
       error: null | string
     }>(`dialogs/${userId}/messages`)
   },
+  postMessage(userId: number, message: string) {
+    return instance.post<
+      SendMessageResponseType<{ message: DialogMessageType }>
+    >(`dialogs/${userId}/messages`, { body: message })
+  },
 }
 
 // Types
@@ -173,4 +178,8 @@ export type DialogMessageType = {
   senderName: string
   recipientId: number
   viewed: boolean
+}
+
+export type SendMessageResponseType<D> = ResponseType<D> & {
+  fieldsErrors: string[]
 }
