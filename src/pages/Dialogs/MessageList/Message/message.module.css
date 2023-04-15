@@ -1,19 +1,57 @@
+.message {    
+    min-width: 300px;
+    width: 80%;
+}
 .body {
-    min-width: 80%;
-    background-color: rgb(176, 247, 223);
-    padding: 0.5rem;
-    border-radius: 8px;
-    -webkit-border-radius: 8px;
-    -moz-border-radius: 8px;
-    -ms-border-radius: 8px;
-    -o-border-radius: 8px;
+    padding: 18px 20px;
+    font-size: 16px;
+    border-radius: 10px;
+    margin-bottom: 30px;
+    position: relative;    
+    -webkit-border-radius: 10px;
+    -moz-border-radius: 10px;
+    -ms-border-radius: 10px;
+    -o-border-radius: 10px;
 }
-.message {
-    margin: 0 1rem;            
+
+.friendMessage {
+    align-self: flex-start;
+    text-align: left;
 }
-.friend {
-    align-self: flex-end;    
+.friendMessage .body {
+    background-color: rgba(191, 180, 143, 0.3);
 }
-.friend > .body {
-    background-color: rgb(112, 235, 163);
+.friendMessage .body::after {
+    bottom: 100%;
+    left: 16px;
+    border: solid transparent;
+    content: " ";
+    height: 0;
+    width: 0;
+    position: absolute;
+    pointer-events: none;
+    border-bottom-color: rgba(191, 180, 143, 0.3);
+    border-width: 10px;
+    margin-left: -10px;
+}
+
+.myMessage {
+    align-self: flex-end;
+    text-align: right;
+}
+.myMessage .body {
+    background-color: rgb(191, 180, 143);
+}
+.myMessage .body::after {
+    bottom: 100%;
+    right: 16px;
+    border: solid transparent;
+    content: " ";
+    height: 0;
+    width: 0;
+    position: absolute;
+    pointer-events: none;
+    border-bottom-color: rgb(191, 180, 143);
+    border-width: 10px;
+    margin-left: -10px;
 }

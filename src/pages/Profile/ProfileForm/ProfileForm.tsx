@@ -170,7 +170,7 @@ export const ProfileForm: FC<ComponentPropsType> = ({
         <Col span={24}>
           <Row gutter={10}>
             <Col span={4}>
-              <Typography.Text>website:</Typography.Text>
+              <Typography.Text>youtube:</Typography.Text>
             </Col>
             <Col span={12}>
               <Input type={'text'} {...formik.getFieldProps('youtube')} />

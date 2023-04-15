@@ -33,8 +33,8 @@ export const validate = (values: UpdateProfileFormDataType) => {
     errors.vk = 'Invalid URL'
   }
 
-  // if (values.youtube && !regExp.test(values.youtube)) {
-  //   errors.youtube = 'Invalid URL'
-  // }
+  if (values.youtube && !regExp.test(values.youtube)) {
+    errors.youtube = 'Invalid URL'
+  }
   return errors
 }

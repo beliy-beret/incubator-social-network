@@ -1,5 +1,5 @@
-import { FC } from 'react'
 import { DialogMessageType } from 'API/api'
+import { FC } from 'react'
 import { Message } from './Message/Message'
 import classes from './messageList.module.css'
 
@@ -21,7 +21,7 @@ export const MessageList: FC<ComponentPropsType> = ({
         <Message
           key={item.id}
           body={item.body}
-          isFriendMessage={authUserId === item.senderId}
+          isFriendMessage={authUserId !== item.senderId}
         />
       ))}
     </div>
