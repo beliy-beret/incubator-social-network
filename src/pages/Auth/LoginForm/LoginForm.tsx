@@ -1,7 +1,7 @@
-import { Checkbox, Input, Space } from 'antd'
+import { Checkbox, Input, Space, Typography } from 'antd'
 
 import { AuthFormDataType } from 'API/api'
-import ErrorMessage from '../../../components/ErrorMessage/ErrorMessage'
+import { ErrorMessage } from '../../../components/ErrorMessage/ErrorMessage'
 import { FC } from 'react'
 import classes from './loginForm.module.css'
 import { useFormik } from 'formik'
@@ -31,7 +31,9 @@ export const LoginForm: FC<ComponentPropsType> = ({
 
   return (
     <section className={classes.loginPage}>
-      <h2 className={classes.title}>Login</h2>
+      <Typography.Title level={2} className={classes.title}>
+        Login
+      </Typography.Title>
       <form className={classes.form} onSubmit={formik.handleSubmit}>
         <Input
           placeholder='Enter email'

@@ -1,12 +1,10 @@
 import { FC } from 'react'
-import classes from './errorMessage.module.css'
+import { Alert } from 'antd'
 
 type ComponentPropsType = {
   message: string
 }
 
-const ErrorMessage: FC<ComponentPropsType> = ({ message }) => {
-  return <span className={classes.error}>{message}</span>
-}
-
-export default ErrorMessage
+export const ErrorMessage: FC<ComponentPropsType> = ({ message }) => (
+  <Alert description={message} type='error' />
+)

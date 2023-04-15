@@ -1,6 +1,6 @@
-import { Button, Col, Input, Row, Space } from 'antd'
+import { Button, Checkbox, Col, Input, Row, Space, Typography } from 'antd'
 
-import ErrorMessage from 'components/ErrorMessage/ErrorMessage'
+import { ErrorMessage } from 'components/ErrorMessage/ErrorMessage'
 import { FC } from 'react'
 import TextArea from 'antd/lib/input/TextArea'
 import { UpdateProfileFormDataType } from 'API/api'
@@ -46,91 +46,154 @@ export const ProfileForm: FC<ComponentPropsType> = ({
   })
 
   return (
-    <Row>
-      <Col>
-        <form onSubmit={formik.handleSubmit}>
-          <label>
-            Full name:{' '}
-            <Input type={'text'} {...formik.getFieldProps('fullName')} />
-          </label>
-          <label>
-            About me: <TextArea {...formik.getFieldProps('aboutMe')} />
-          </label>
-          <label>
-            Looking for a job:{' '}
-            <Input
-              type={'checkbox'}
+    <form onSubmit={formik.handleSubmit}>
+      <Row gutter={[0, 8]}>
+        <Col span={24}>
+          <Row gutter={10} align='middle'>
+            <Col span={4}>
+              <Typography.Text>Full name:</Typography.Text>
+            </Col>
+            <Col span={12}>
+              <Input type={'text'} {...formik.getFieldProps('fullName')} />
+            </Col>
+          </Row>
+        </Col>
+        <Col span={24}>
+          <Row gutter={10}>
+            <Col span={4}>
+              <Typography.Text>About me:</Typography.Text>
+            </Col>
+            <Col span={12}>
+              <TextArea {...formik.getFieldProps('aboutMe')} />
+            </Col>
+          </Row>
+        </Col>
+        <Col span={24}>
+          <Space size={'large'}>
+            <Typography.Text>Looking for a job:</Typography.Text>
+            <Checkbox
               checked={formik.values.lookingForAJob}
               {...formik.getFieldProps('')}
             />
-          </label>
-          <label>
-            Job description:{' '}
-            <TextArea {...formik.getFieldProps('lookingForAJobDescription')} />
-          </label>
-
-          <label>
-            github: <Input type={'text'} {...formik.getFieldProps('github')} />
-          </label>
+          </Space>
+        </Col>
+        <Col span={24}>
+          <Row gutter={10}>
+            <Col span={4}>
+              <Typography.Text>Job description:</Typography.Text>
+            </Col>
+            <Col span={12}>
+              <TextArea
+                {...formik.getFieldProps('lookingForAJobDescription')}
+              />
+            </Col>
+          </Row>
+        </Col>
+        <Col span={24}>
+          <Row gutter={10}>
+            <Col span={4}>
+              <Typography.Text>github:</Typography.Text>
+            </Col>
+            <Col span={12}>
+              <Input type={'text'} {...formik.getFieldProps('github')} />
+            </Col>
+          </Row>
           {formik.touched.github && formik.errors.github && (
             <ErrorMessage message={formik.errors.github} />
           )}
-
-          <label>
-            vk: <Input type={'text'} {...formik.getFieldProps('vk')} />
-          </label>
+        </Col>
+        <Col span={24}>
+          <Row gutter={10}>
+            <Col span={4}>
+              <Typography.Text>vk:</Typography.Text>
+            </Col>
+            <Col span={12}>
+              <Input type={'text'} {...formik.getFieldProps('vk')} />
+            </Col>
+          </Row>
           {formik.touched.vk && formik.errors.vk && (
             <ErrorMessage message={formik.errors.vk} />
           )}
-
-          <label>
-            facebook:{' '}
-            <Input type={'text'} {...formik.getFieldProps('facebook')} />
-          </label>
+        </Col>
+        <Col span={24}>
+          <Row gutter={10}>
+            <Col span={4}>
+              <Typography.Text>facebook:</Typography.Text>
+            </Col>
+            <Col span={12}>
+              <Input type={'text'} {...formik.getFieldProps('facebook')} />
+            </Col>
+          </Row>
           {formik.touched.facebook && formik.errors.facebook && (
             <ErrorMessage message={formik.errors.facebook} />
           )}
-
-          <label>
-            instagram:{' '}
-            <Input type={'text'} {...formik.getFieldProps('instagram')} />
-          </label>
+        </Col>
+        <Col span={24}>
+          <Row gutter={10}>
+            <Col span={4}>
+              <Typography.Text>instagram:</Typography.Text>
+            </Col>
+            <Col span={12}>
+              <Input type={'text'} {...formik.getFieldProps('instagram')} />
+            </Col>
+          </Row>
           {formik.touched.instagram && formik.errors.instagram && (
             <ErrorMessage message={formik.errors.instagram} />
           )}
-
-          <label>
-            twitter:{' '}
-            <Input type={'text'} {...formik.getFieldProps('twitter')} />
-          </label>
+        </Col>
+        <Col span={24}>
+          <Row gutter={10}>
+            <Col span={4}>
+              <Typography.Text>twitter:</Typography.Text>
+            </Col>
+            <Col span={12}>
+              <Input type={'text'} {...formik.getFieldProps('twitter')} />
+            </Col>
+          </Row>
           {formik.touched.twitter && formik.errors.twitter && (
             <ErrorMessage message={formik.errors.twitter} />
           )}
-
-          <label>
-            website:{' '}
-            <Input type={'text'} {...formik.getFieldProps('website')} />
-          </label>
+        </Col>
+        <Col span={24}>
+          <Row gutter={10}>
+            <Col span={4}>
+              <Typography.Text>website:</Typography.Text>
+            </Col>
+            <Col span={12}>
+              <Input type={'text'} {...formik.getFieldProps('website')} />
+            </Col>
+          </Row>
           {formik.touched.website && formik.errors.website && (
             <ErrorMessage message={formik.errors.website} />
           )}
-
-          <label>
-            youtube:{' '}
-            <Input type={'text'} {...formik.getFieldProps('youtube')} />
-          </label>
+        </Col>
+        <Col span={24}>
+          <Row gutter={10}>
+            <Col span={4}>
+              <Typography.Text>website:</Typography.Text>
+            </Col>
+            <Col span={12}>
+              <Input type={'text'} {...formik.getFieldProps('youtube')} />
+            </Col>
+          </Row>
           {formik.touched.youtube && formik.errors.youtube && (
             <ErrorMessage message={formik.errors.youtube} />
           )}
-
-          <label>
-            mainLink:{' '}
-            <Input type={'text'} {...formik.getFieldProps('mainLink')} />
-          </label>
+        </Col>
+        <Col span={24}>
+          <Row gutter={10}>
+            <Col span={4}>
+              <Typography.Text>mainLink:</Typography.Text>
+            </Col>
+            <Col span={12}>
+              <Input type={'text'} {...formik.getFieldProps('mainLink')} />
+            </Col>
+          </Row>
           {formik.touched.mainLink && formik.errors.mainLink && (
             <ErrorMessage message={formik.errors.mainLink} />
           )}
-
+        </Col>
+        <Col span={24}>
           <Space>
             <Button type={'primary'} htmlType='submit'>
               Change info
@@ -139,9 +202,9 @@ export const ProfileForm: FC<ComponentPropsType> = ({
               Cancel
             </Button>
           </Space>
-          <ErrorMessage message={error} />
-        </form>
-      </Col>
-    </Row>
+        </Col>
+        {error && <ErrorMessage message={error} />}
+      </Row>
+    </form>
   )
 }

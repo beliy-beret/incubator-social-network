@@ -25,6 +25,7 @@ class Component extends PureComponent<ComponentPropsType, ComponentStateType> {
   toggleIsEditTruthy = () => this.setState({ isEdit: true })
   toggleIsEditFalsy = () => this.setState({ isEdit: false })
   formSubmit = async (formData: UpdateProfileFormDataType) => {
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const res: any = await this.props.changeProfileData(formData)
     if (res.resultCode === ResponseStatus.SUCCESS) {
       this.toggleIsEditFalsy()
@@ -44,11 +45,12 @@ class Component extends PureComponent<ComponentPropsType, ComponentStateType> {
       )
     }
     return (
-      <div>
+      <>
         <Button
           type={'text'}
           onClick={this.toggleIsEditTruthy}
           icon={<EditOutlined />}
+          style={{ position: 'absolute', right: 0, top: 0, zIndex: 1 }}
         ></Button>
         <Row>
           <Col span={24}>
@@ -94,7 +96,7 @@ class Component extends PureComponent<ComponentPropsType, ComponentStateType> {
             </Descriptions>
           </Col>
         </Row>
-      </div>
+      </>
     )
   }
 }
@@ -116,5 +118,6 @@ type ComponentStateType = {
   isEdit: boolean
 }
 type MapDispatchType = {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   changeProfileData: (formData: UpdateProfileFormDataType) => AppThunkType<any>
 }
