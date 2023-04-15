@@ -22,6 +22,12 @@ class Page extends PureComponent<ComponentPropsType> {
     this.props.fetchMessageList(userId)
   }
 
+  sendMessage = (message: string) => {
+    if (this.props.activeDialogId) {
+      this.props.sendMessage(this.props.activeDialogId, message)
+    }
+  }
+
   render() {
     if (!this.props.dialogList) {
       return (
@@ -67,7 +73,7 @@ class Page extends PureComponent<ComponentPropsType> {
             <Col span={24}>
               <MessageForm
                 errorMessage={this.props.errorMessage}
-                submit={() => ({})}
+                submit={this.sendMessage}
               />
             </Col>
           </Row>
@@ -93,6 +99,8 @@ const mapDispatch: MapDispatchType = {
     dialogsOperations.fetchUserMessageList(userId),
   changeMessagesCurrentPage: (currentPage: number) =>
     dialogsOperations.setMessageListCurrentPage(currentPage),
+  sendMessage: (userId: number, message: string) =>
+    dialogsOperations.sendMessage(userId, message),
 }
 
 export const DialogsPage = compose<FC>(
@@ -114,5 +122,6 @@ type MapDispatchType = {
   fetchDialogList: () => void
   fetchMessageList: (userId: number) => void
   changeMessagesCurrentPage: (currentPage: number) => void
+  sendMessage: (userId: number, message: string) => void
 }
 type ComponentPropsType = MapStateType & MapDispatchType
