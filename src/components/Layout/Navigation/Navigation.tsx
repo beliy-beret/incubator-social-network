@@ -10,6 +10,9 @@ export const Navigation = () => {
       <NavLink to={'/profile'} activeClassName={style.active}>
         Profile
       </NavLink>
+      <NavLink to={'/subscriptions'} activeClassName={style.active}>
+        Subscriptions
+      </NavLink>
       <NavLink to={'/dialogs'} activeClassName={style.active}>
         Messages
       </NavLink>
