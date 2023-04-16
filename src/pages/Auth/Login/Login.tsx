@@ -1,4 +1,5 @@
-import { Component, FC, ReactNode } from 'react'
+import { ConnectedProps, connect } from 'react-redux'
+import { FC, PureComponent, ReactNode } from 'react'
 import { RouteComponentProps, withRouter } from 'react-router-dom'
 import { authOperations, authSelectors } from 'redux/auth'
 
@@ -8,11 +9,8 @@ import { Preloader } from '../../../components/Preloader/Preloader'
 import { RootStateType } from '../../../redux/_store'
 import { appSelectors } from 'redux/app'
 import { compose } from 'redux'
-import { connect } from 'react-redux'
 
-type ComponentPropsType = RouteComponentProps & MapProps & MapDispatch
-
-class LoginPage extends Component<ComponentPropsType> {
+class LoginPage extends PureComponent<ComponentPropsType> {
   componentDidUpdate(prevProps: Readonly<ComponentPropsType>): void {
     if (prevProps.isAuth !== this.props.isAuth) {
       this.props.history.push('/profile')
@@ -32,29 +30,21 @@ class LoginPage extends Component<ComponentPropsType> {
   }
 }
 
-type MapProps = {
-  isAuth: boolean
-  submitErrorMessage: string
-  captchaUrl: string
-  isLoading: boolean
-}
-
-type MapDispatch = {
-  sendFormData: (formData: AuthFormDataType) => void
-}
-
-const mapState = (state: RootStateType): MapProps => ({
+const mapState = (state: RootStateType) => ({
   isAuth: authSelectors.isAuth(state),
   submitErrorMessage: appSelectors.errorMessage(state),
   captchaUrl: authSelectors.captchaUrl(state),
   isLoading: appSelectors.isLoading(state),
 })
 
-const mapDispatch: MapDispatch = {
+const mapDispatch = {
   sendFormData: (formData: AuthFormDataType) =>
     authOperations.postAuthorizationDataThunk(formData),
 }
-export const Login = compose<FC>(
-  connect(mapState, mapDispatch),
-  withRouter
-)(LoginPage)
+
+const connector = connect(mapState, mapDispatch)
+export const Login = compose<FC>(connector, withRouter)(LoginPage)
+
+// Types
+type ConnectorType = ConnectedProps<typeof connector>
+type ComponentPropsType = RouteComponentProps & ConnectorType

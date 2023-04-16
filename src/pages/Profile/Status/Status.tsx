@@ -5,7 +5,7 @@ import { userProfileOperations, userProfileSelectors } from 'redux/userProfile'
 import { EditOutlined } from '@ant-design/icons'
 import { RootStateType } from '../../../redux/_store'
 import { authSelectors } from 'redux/auth'
-import { connect } from 'react-redux'
+import { connect, ConnectedProps } from 'react-redux'
 
 class ProfileStatus extends PureComponent<ComponentPropsType, StateType> {
   state = {
@@ -63,7 +63,7 @@ class ProfileStatus extends PureComponent<ComponentPropsType, StateType> {
   }
 }
 
-const mapState = (state: RootStateType): PropsType => {
+const mapState = (state: RootStateType) => {
   return {
     userId: authSelectors.authUserId(state)!,
     profileStatus: userProfileSelectors.profileStatus(state),
@@ -76,26 +76,16 @@ const mapDispatch = {
     userProfileOperations.changeProfileStatusThunk(status),
 }
 
-export const Status = connect(mapState, mapDispatch)(ProfileStatus)
+const connector = connect(mapState, mapDispatch)
+export const Status = connector(ProfileStatus)
 
 // Types
-
-type ComponentPropsType = PropsType &
-  MapDispatchType & {
-    isOwner: boolean
-  }
+type ConnectorType = ConnectedProps<typeof connector>
+type ComponentPropsType = ConnectorType & {
+  isOwner: boolean
+}
 
 type StateType = {
   isEdit: boolean
   status: string
-}
-
-type PropsType = {
-  userId: number
-  profileStatus: string
-}
-
-type MapDispatchType = {
-  getProfileStatus: (userId: number) => void
-  changeProfileStatus: (status: string) => void
 }

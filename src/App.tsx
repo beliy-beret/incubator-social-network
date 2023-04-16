@@ -8,7 +8,7 @@ import {
 import { appOperations, appSelectors } from 'redux/app'
 
 import { AppBar } from './components/Layout/AppBar/AppBar'
-import { DialogsPage } from 'pages/Dialogs/DialogsPage'
+import { Dialogs } from 'pages/Dialogs/Dialogs'
 import { Home } from './pages/Home/Home'
 import { Layout } from 'antd'
 import { Login } from './pages/Auth/Login/Login'
@@ -17,9 +17,9 @@ import { Preloader } from './components/Preloader/Preloader'
 import { Profile } from 'pages/Profile/Profile'
 import { RootStateType } from './redux/_store'
 import { Subscriptions } from 'pages/Subscriptions/Subscriptions'
-import { UsersConnect } from './pages/Users/UsersConnect'
 import { compose } from 'redux'
 import { connect } from 'react-redux'
+import { Users } from 'pages/Users/Users'
 
 const { Header, Footer, Sider, Content } = Layout
 
@@ -57,8 +57,8 @@ class App extends Component<ComponentPropsType> {
                 <Switch>
                   <Route exact={true} path={'/'} component={Home} />
                   <Route path={'/profile/:id?'} component={Profile} />
-                  <Route path={'/dialogs/:id?'} component={DialogsPage} />
-                  <Route path={'/users'} component={UsersConnect} />
+                  <Route path={'/dialogs/:id?'} component={Dialogs} />
+                  <Route path={'/users'} component={Users} />
                   <Route path={'/login'} component={Login} />
                   <Route path={'/subscriptions'} component={Subscriptions} />
                 </Switch>

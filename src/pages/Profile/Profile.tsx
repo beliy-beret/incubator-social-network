@@ -1,4 +1,5 @@
-import { Col, Divider, Row } from 'antd'
+import { Col, Row } from 'antd'
+import { ConnectedProps, connect } from 'react-redux'
 import { FC, PureComponent } from 'react'
 import { RouteComponentProps, withRouter } from 'react-router-dom'
 import { userProfileOperations, userProfileSelectors } from 'redux/userProfile'
@@ -10,7 +11,6 @@ import { UserInfo } from './UserInfo/UserInfo'
 import { appSelectors } from 'redux/app'
 import { authSelectors } from 'redux/auth'
 import { compose } from 'redux'
-import { connect } from 'react-redux'
 import { withAuthRedirect } from '../../HOC/WithAuthRedirect'
 
 class ProfileComponent extends PureComponent<ComponentPropsType> {
@@ -41,8 +41,7 @@ class ProfileComponent extends PureComponent<ComponentPropsType> {
         {this.props.isLoading && <Preloader />}
         <Row gutter={15}>
           <Col span={7}>
-            <UserAva isOwner={isOwner} />
-            <Divider>Subscriptions</Divider>
+            <UserAva isOwner={isOwner} />            
           </Col>
           <Col span={16}>
             <UserInfo isOwner={isOwner} />
@@ -53,32 +52,24 @@ class ProfileComponent extends PureComponent<ComponentPropsType> {
   }
 }
 
-const mapState = (state: RootStateType): MapStateType => ({
+const mapState = (state: RootStateType) => ({
   authUserId: authSelectors.authUserId(state),
   isLoading: appSelectors.isLoading(state),
   profileId: userProfileSelectors.profileId(state),
 })
-const mapDispatch: MapDispatchType = {
+const mapDispatch = {
   fetchUserProfile: (userId: number) =>
     userProfileOperations.setUserProfileThunk(userId),
 }
 
+const connector = connect(mapState, mapDispatch)
+
 export const Profile = compose<FC>(
-  connect(mapState, mapDispatch),
+  connector,
   withRouter,
   withAuthRedirect
 )(ProfileComponent)
 
 // Types
-
-type ComponentPropsType = MapStateType &
-  MapDispatchType &
-  RouteComponentProps<{ id: string }>
-type MapStateType = {
-  authUserId: number | null
-  isLoading: boolean
-  profileId: number | null
-}
-type MapDispatchType = {
-  fetchUserProfile: (userId: number) => void
-}
+type ConnectType = ConnectedProps<typeof connector>
+type ComponentPropsType = ConnectType & RouteComponentProps<{ id: string }>

@@ -5,7 +5,7 @@ import { PureComponent } from 'react'
 import { RootStateType } from 'redux/_store'
 import TemplatePhoto from '../../../assets/images/user.jpg'
 import { UploadFileInput } from 'components/UploadFileInput/UploadFileInput'
-import { connect } from 'react-redux'
+import { connect, ConnectedProps } from 'react-redux'
 
 class Ava extends PureComponent<ComponentPropsType> {
   render() {
@@ -38,16 +38,17 @@ class Ava extends PureComponent<ComponentPropsType> {
 const mapState = (state: RootStateType) => ({
   profilePhotoURL: userProfileSelectors.profilePhoto(state),
 })
-const mapDispatch: MapDispatchType = {
+const mapDispatch = {
   uploadProfilePhoto: (photo: File) =>
     userProfileOperations.changeUserProfilePhotosThunk(photo),
 }
-type ComponentPropsType = MapDispatchType &
-  ReturnType<typeof mapState> & {
-    isOwner: boolean
-  }
-type MapDispatchType = {
-  uploadProfilePhoto: (photo: File) => void
-}
+const connector = connect(mapState, mapDispatch)
 
-export const UserAva = connect(mapState, mapDispatch)(Ava)
+export const UserAva = connector(Ava)
+
+// Types
+type ConnectorType = ConnectedProps<typeof connector>
+
+type ComponentPropsType = ConnectorType & {
+  isOwner: boolean
+}

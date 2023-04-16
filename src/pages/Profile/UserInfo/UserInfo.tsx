@@ -1,5 +1,5 @@
-import { AppThunkType, RootStateType } from 'redux/_store'
 import { Button, Col, Descriptions, Divider, Row, Typography } from 'antd'
+import { ConnectedProps, connect } from 'react-redux'
 import {
   ContactListType,
   ResponseStatus,
@@ -11,9 +11,9 @@ import { userProfileOperations, userProfileSelectors } from 'redux/userProfile'
 import { EditOutlined } from '@ant-design/icons'
 import { ProfileForm } from '../ProfileForm/ProfileForm'
 import { PureComponent } from 'react'
+import { RootStateType } from 'redux/_store'
 import { Status } from '../Status/Status'
 import { appSelectors } from 'redux/app'
-import { connect } from 'react-redux'
 
 const { Title, Paragraph } = Typography
 
@@ -25,9 +25,8 @@ class Component extends PureComponent<ComponentPropsType, ComponentStateType> {
   toggleIsEditTruthy = () => this.setState({ isEdit: true })
   toggleIsEditFalsy = () => this.setState({ isEdit: false })
   formSubmit = async (formData: UpdateProfileFormDataType) => {
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    const res: any = await this.props.changeProfileData(formData)
-    if (res.resultCode === ResponseStatus.SUCCESS) {
+    const res = await this.props.changeProfileData(formData)
+    if (res?.resultCode === ResponseStatus.SUCCESS) {
       this.toggleIsEditFalsy()
     }
   }
@@ -109,22 +108,19 @@ const mapState = (state: RootStateType) => ({
   profileData: userProfileSelectors.profile(state) as UserProfileType,
   errorMessage: appSelectors.errorMessage(state),
 })
-const mapDispatch: MapDispatchType = {
+const mapDispatch = {
   changeProfileData: (formData: UpdateProfileFormDataType) =>
     userProfileOperations.changeUserProfileThunk(formData),
 }
 
-export const UserInfo = connect(mapState, mapDispatch)(Component)
+const connector = connect(mapState, mapDispatch)
+export const UserInfo = connector(Component)
 
 // Types
-type ComponentPropsType = ReturnType<typeof mapState> &
-  MapDispatchType & {
-    isOwner: boolean
-  }
+type ConnectorType = ConnectedProps<typeof connector>
+type ComponentPropsType = ConnectorType & {
+  isOwner: boolean
+}
 type ComponentStateType = {
   isEdit: boolean
-}
-type MapDispatchType = {
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  changeProfileData: (formData: UpdateProfileFormDataType) => AppThunkType<any>
 }

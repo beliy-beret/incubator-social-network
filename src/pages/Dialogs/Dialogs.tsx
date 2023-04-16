@@ -1,5 +1,4 @@
 import { Col, Divider, Row } from 'antd'
-import { DialogMessageType, DialogType } from 'API/api'
 import { FC, PureComponent } from 'react'
 import { dialogsOperations, dialogsSelectors } from 'redux/dialogs'
 
@@ -10,7 +9,7 @@ import { RootStateType } from 'redux/_store'
 import { appSelectors } from 'redux/app'
 import { authSelectors } from 'redux/auth'
 import { compose } from 'redux'
-import { connect } from 'react-redux'
+import { connect, ConnectedProps } from 'react-redux'
 import { withAuthRedirect } from 'HOC/WithAuthRedirect'
 
 class Page extends PureComponent<ComponentPropsType> {
@@ -83,7 +82,7 @@ class Page extends PureComponent<ComponentPropsType> {
   }
 }
 
-const mapState = (state: RootStateType): MapStateType => ({
+const mapState = (state: RootStateType) => ({
   dialogList: dialogsSelectors.dialogList(state),
   messageList: dialogsSelectors.messageList(state),
   messagesTotalCount: dialogsSelectors.messagesTotalCount(state),
@@ -93,7 +92,7 @@ const mapState = (state: RootStateType): MapStateType => ({
   errorMessage: appSelectors.errorMessage(state),
 })
 
-const mapDispatch: MapDispatchType = {
+const mapDispatch = {
   fetchDialogList: () => dialogsOperations.fetchDialogList(),
   fetchMessageList: (userId: number) =>
     dialogsOperations.fetchUserMessageList(userId),
@@ -103,25 +102,9 @@ const mapDispatch: MapDispatchType = {
     dialogsOperations.sendMessage(userId, message),
 }
 
-export const DialogsPage = compose<FC>(
-  withAuthRedirect,
-  connect(mapState, mapDispatch)
-)(Page)
+const connector = connect(mapState, mapDispatch)
+export const Dialogs = compose<FC>(withAuthRedirect, connector)(Page)
 
 // Types
-type MapStateType = {
-  dialogList: DialogType[]
-  messageList: DialogMessageType[]
-  messagesTotalCount: number
-  messagesCurrentPage: number
-  activeDialogId: number | null
-  authUserId: number | null
-  errorMessage: string
-}
-type MapDispatchType = {
-  fetchDialogList: () => void
-  fetchMessageList: (userId: number) => void
-  changeMessagesCurrentPage: (currentPage: number) => void
-  sendMessage: (userId: number, message: string) => void
-}
-type ComponentPropsType = MapStateType & MapDispatchType
+type ConnectorType = ConnectedProps<typeof connector>
+type ComponentPropsType = ConnectorType
