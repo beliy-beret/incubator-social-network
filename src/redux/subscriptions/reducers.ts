@@ -29,19 +29,12 @@ const reducer = (
         ...state,
         currentPage: action.payload.currentPage,
       }
-    case 'subscriptions/TOGGLE-FOLLOW':
+    case 'subscriptions/UNSUBSCRIBE':
       return {
         ...state,
-        userList: state.userList.map((user) => {
-          if (user.id === action.payload.userId) {
-            return {
-              ...user,
-              followed: action.payload.status,
-            }
-          } else {
-            return user
-          }
-        }),
+        userList: state.userList.filter(
+          (user) => user.id !== action.payload.userId
+        ),
       }
     default:
       return state

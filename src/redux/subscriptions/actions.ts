@@ -10,15 +10,12 @@ const setUserList = (userList: UserType[]): SetUserListActionType => ({
 })
 
 type ToggleFollowActionType = {
-  type: 'subscriptions/TOGGLE-FOLLOW'
-  payload: { userId: number; status: boolean }
+  type: 'subscriptions/UNSUBSCRIBE'
+  payload: { userId: number }
 }
-const toggleFollow = (
-  userId: number,
-  status: boolean
-): ToggleFollowActionType => ({
-  type: 'subscriptions/TOGGLE-FOLLOW',
-  payload: { userId, status },
+const unsubscribe = (userId: number): ToggleFollowActionType => ({
+  type: 'subscriptions/UNSUBSCRIBE',
+  payload: { userId },
 })
 
 type SetCurrentPageActionType = {
@@ -45,4 +42,4 @@ export type SubscriptionsActionsType =
   | SetCurrentPageActionType
   | SetTotalCountActionType
 
-export default { setUserList, setTotalCount, setCurrentPage, toggleFollow }
+export default { setUserList, setTotalCount, setCurrentPage, unsubscribe }
