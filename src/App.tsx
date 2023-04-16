@@ -17,9 +17,9 @@ import { Preloader } from './components/Preloader/Preloader'
 import { Profile } from 'pages/Profile/Profile'
 import { RootStateType } from './redux/_store'
 import { Subscriptions } from 'pages/Subscriptions/Subscriptions'
+import { Users } from 'pages/Users/Users'
 import { compose } from 'redux'
 import { connect } from 'react-redux'
-import { Users } from 'pages/Users/Users'
 
 const { Header, Footer, Sider, Content } = Layout
 
@@ -41,7 +41,7 @@ class App extends Component<ComponentPropsType> {
           <Layout
             style={{
               maxWidth: '1900px',
-              minHeight: '100%',
+              minHeight: '100vh',
               margin: 'auto',
               boxShadow: 'rgba(0, 0, 0, 0.1) 0px 4px 12px',
             }}
@@ -53,7 +53,7 @@ class App extends Component<ComponentPropsType> {
               <Sider theme={'light'}>
                 <Navigation />
               </Sider>
-              <Content style={{ padding: '1rem' }}>
+              <Content>
                 <Switch>
                   <Route exact={true} path={'/'} component={Home} />
                   <Route path={'/profile/:id?'} component={Profile} />

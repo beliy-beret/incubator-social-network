@@ -1,46 +1,9 @@
 .user {
-  max-width: 500px;
+  max-width: 600px;
   background-color: #e8dccf;
   padding: 0.5rem;
-  margin-bottom: 1rem;
-  display: flex;
-  flex-wrap: wrap;
-  gap: 0.5rem;
-  box-shadow: 0 0 20px 0 #818080;
+  margin-bottom: 1rem;  
+  box-shadow: 5px 0 16px 0 #818080;
   border-radius: 5px;
 }
-.user img {
-  width: 100px;
-  height: 100px;
-  flex-basis: 100px;
-  border-radius: 3px;
-}
 
-.btnContainer {
-  flex: 1 1 100%;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  gap: 0.5rem;
-}
-.btnContainer a {
-  width: 50%;
-  height: 100%;
-  text-align: center;
-  background-color: #1967e7;
-  color: #ffffff;
-  border-radius: 3px;
-  padding-top: 0.3rem;
-}
-.btnContainer a:hover {
-  background-color: #377cef;
-  color: #ffffff;
-}
-.btnContainer button {
-  width: 50%;
-}
-.name {
-  text-decoration: underline;
-  font-size: 1.5rem;
-  margin-bottom: 0.5rem;
-}

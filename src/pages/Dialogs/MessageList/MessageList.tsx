@@ -22,6 +22,7 @@ export const MessageList: FC<ComponentPropsType> = ({
           key={item.id}
           body={item.body}
           isFriendMessage={authUserId !== item.senderId}
+          friendName={authUserId !== item.senderId ? item.senderName : ''}
         />
       ))}
     </div>

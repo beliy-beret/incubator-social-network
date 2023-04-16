@@ -1,12 +1,14 @@
-import { PureComponent } from 'react'
-import { Preloader } from '../../components/Preloader/Preloader'
 import { Col, Divider, Row } from 'antd'
-import { MyPagination } from 'components/MyPagination/MyPagination'
-import { UserList } from './UserList/UserList'
-import { RootStateType } from 'redux/_store'
+import { ConnectedProps, connect } from 'react-redux'
 import { usersOperations, usersSelectors } from 'redux/users'
+
+import { MyPagination } from 'components/MyPagination/MyPagination'
+import { Preloader } from '../../components/Preloader/Preloader'
+import { PureComponent } from 'react'
+import { RootStateType } from 'redux/_store'
+import { UserList } from './UserList/UserList'
 import { appSelectors } from 'redux/app'
-import { connect, ConnectedProps } from 'react-redux'
+import { dialogsOperations } from 'redux/dialogs'
 
 class Container extends PureComponent<ComponentPropsType> {
   getUsers = () => this.props.getUserList(this.props.currentPage)
@@ -34,7 +36,7 @@ class Container extends PureComponent<ComponentPropsType> {
         {this.props.isLoading && <Preloader />}
 
         <Row justify={'center'}>
-          <Col span={20}>
+          <Col span={20} style={{ paddingTop: '10px' }}>
             <MyPagination
               totalCount={this.props.totalCount}
               pageSize={10}
@@ -45,10 +47,18 @@ class Container extends PureComponent<ComponentPropsType> {
         </Row>
         <Divider />
         <Row justify={'center'}>
-          <Col span={23} style={{ maxHeight: '77.5vh', overflowY: 'scroll' }}>
+          <Col
+            span={24}
+            style={{
+              maxHeight: '80vh',
+              overflowY: 'scroll',
+              padding: '16px',
+            }}
+          >
             <UserList
               userList={this.props.userList}
               toggleSubscription={this.toggleSubscription}
+              sendMessage={this.props.sendMessage}
             />
           </Col>
         </Row>
@@ -72,6 +82,8 @@ const mapDispatch = {
     usersOperations.subscribeToUserThunk(userId),
   unsubscribeUser: (userId: number) =>
     usersOperations.unsubscribeUserThunk(userId),
+  sendMessage: (userId: number, message: string) =>
+    dialogsOperations.sendMessage(userId, message),
 }
 
 const connector = connect(mapState, mapDispatch)

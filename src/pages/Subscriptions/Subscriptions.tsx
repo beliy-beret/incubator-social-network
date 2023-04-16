@@ -12,6 +12,7 @@ import { RootStateType } from 'redux/_store'
 import { UserList } from 'pages/Users/UserList/UserList'
 import { appSelectors } from 'redux/app'
 import { compose } from 'redux'
+import { dialogsOperations } from 'redux/dialogs'
 import { withAuthRedirect } from 'HOC/WithAuthRedirect'
 
 class Component extends PureComponent<ComponentPropsType> {
@@ -30,7 +31,7 @@ class Component extends PureComponent<ComponentPropsType> {
       <>
         {this.props.isLoading && <Preloader />}
         <Row justify={'center'}>
-          <Col span={20}>
+          <Col span={20} style={{ paddingTop: '10px' }}>
             <MyPagination
               totalCount={this.props.totalCount}
               pageSize={10}
@@ -41,10 +42,18 @@ class Component extends PureComponent<ComponentPropsType> {
         </Row>
         <Divider />
         <Row justify={'center'}>
-          <Col span={23} style={{ maxHeight: '77.5vh', overflowY: 'scroll' }}>
+          <Col
+            span={24}
+            style={{
+              maxHeight: '80vh',
+              overflowY: 'scroll',
+              padding: '16px',
+            }}
+          >
             <UserList
               userList={this.props.userList}
               toggleSubscription={this.props.unsubscribe}
+              sendMessage={this.props.sendMessage}
             />
           </Col>
         </Row>
@@ -66,6 +75,8 @@ const mapDispatch = {
   changePage: (currentPage: number) =>
     subscriptionsOperations.setCurrentPage(currentPage),
   unsubscribe: (userId: number) => subscriptionsOperations.unsubscribe(userId),
+  sendMessage: (userId: number, message: string) =>
+    dialogsOperations.sendMessage(userId, message),
 }
 const connector = connect(mapState, mapDispatch)
 

@@ -5,9 +5,14 @@ import classes from './message.module.css'
 type ComponentPropsType = {
   body: string
   isFriendMessage: boolean
+  friendName: string
 }
 
-export const Message: FC<ComponentPropsType> = ({ body, isFriendMessage }) => {
+export const Message: FC<ComponentPropsType> = ({
+  body,
+  isFriendMessage,
+  friendName,
+}) => {
   const messageClassName =
     classes.message +
     ' ' +
@@ -16,7 +21,7 @@ export const Message: FC<ComponentPropsType> = ({ body, isFriendMessage }) => {
   return (
     <div className={messageClassName}>
       <Typography.Title level={4}>
-        {isFriendMessage ? 'Friend' : 'Me'}
+        {isFriendMessage ? friendName : 'Me'}
       </Typography.Title>
       <p className={classes.body}>{body}</p>
     </div>
