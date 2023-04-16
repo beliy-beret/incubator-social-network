@@ -34,7 +34,7 @@ export const UserPage: FC<ComponentPropsType> = ({
       </Row>
       <Divider />
       <Row justify={'center'}>
-        <Col span={23}>
+        <Col span={23} style={{ maxHeight: '77.5vh', overflowY: 'scroll' }}>
           <UserList
             userList={userList}
             toggleSubscription={toggleSubscription}

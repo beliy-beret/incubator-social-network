@@ -6,6 +6,9 @@ import { appOperations } from 'redux/app'
 
 const setMessageListCurrentPage = actions.setMessageListCurrentPage
 const setMessagesTotalCount = actions.setMessagesTotalCount
+const deleteDialogList = () => actions.setDialogList([])
+const deleteMessageList = () => actions.setMessageList([])
+const setActiveDialogId = actions.setActiveDialogId
 
 const fetchDialogList = (): AppThunkType => {
   return async (dispatch) => {
@@ -65,4 +68,7 @@ export default {
   setMessageListCurrentPage,
   setMessagesTotalCount,
   sendMessage,
+  setActiveDialogId,
+  deleteDialogList,
+  deleteMessageList,
 }

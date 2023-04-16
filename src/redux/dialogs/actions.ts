@@ -11,9 +11,11 @@ const setDialogList = (dialogList: DialogType[]): SetDialogListActionType => ({
 
 type SetActiveDialogIdActionType = {
   type: 'dialogs/SET-ACTIVE-DIALOG-INDEX'
-  payload: { dialogId: number }
+  payload: { dialogId: number | null }
 }
-const setActiveDialogId = (dialogId: number): SetActiveDialogIdActionType => ({
+const setActiveDialogId = (
+  dialogId: number | null
+): SetActiveDialogIdActionType => ({
   type: 'dialogs/SET-ACTIVE-DIALOG-INDEX',
   payload: { dialogId },
 })

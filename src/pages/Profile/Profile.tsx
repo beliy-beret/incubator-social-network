@@ -5,7 +5,6 @@ import { userProfileOperations, userProfileSelectors } from 'redux/userProfile'
 
 import { Preloader } from 'components/Preloader/Preloader'
 import { RootStateType } from '../../redux/_store'
-import { Subscriptions } from './Subscriptions/Subscriptions'
 import { UserAva } from './UserAva/UserAva'
 import { UserInfo } from './UserInfo/UserInfo'
 import { appSelectors } from 'redux/app'
@@ -44,7 +43,6 @@ class ProfileComponent extends PureComponent<ComponentPropsType> {
           <Col span={7}>
             <UserAva isOwner={isOwner} />
             <Divider>Subscriptions</Divider>
-            <Subscriptions />
           </Col>
           <Col span={16}>
             <UserInfo isOwner={isOwner} />

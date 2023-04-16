@@ -1,5 +1,6 @@
 import { Col, Divider, Row } from 'antd'
 import { ConnectedProps, connect } from 'react-redux'
+import { FC, PureComponent } from 'react'
 import {
   subscriptionsOperations,
   subscriptionsSelectors,
@@ -7,10 +8,11 @@ import {
 
 import { MyPagination } from 'components/MyPagination/MyPagination'
 import { Preloader } from 'components/Preloader/Preloader'
-import { PureComponent } from 'react'
 import { RootStateType } from 'redux/_store'
 import { UserList } from 'pages/Users/UserList/UserList'
 import { appSelectors } from 'redux/app'
+import { compose } from 'redux'
+import { withAuthRedirect } from 'HOC/WithAuthRedirect'
 
 class Component extends PureComponent<ComponentPropsType> {
   getUsers = () => this.props.fetchUserList(this.props.currentPage)
@@ -39,7 +41,7 @@ class Component extends PureComponent<ComponentPropsType> {
         </Row>
         <Divider />
         <Row justify={'center'}>
-          <Col span={23}>
+          <Col span={23} style={{ maxHeight: '77.5vh', overflowY: 'scroll' }}>
             <UserList
               userList={this.props.userList}
               toggleSubscription={this.props.unsubscribe}
@@ -67,7 +69,7 @@ const mapDispatch = {
 }
 const connector = connect(mapState, mapDispatch)
 
-export const Subscriptions = connector(Component)
+export const Subscriptions = compose<FC>(withAuthRedirect, connector)(Component)
 
 // Types
 type ConnectorType = ConnectedProps<typeof connector>

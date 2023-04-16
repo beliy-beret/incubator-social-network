@@ -6,6 +6,8 @@ import actions from './actions'
 import { appOperations } from 'redux/app'
 import { userProfileApi } from 'API/api'
 
+const deleteProfileData = () => actions.setUserProfile({} as UserProfileType)
+
 const setUserProfileThunk = (userId: number): AppThunkType => {
   return async (dispatch) => {
     dispatch(appOperations.toggleIsLoading(true))
@@ -115,4 +117,5 @@ export default {
   changeProfileStatusThunk,
   changeUserProfileThunk,
   changeUserProfilePhotosThunk,
+  deleteProfileData,
 }

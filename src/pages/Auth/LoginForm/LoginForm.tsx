@@ -72,7 +72,7 @@ export const LoginForm: FC<ComponentPropsType> = ({
           checked={formik.values.rememberMe}
           onChange={formik.handleChange}
         />
-        <ErrorMessage message={submitErrorMessage} />
+        {submitErrorMessage && <ErrorMessage message={submitErrorMessage} />}
 
         {captchaUrl && (
           <div>
