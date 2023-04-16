@@ -7,13 +7,6 @@ import { RootStateType } from '../../../redux/_store'
 import { authSelectors } from 'redux/auth'
 import { connect } from 'react-redux'
 
-type ComponentPropsType = PropsType & MapDispatchType
-
-type StateType = {
-  isEdit: boolean
-  status: string
-}
-
 class ProfileStatus extends PureComponent<ComponentPropsType, StateType> {
   state = {
     isEdit: false,
@@ -55,26 +48,19 @@ class ProfileStatus extends PureComponent<ComponentPropsType, StateType> {
           )}
         </Col>
         <Col>
-          <Button
-            type={'text'}
-            onClick={this.enableEdit}
-            icon={<EditOutlined />}
-          >
-            {this.props.profileStatus ? '' : 'Add Status.'}
-          </Button>
+          {this.props.isOwner && (
+            <Button
+              type={'text'}
+              onClick={this.enableEdit}
+              icon={<EditOutlined />}
+            >
+              {this.props.profileStatus ? '' : 'Add Status.'}
+            </Button>
+          )}
         </Col>
       </Row>
     )
   }
-}
-
-type PropsType = {
-  userId: number
-  profileStatus: string
-}
-type MapDispatchType = {
-  getProfileStatus: (userId: number) => void
-  changeProfileStatus: (status: string) => void
 }
 
 const mapState = (state: RootStateType): PropsType => {
@@ -91,3 +77,25 @@ const mapDispatch = {
 }
 
 export const Status = connect(mapState, mapDispatch)(ProfileStatus)
+
+// Types
+
+type ComponentPropsType = PropsType &
+  MapDispatchType & {
+    isOwner: boolean
+  }
+
+type StateType = {
+  isEdit: boolean
+  status: string
+}
+
+type PropsType = {
+  userId: number
+  profileStatus: string
+}
+
+type MapDispatchType = {
+  getProfileStatus: (userId: number) => void
+  changeProfileStatus: (status: string) => void
+}

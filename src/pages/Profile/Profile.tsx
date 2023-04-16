@@ -1,18 +1,18 @@
+import { Col, Divider, Row } from 'antd'
+import { FC, PureComponent } from 'react'
 import { RouteComponentProps, withRouter } from 'react-router-dom'
+import { userProfileOperations, userProfileSelectors } from 'redux/userProfile'
 
-import { PureComponent, FC } from 'react'
+import { Preloader } from 'components/Preloader/Preloader'
 import { RootStateType } from '../../redux/_store'
+import { Subscriptions } from './Subscriptions/Subscriptions'
+import { UserAva } from './UserAva/UserAva'
+import { UserInfo } from './UserInfo/UserInfo'
 import { appSelectors } from 'redux/app'
 import { authSelectors } from 'redux/auth'
 import { compose } from 'redux'
 import { connect } from 'react-redux'
-import { userProfileOperations } from 'redux/userProfile'
 import { withAuthRedirect } from '../../HOC/WithAuthRedirect'
-import { Col, Divider, Row } from 'antd'
-import { Preloader } from 'components/Preloader/Preloader'
-import { UserAva } from './UserAva/UserAva'
-import { Subscriptions } from './Subscriptions/Subscriptions'
-import { UserInfo } from './UserInfo/UserInfo'
 
 class ProfileComponent extends PureComponent<ComponentPropsType> {
   componentDidMount() {
@@ -36,17 +36,18 @@ class ProfileComponent extends PureComponent<ComponentPropsType> {
   }
 
   render() {
+    const isOwner = this.props.authUserId === this.props.profileId
     return (
       <section>
         {this.props.isLoading && <Preloader />}
         <Row gutter={15}>
           <Col span={7}>
-            <UserAva />
+            <UserAva isOwner={isOwner} />
             <Divider>Subscriptions</Divider>
             <Subscriptions />
           </Col>
           <Col span={16}>
-            <UserInfo />
+            <UserInfo isOwner={isOwner} />
           </Col>
         </Row>
       </section>
@@ -57,6 +58,7 @@ class ProfileComponent extends PureComponent<ComponentPropsType> {
 const mapState = (state: RootStateType): MapStateType => ({
   authUserId: authSelectors.authUserId(state),
   isLoading: appSelectors.isLoading(state),
+  profileId: userProfileSelectors.profileId(state),
 })
 const mapDispatch: MapDispatchType = {
   fetchUserProfile: (userId: number) =>
@@ -77,6 +79,7 @@ type ComponentPropsType = MapStateType &
 type MapStateType = {
   authUserId: number | null
   isLoading: boolean
+  profileId: number | null
 }
 type MapDispatchType = {
   fetchUserProfile: (userId: number) => void

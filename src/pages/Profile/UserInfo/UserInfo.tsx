@@ -44,14 +44,18 @@ class Component extends PureComponent<ComponentPropsType, ComponentStateType> {
         />
       )
     }
+
     return (
       <>
-        <Button
-          type={'text'}
-          onClick={this.toggleIsEditTruthy}
-          icon={<EditOutlined />}
-          style={{ position: 'absolute', right: 0, top: 0, zIndex: 1 }}
-        ></Button>
+        {this.props.isOwner && (
+          <Button
+            type={'text'}
+            onClick={this.toggleIsEditTruthy}
+            icon={<EditOutlined />}
+            style={{ position: 'absolute', right: 0, top: 0, zIndex: 1 }}
+          ></Button>
+        )}
+
         <Row>
           <Col span={24}>
             <Title level={2} italic={true} underline={true}>
@@ -62,7 +66,7 @@ class Component extends PureComponent<ComponentPropsType, ComponentStateType> {
         <Divider>Profile status</Divider>
         <Row>
           <Col span={24}>
-            <Status />
+            <Status isOwner={this.props.isOwner} />
           </Col>
         </Row>
         <Divider>Profile info</Divider>
@@ -113,7 +117,10 @@ const mapDispatch: MapDispatchType = {
 export const UserInfo = connect(mapState, mapDispatch)(Component)
 
 // Types
-type ComponentPropsType = ReturnType<typeof mapState> & MapDispatchType
+type ComponentPropsType = ReturnType<typeof mapState> &
+  MapDispatchType & {
+    isOwner: boolean
+  }
 type ComponentStateType = {
   isEdit: boolean
 }

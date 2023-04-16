@@ -1,9 +1,9 @@
-import { RootStateType } from 'redux/_store'
 import { Col, Image, Row, Space } from 'antd'
 import { userProfileOperations, userProfileSelectors } from 'redux/userProfile'
 
 import { PureComponent } from 'react'
-import TemplatePhoto from '../../../assets/images/samurai-anime.jpg'
+import { RootStateType } from 'redux/_store'
+import TemplatePhoto from '../../../assets/images/user.jpg'
 import { UploadFileInput } from 'components/UploadFileInput/UploadFileInput'
 import { connect } from 'react-redux'
 
@@ -22,10 +22,12 @@ class Ava extends PureComponent<ComponentPropsType> {
                 boxShadow: 'rgba(99, 99, 99, 0.2) 0px 2px 8px 0px',
               }}
             />
-            <UploadFileInput
-              label={'Change photo'}
-              onChooseFile={this.props.uploadProfilePhoto}
-            />
+            {this.props.isOwner && (
+              <UploadFileInput
+                label={'Change photo'}
+                onChooseFile={this.props.uploadProfilePhoto}
+              />
+            )}
           </Space>
         </Col>
       </Row>
@@ -40,7 +42,10 @@ const mapDispatch: MapDispatchType = {
   uploadProfilePhoto: (photo: File) =>
     userProfileOperations.changeUserProfilePhotosThunk(photo),
 }
-type ComponentPropsType = MapDispatchType & ReturnType<typeof mapState>
+type ComponentPropsType = MapDispatchType &
+  ReturnType<typeof mapState> & {
+    isOwner: boolean
+  }
 type MapDispatchType = {
   uploadProfilePhoto: (photo: File) => void
 }
