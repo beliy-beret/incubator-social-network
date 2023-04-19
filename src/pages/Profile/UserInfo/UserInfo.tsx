@@ -1,4 +1,12 @@
-import { Button, Col, Descriptions, Divider, Row, Typography } from 'antd'
+import {
+  Button,
+  Col,
+  Descriptions,
+  Divider,
+  Row,
+  Skeleton,
+  Typography,
+} from 'antd'
 import { ConnectedProps, connect } from 'react-redux'
 import {
   ContactListType,
@@ -57,9 +65,11 @@ class Component extends PureComponent<ComponentPropsType, ComponentStateType> {
 
         <Row>
           <Col span={24}>
-            <Title level={2} italic={true} underline={true}>
-              {this.props.profileData.fullName}
-            </Title>
+            <Skeleton loading={this.props.isLoading} title>
+              <Title level={2} italic={true} underline={true}>
+                {this.props.profileData.fullName}
+              </Title>
+            </Skeleton>
           </Col>
         </Row>
         <Divider>Profile status</Divider>
@@ -71,15 +81,19 @@ class Component extends PureComponent<ComponentPropsType, ComponentStateType> {
         <Divider>Profile info</Divider>
         <Row>
           <Col span={24}>
-            <Paragraph>{this.props.profileData.aboutMe}</Paragraph>
+            <Skeleton loading={this.props.isLoading}>
+              <Paragraph>{this.props.profileData.aboutMe}</Paragraph>
+            </Skeleton>
             {this.props.profileData.lookingForAJob &&
               this.props.profileData.lookingForAJobDescription && (
                 <Descriptions>
-                  <Descriptions.Item label='LookingForAJob'>
-                    <Paragraph>
-                      {this.props.profileData.lookingForAJobDescription}
-                    </Paragraph>
-                  </Descriptions.Item>
+                  <Skeleton loading={this.props.isLoading}>
+                    <Descriptions.Item label='LookingForAJob'>
+                      <Paragraph>
+                        {this.props.profileData.lookingForAJobDescription}
+                      </Paragraph>
+                    </Descriptions.Item>
+                  </Skeleton>
                 </Descriptions>
               )}
           </Col>
@@ -88,15 +102,18 @@ class Component extends PureComponent<ComponentPropsType, ComponentStateType> {
         <Divider>User contacts</Divider>
         <Row>
           <Col>
-            <Descriptions column={1}>
-              {Object.keys(contactList).map((contact: string, index: number) =>
-                contactList[contact] ? (
-                  <Descriptions.Item key={index} label={contact}>
-                    {contactList[contact]}
-                  </Descriptions.Item>
-                ) : null
-              )}
-            </Descriptions>
+            <Skeleton loading={this.props.isLoading}>
+              <Descriptions column={1}>
+                {Object.keys(contactList).map(
+                  (contact: string, index: number) =>
+                    contactList[contact] ? (
+                      <Descriptions.Item key={index} label={contact}>
+                        {contactList[contact]}
+                      </Descriptions.Item>
+                    ) : null
+                )}
+              </Descriptions>
+            </Skeleton>
           </Col>
         </Row>
       </>
@@ -107,6 +124,7 @@ class Component extends PureComponent<ComponentPropsType, ComponentStateType> {
 const mapState = (state: RootStateType) => ({
   profileData: userProfileSelectors.profile(state) as UserProfileType,
   errorMessage: appSelectors.errorMessage(state),
+  isLoading: appSelectors.isLoading(state),
 })
 const mapDispatch = {
   changeProfileData: (formData: UpdateProfileFormDataType) =>

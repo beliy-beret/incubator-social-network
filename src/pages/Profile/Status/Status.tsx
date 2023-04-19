@@ -1,11 +1,12 @@
-import { Button, Col, Input, Row, Typography } from 'antd'
+import { Button, Col, Input, Row, Skeleton, Typography } from 'antd'
 import { ChangeEvent, PureComponent } from 'react'
+import { ConnectedProps, connect } from 'react-redux'
 import { userProfileOperations, userProfileSelectors } from 'redux/userProfile'
 
 import { EditOutlined } from '@ant-design/icons'
 import { RootStateType } from '../../../redux/_store'
+import { appSelectors } from 'redux/app'
 import { authSelectors } from 'redux/auth'
-import { connect, ConnectedProps } from 'react-redux'
 
 class ProfileStatus extends PureComponent<ComponentPropsType, StateType> {
   state = {
@@ -44,7 +45,9 @@ class ProfileStatus extends PureComponent<ComponentPropsType, StateType> {
               maxLength={300}
             />
           ) : (
-            <Typography.Text>{this.props.profileStatus}</Typography.Text>
+            <Skeleton loading={this.props.isLoading} paragraph={{ rows: 1 }}>
+              <Typography.Text>{this.props.profileStatus}</Typography.Text>
+            </Skeleton>
           )}
         </Col>
         <Col>
@@ -67,6 +70,7 @@ const mapState = (state: RootStateType) => {
   return {
     userId: authSelectors.authUserId(state)!,
     profileStatus: userProfileSelectors.profileStatus(state),
+    isLoading: appSelectors.isLoading(state),
   }
 }
 const mapDispatch = {
