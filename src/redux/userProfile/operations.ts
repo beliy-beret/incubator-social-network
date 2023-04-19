@@ -6,7 +6,19 @@ import actions from './actions'
 import { appOperations } from 'redux/app'
 import { userProfileApi } from 'API/api'
 
-const deleteProfileData = () => actions.setUserProfile({} as UserProfileType)
+const deleteProfileData = () =>
+  actions.setUserProfile({
+    aboutMe: '',
+    fullName: '',
+    lookingForAJob: false,
+    lookingForAJobDescription: '',
+    userId: null,
+    contacts: {},
+    photos: {
+      small: '',
+      large: '',
+    },
+  } as UserProfileType)
 
 const setUserProfileThunk = (userId: number): AppThunkType => {
   return async (dispatch) => {

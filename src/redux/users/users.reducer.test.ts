@@ -1,6 +1,5 @@
 import reducer, { UsersInitialStateType } from './reducers'
 
-import { UserProfileType } from 'API/api'
 import actions from './actions'
 
 const state: UsersInitialStateType = {

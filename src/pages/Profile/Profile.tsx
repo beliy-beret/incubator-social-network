@@ -41,7 +41,7 @@ class ProfileComponent extends PureComponent<ComponentPropsType> {
         {this.props.isLoading && <Preloader />}
         <Row gutter={15}>
           <Col span={7}>
-            <UserAva isOwner={isOwner} />            
+            <UserAva isOwner={isOwner} />
           </Col>
           <Col span={16}>
             <UserInfo isOwner={isOwner} />
