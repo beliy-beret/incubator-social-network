@@ -34,6 +34,7 @@ const deleteAuthDataThunk = (): AppThunkType => {
         dispatch(dialogsOperations.deleteMessageList())
         dispatch(dialogsOperations.setMessageListCurrentPage(1))
         dispatch(userProfileOperations.deleteProfileData())
+        dispatch(userProfileOperations.deleteProfileStatus())
       } else {
         throw new Error(res.data.messages[0])
       }

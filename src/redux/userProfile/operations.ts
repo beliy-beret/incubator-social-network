@@ -20,12 +20,24 @@ const deleteProfileData = () =>
     },
   } as UserProfileType)
 
+const deleteProfileStatus = () => actions.setProfileStatus('')
+const fetchProfileStatusThunk = (userId: number): AppThunkType => {
+  return async (dispatch) => {
+    try {
+      const res = await userProfileApi.getProfileStatus(userId)
+      dispatch(actions.setProfileStatus(res.data))
+    } catch (e) {
+      console.error(e)
+    }
+  }
+}
 const setUserProfileThunk = (userId: number): AppThunkType => {
   return async (dispatch) => {
     dispatch(appOperations.toggleIsLoading(true))
     try {
       const res = await userProfileApi.getProfileData(userId)
       dispatch(actions.setUserProfile(res.data))
+      dispatch(fetchProfileStatusThunk(userId))
     } catch (e) {
       console.error(e)
     } finally {
@@ -91,20 +103,6 @@ const changeUserProfilePhotosThunk = (photo: File): AppThunkType => {
   }
 }
 
-const setProfileStatusThunk = (userId: number): AppThunkType => {
-  return async (dispatch) => {
-    dispatch(appOperations.toggleIsLoading(true))
-    try {
-      const res = await userProfileApi.getProfileStatus(userId)
-      dispatch(actions.setProfileStatus(res.data))
-    } catch (e) {
-      console.error(e)
-    } finally {
-      dispatch(appOperations.toggleIsLoading(false))
-    }
-  }
-}
-
 const changeProfileStatusThunk = (status: string): AppThunkType => {
   return async (dispatch) => {
     dispatch(appOperations.toggleIsLoading(true))
@@ -113,10 +111,10 @@ const changeProfileStatusThunk = (status: string): AppThunkType => {
       if (res.data.resultCode === ResponseStatus.SUCCESS) {
         dispatch(actions.setProfileStatus(status))
       } else {
-        throw new Error(res.data.messages[0])
+        dispatch(appOperations.setAppErrorMessage(res.data.messages[0]))
       }
     } catch (e) {
-      console.error(e)
+      dispatch(appOperations.setAppErrorMessage((e as Error).message))
     } finally {
       dispatch(appOperations.toggleIsLoading(false))
     }
@@ -124,10 +122,10 @@ const changeProfileStatusThunk = (status: string): AppThunkType => {
 }
 
 export default {
-  setProfileStatusThunk,
   setUserProfileThunk,
   changeProfileStatusThunk,
   changeUserProfileThunk,
   changeUserProfilePhotosThunk,
   deleteProfileData,
+  deleteProfileStatus,
 }

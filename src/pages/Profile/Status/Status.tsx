@@ -11,22 +11,28 @@ import { authSelectors } from 'redux/auth'
 class ProfileStatus extends PureComponent<ComponentPropsType, StateType> {
   state = {
     isEdit: false,
-    status: this.props.profileStatus,
-  }
-  componentDidMount(): void {
-    this.props.getProfileStatus(this.props.userId)
+    status: '',
   }
   enableEdit = () => {
-    this.setState({ isEdit: true })
+    this.setState({ ...this.state, isEdit: true })
   }
   disableEdit = () => {
-    this.setState({ isEdit: false })
+    this.setState({ ...this.state, isEdit: false })
     if (this.props.profileStatus !== this.state.status) {
       this.props.changeProfileStatus(this.state.status)
     }
   }
   setStatus = (e: ChangeEvent<HTMLInputElement>) => {
-    this.setState({ status: e.currentTarget.value })
+    this.setState({ ...this.state, status: e.currentTarget.value })
+  }
+  componentDidMount(): void {
+    this.setState({ ...this.state, status: this.props.profileStatus })
+  }
+
+  componentDidUpdate(prevProps: Readonly<ComponentPropsType>) {
+    if (prevProps.profileStatus !== this.props.profileStatus) {
+      this.setState({ ...this.state, status: this.props.profileStatus })
+    }
   }
 
   render() {
@@ -37,7 +43,6 @@ class ProfileStatus extends PureComponent<ComponentPropsType, StateType> {
             <Input
               type='text'
               value={this.state.status}
-              defaultValue={this.state.status}
               onBlur={this.disableEdit}
               onPressEnter={this.disableEdit}
               autoFocus={true}
@@ -45,9 +50,11 @@ class ProfileStatus extends PureComponent<ComponentPropsType, StateType> {
               maxLength={300}
             />
           ) : (
-            <Skeleton loading={this.props.isLoading} paragraph={{ rows: 1 }}>
-              <Typography.Text>{this.props.profileStatus}</Typography.Text>
-            </Skeleton>
+            <Typography.Text>
+              <Skeleton loading={this.props.isLoading} paragraph={{ rows: 1 }}>
+                {this.props.profileStatus}
+              </Skeleton>
+            </Typography.Text>
           )}
         </Col>
         <Col>
@@ -74,8 +81,6 @@ const mapState = (state: RootStateType) => {
   }
 }
 const mapDispatch = {
-  getProfileStatus: (userId: number) =>
-    userProfileOperations.setProfileStatusThunk(userId),
   changeProfileStatus: (status: string) =>
     userProfileOperations.changeProfileStatusThunk(status),
 }

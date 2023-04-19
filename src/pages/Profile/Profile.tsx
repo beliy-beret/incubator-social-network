@@ -15,27 +15,21 @@ import { withAuthRedirect } from '../../HOC/WithAuthRedirect'
 
 class ProfileComponent extends PureComponent<ComponentPropsType> {
   componentDidMount() {
-    const id = this.props.match.params.id
-      ? Number(this.props.match.params.id)
-      : this.props.authUserId
-    if (id) {
-      this.props.fetchUserProfile(id)
-    }
+    const id = Number(this.props.match.params.id) || this.props.authUserId
+    this.props.fetchUserProfile(id!)
   }
 
   componentDidUpdate(prevProps: ComponentPropsType) {
+    const id = Number(this.props.match.params.id) || this.props.authUserId
     if (this.props.match.params.id !== prevProps.match.params.id) {
-      const id = this.props.match.params.id
-        ? Number(this.props.match.params.id)
-        : this.props.authUserId
-      if (id) {
-        this.props.fetchUserProfile(id)
-      }
+      this.props.fetchUserProfile(id!)
     }
   }
 
   render() {
+    console.log('Profile component render')
     const isOwner = this.props.authUserId === this.props.profileId
+
     return (
       <section>
         {this.props.isLoading && <Preloader />}
