@@ -6,6 +6,7 @@ import { dialogsOperations, dialogsSelectors } from 'redux/dialogs'
 import { DialogList } from './DialogList/DialogList'
 import { MessageForm } from './MessageList/MessageForm/MessageForm'
 import { MessageList } from './MessageList/MessageList'
+import { Preloader } from 'components/Preloader/Preloader'
 import { RootStateType } from 'redux/_store'
 import { appSelectors } from 'redux/app'
 import { authSelectors } from 'redux/auth'
@@ -37,6 +38,7 @@ class Page extends PureComponent<ComponentPropsType> {
     }
     return (
       <Row gutter={16} justify='space-between'>
+        {this.props.isLoading && <Preloader />}
         <Col
           span={7}
           style={{
@@ -90,6 +92,7 @@ const mapState = (state: RootStateType) => ({
   activeDialogId: dialogsSelectors.activeDialogId(state),
   authUserId: authSelectors.authUserId(state),
   errorMessage: appSelectors.errorMessage(state),
+  isLoading: appSelectors.isLoading(state),
 })
 
 const mapDispatch = {

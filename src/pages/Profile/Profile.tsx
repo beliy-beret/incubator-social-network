@@ -28,7 +28,6 @@ class ProfileComponent extends PureComponent<ComponentPropsType> {
   }
 
   render() {
-    console.log('Profile component render')
     const isOwner = this.props.authUserId === this.props.profileId
 
     return (
