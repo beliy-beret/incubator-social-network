@@ -1,4 +1,5 @@
 import { Col, Divider, Row } from 'antd'
+import { ConnectedProps, connect } from 'react-redux'
 import { FC, PureComponent } from 'react'
 import { dialogsOperations, dialogsSelectors } from 'redux/dialogs'
 
@@ -9,7 +10,6 @@ import { RootStateType } from 'redux/_store'
 import { appSelectors } from 'redux/app'
 import { authSelectors } from 'redux/auth'
 import { compose } from 'redux'
-import { connect, ConnectedProps } from 'react-redux'
 import { withAuthRedirect } from 'HOC/WithAuthRedirect'
 
 class Page extends PureComponent<ComponentPropsType> {
@@ -103,7 +103,7 @@ const mapDispatch = {
 }
 
 const connector = connect(mapState, mapDispatch)
-export const Dialogs = compose<FC>(withAuthRedirect, connector)(Page)
+export default compose<FC>(withAuthRedirect, connector)(Page)
 
 // Types
 type ConnectorType = ConnectedProps<typeof connector>

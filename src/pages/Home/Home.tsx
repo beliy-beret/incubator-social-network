@@ -10,7 +10,7 @@ const technologiesStyle = {
   padding: '16px',
 }
 
-export const Home = () => {
+const Home = () => {
   return (
     <section>
       <Row>
@@ -80,3 +80,5 @@ export const Home = () => {
     </section>
   )
 }
+
+export default Home

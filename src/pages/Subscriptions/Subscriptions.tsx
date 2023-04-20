@@ -80,7 +80,7 @@ const mapDispatch = {
 }
 const connector = connect(mapState, mapDispatch)
 
-export const Subscriptions = compose<FC>(withAuthRedirect, connector)(Component)
+export default compose<FC>(withAuthRedirect, connector)(Component)
 
 // Types
 type ConnectorType = ConnectedProps<typeof connector>

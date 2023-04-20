@@ -1,4 +1,4 @@
-import { Component, FC, ReactNode } from 'react'
+import { Component, FC, ReactNode, lazy } from 'react'
 import {
   Route,
   RouteComponentProps,
@@ -8,20 +8,22 @@ import {
 import { appOperations, appSelectors } from 'redux/app'
 
 import { AppBar } from './components/Layout/AppBar/AppBar'
-import { Dialogs } from 'pages/Dialogs/Dialogs'
-import { Home } from './pages/Home/Home'
+import Home from './pages/Home/Home'
 import { Layout } from 'antd'
-import { Login } from './pages/Auth/Login/Login'
 import { Navigation } from './components/Layout/Navigation/Navigation'
 import { Preloader } from './components/Preloader/Preloader'
-import { Profile } from 'pages/Profile/Profile'
 import { RootStateType } from './redux/_store'
-import { Subscriptions } from 'pages/Subscriptions/Subscriptions'
-import { Users } from 'pages/Users/Users'
 import { compose } from 'redux'
 import { connect } from 'react-redux'
+import { withSuspense } from 'HOC/WithSuspense'
 
 const { Header, Footer, Sider, Content } = Layout
+
+const Users = lazy(() => import('pages/Users/Users'))
+const Profile = lazy(() => import('pages/Profile/Profile'))
+const Subscriptions = lazy(() => import('pages/Subscriptions/Subscriptions'))
+const Dialogs = lazy(() => import('pages/Dialogs/Dialogs'))
+const Login = lazy(() => import('pages/Dialogs/Dialogs'))
 
 type ComponentPropsType = ReturnType<typeof mapState> &
   MapDispatchType &
@@ -35,7 +37,7 @@ class App extends Component<ComponentPropsType> {
   render(): ReactNode {
     return (
       <>
-        {!this.props.initApp ? (
+        {!this.props.isInitialized ? (
           <Preloader />
         ) : (
           <Layout
@@ -56,11 +58,20 @@ class App extends Component<ComponentPropsType> {
               <Content>
                 <Switch>
                   <Route exact={true} path={'/'} component={Home} />
-                  <Route path={'/profile/:id?'} component={Profile} />
-                  <Route path={'/dialogs/:id?'} component={Dialogs} />
-                  <Route path={'/users'} component={Users} />
-                  <Route path={'/login'} component={Login} />
-                  <Route path={'/subscriptions'} component={Subscriptions} />
+                  <Route
+                    path={'/profile/:id?'}
+                    component={withSuspense(Profile)}
+                  />
+                  <Route
+                    path={'/dialogs/:id?'}
+                    component={withSuspense(Dialogs)}
+                  />
+                  <Route path={'/users'} component={withSuspense(Users)} />
+                  <Route path={'/login'} component={withSuspense(Login)} />
+                  <Route
+                    path={'/subscriptions'}
+                    component={withSuspense(Subscriptions)}
+                  />
                 </Switch>
               </Content>
             </Layout>

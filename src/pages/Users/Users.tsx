@@ -88,7 +88,8 @@ const mapDispatch = {
 
 const connector = connect(mapState, mapDispatch)
 
-export const Users = connector(Container)
+export default connector(Container)
+
 // Types
 type ConnectorType = ConnectedProps<typeof connector>
 type ComponentPropsType = ConnectorType

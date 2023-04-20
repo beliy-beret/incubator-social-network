@@ -43,7 +43,7 @@ const mapDispatch = {
 }
 
 const connector = connect(mapState, mapDispatch)
-export const Login = compose<FC>(connector, withRouter)(LoginPage)
+export default compose<FC>(connector, withRouter)(LoginPage)
 
 // Types
 type ConnectorType = ConnectedProps<typeof connector>
