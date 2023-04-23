@@ -1,8 +1,10 @@
 import { Avatar, List } from 'antd'
-import classes from './dialogList.module.css'
+
 import { DialogType } from 'API/api'
 import { FC } from 'react'
 import { Link } from 'react-router-dom'
+import classes from './dialogList.module.css'
+import userImg from 'assets/images/user.jpg'
 
 type ComponentPropsType = {
   dialogList: DialogType[]
@@ -27,7 +29,7 @@ export const DialogList: FC<ComponentPropsType> = ({
               className={activeDialogId === item.id ? classes.active : ''}
             >
               <List.Item.Meta
-                avatar={<Avatar src={item.photos.small} />}
+                avatar={<Avatar src={item.photos.small || userImg} />}
                 title={item.userName}
               />
             </List.Item>
