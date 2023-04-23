@@ -66,7 +66,12 @@ class Component extends PureComponent<ComponentPropsType, ComponentStateType> {
         <Row>
           <Col span={24}>
             <Skeleton loading={this.props.isLoading} title>
-              <Title level={2} italic={true} underline={true}>
+              <Title
+                level={2}
+                italic={true}
+                underline={true}
+                style={{ marginTop: 0 }}
+              >
                 {this.props.profileData.fullName}
               </Title>
             </Skeleton>

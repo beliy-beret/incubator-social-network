@@ -1,10 +1,10 @@
-import { FC } from 'react'
 import { Alert } from 'antd'
-
-type ComponentPropsType = {
-  message: string
-}
+import { FC } from 'react'
 
 export const ErrorMessage: FC<ComponentPropsType> = ({ message }) => (
   <Alert description={message} type='error' />
 )
+
+type ComponentPropsType = {
+  message: string
+}

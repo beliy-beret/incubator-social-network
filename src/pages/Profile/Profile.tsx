@@ -15,7 +15,6 @@ import { withAuthRedirect } from '../../HOC/WithAuthRedirect'
 
 class ProfileComponent extends PureComponent<ComponentPropsType> {
   componentDidMount() {
-    debugger
     const id = Number(this.props.match.params.id) || this.props.authUserId
     this.props.fetchUserProfile(id!)
   }

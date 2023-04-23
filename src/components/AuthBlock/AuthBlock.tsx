@@ -35,9 +35,9 @@ export class AuthBlock extends PureComponent<ComponentPropsType> {
             </Button>
           </Space>
         ) : (
-          <Button type='primary'>
-            <Link to='login'>SignIn</Link>
-          </Button>
+          <Link to='login'>
+            <Button type='primary'>SignIn</Button>
+          </Link>
         )}
       </div>
     )

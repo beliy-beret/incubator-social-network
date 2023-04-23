@@ -23,7 +23,7 @@ const Users = lazy(() => import('pages/Users/Users'))
 const Profile = lazy(() => import('pages/Profile/Profile'))
 const Subscriptions = lazy(() => import('pages/Subscriptions/Subscriptions'))
 const Dialogs = lazy(() => import('pages/Dialogs/Dialogs'))
-const Login = lazy(() => import('pages/Dialogs/Dialogs'))
+const Login = lazy(() => import('pages/Auth/Login/Login'))
 
 type ComponentPropsType = ReturnType<typeof mapState> &
   MapDispatchType &
@@ -55,7 +55,7 @@ class App extends Component<ComponentPropsType> {
               <Sider theme={'light'}>
                 <Navigation />
               </Sider>
-              <Content>
+              <Content style={{ padding: '1rem' }}>
                 <Switch>
                   <Route exact={true} path={'/'} component={Home} />
                   <Route
